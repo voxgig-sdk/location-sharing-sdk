@@ -1,0 +1,45 @@
+{
+  "existing": {
+    "history": {
+      "HISTORY00": {
+        "accuracy": 70,
+        "address": "s47",
+        "id": "HISTORY00",
+        "latitude": 73,
+        "longitude": 74,
+        "name": "s4b",
+        "timestamp": "s4c"
+      },
+      "HISTORY01": {
+        "accuracy": 140,
+        "address": "s8d",
+        "id": "HISTORY01",
+        "latitude": 143,
+        "longitude": 144,
+        "name": "s91",
+        "timestamp": "s92"
+      },
+      "HISTORY02": {
+        "accuracy": 210,
+        "address": "sd3",
+        "id": "HISTORY02",
+        "latitude": 213,
+        "longitude": 214,
+        "name": "sd7",
+        "timestamp": "sd8"
+      }
+    }
+  },
+  "new": {
+    "history": {
+      "history_ref01": {
+        "accuracy": 280,
+        "address": "s119",
+        "latitude": 283,
+        "longitude": 284,
+        "name": "s11d",
+        "timestamp": "s11e"
+      }
+    }
+  }
+}

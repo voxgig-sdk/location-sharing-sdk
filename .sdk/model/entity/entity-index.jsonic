@@ -1,0 +1,11 @@
+# Entity Models
+
+@"address.jsonic"
+@"building_check.jsonic"
+@"export.jsonic"
+@"history.jsonic"
+@"location.jsonic"
+@"marker.jsonic"
+@"repeat.jsonic"
+@"search.jsonic"
+@"share.jsonic"

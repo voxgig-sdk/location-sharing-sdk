@@ -1,0 +1,46 @@
+{
+  "existing": {
+    "share": {
+      "SHARE00": {
+        "address": "s46",
+        "expires_at": "s47",
+        "latitude": 72,
+        "longitude": 73,
+        "name": "s4a",
+        "qr_code": "s4b",
+        "share_link": "s4c"
+      },
+      "SHARE01": {
+        "address": "s8c",
+        "expires_at": "s8d",
+        "latitude": 142,
+        "longitude": 143,
+        "name": "s90",
+        "qr_code": "s91",
+        "share_link": "s92"
+      },
+      "SHARE02": {
+        "address": "sd2",
+        "expires_at": "sd3",
+        "latitude": 212,
+        "longitude": 213,
+        "name": "sd6",
+        "qr_code": "sd7",
+        "share_link": "sd8"
+      }
+    }
+  },
+  "new": {
+    "share": {
+      "share_ref01": {
+        "address": "s118",
+        "expires_at": "s119",
+        "latitude": 282,
+        "longitude": 283,
+        "name": "s11c",
+        "qr_code": "s11d",
+        "share_link": "s11e"
+      }
+    }
+  }
+}

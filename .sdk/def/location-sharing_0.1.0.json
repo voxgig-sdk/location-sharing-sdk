@@ -1,0 +1,1038 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Location Sharing API",
+    "description": "This API enables users to search for locations and share their coordinates easily. It includes features like reverse geocoding, QR code generation for locations, and the ability to display and manage map layers.",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://mcinenews.net/LAT/"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://mcinenews.net/LAT",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/location": {
+      "get": {
+        "summary": "Get current location",
+        "description": "Retrieves the current location coordinates with best fix accuracy",
+        "operationId": "getCurrentLocation",
+        "tags": [
+          "Location"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful location retrieval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/geocode/reverse": {
+      "get": {
+        "summary": "Reverse geocode coordinates",
+        "description": "Converts latitude and longitude coordinates to a human-readable address",
+        "operationId": "reverseGeocode",
+        "tags": [
+          "Geocoding"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "description": "Latitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -90,
+              "maximum": 90
+            }
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": true,
+            "description": "Longitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": -180,
+              "maximum": 180
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful address retrieval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid coordinates",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search": {
+      "get": {
+        "summary": "Search for locations",
+        "description": "Searches for locations by name or address",
+        "operationId": "searchLocation",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Search query string",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchResult"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid search query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/share": {
+      "post": {
+        "summary": "Generate shareable link",
+        "description": "Creates a shareable link for a specific location",
+        "operationId": "createShareLink",
+        "tags": [
+          "Sharing"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ShareRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Shareable link created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/markers": {
+      "get": {
+        "summary": "List all markers",
+        "description": "Retrieves all saved location markers",
+        "operationId": "listMarkers",
+        "tags": [
+          "Markers"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of markers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Marker"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new marker",
+        "description": "Creates a new location marker",
+        "operationId": "addMarker",
+        "tags": [
+          "Markers"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarkerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Marker created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Marker"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid marker data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Clear all markers",
+        "description": "Deletes all saved location markers",
+        "operationId": "clearMarkers",
+        "tags": [
+          "Markers"
+        ],
+        "responses": {
+          "204": {
+            "description": "All markers cleared successfully"
+          }
+        }
+      }
+    },
+    "/export/geojson": {
+      "get": {
+        "summary": "Export markers as GeoJSON",
+        "description": "Exports all markers in GeoJSON format",
+        "operationId": "exportGeoJSON",
+        "tags": [
+          "Export"
+        ],
+        "responses": {
+          "200": {
+            "description": "GeoJSON export",
+            "content": {
+              "application/geo+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeoJSONExport"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/export/kml": {
+      "get": {
+        "summary": "Export markers as KML",
+        "description": "Exports all markers in KML format",
+        "operationId": "exportKML",
+        "tags": [
+          "Export"
+        ],
+        "responses": {
+          "200": {
+            "description": "KML export",
+            "content": {
+              "application/vnd.google-earth.kml+xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "xml"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/export/csv": {
+      "get": {
+        "summary": "Export history as CSV",
+        "description": "Exports location history in CSV format",
+        "operationId": "exportCSV",
+        "tags": [
+          "Export"
+        ],
+        "responses": {
+          "200": {
+            "description": "CSV export",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "csv"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/buildings/check": {
+      "get": {
+        "summary": "Check if location is inside building",
+        "description": "Determines if coordinates are within a building and calculates distance to building edges",
+        "operationId": "checkBuilding",
+        "tags": [
+          "Buildings"
+        ],
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "description": "Latitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": true,
+            "description": "Longitude coordinate",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "description": "Search radius in meters",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                40,
+                60,
+                80,
+                120
+              ],
+              "default": 40
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of buildings to return",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                3,
+                5,
+                8
+              ],
+              "default": 3
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Building check result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BuildingCheckResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/measurement/repeat": {
+      "post": {
+        "summary": "Perform repeated location measurements",
+        "description": "Takes multiple location measurements to reduce inaccuracy and returns best or average result",
+        "operationId": "repeatMeasurement",
+        "tags": [
+          "Measurement"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RepeatMeasurementRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Measurement results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepeatMeasurementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid measurement parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/history": {
+      "get": {
+        "summary": "Get location history",
+        "description": "Retrieves saved location history entries",
+        "operationId": "getHistory",
+        "tags": [
+          "History"
+        ],
+        "responses": {
+          "200": {
+            "description": "Location history",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HistoryEntry"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Save location to history",
+        "description": "Saves a location entry to history",
+        "operationId": "saveHistory",
+        "tags": [
+          "History"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HistorySaveRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "History entry created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryEntry"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Clear all history",
+        "description": "Deletes all saved location history",
+        "operationId": "clearHistory",
+        "tags": [
+          "History"
+        ],
+        "responses": {
+          "204": {
+            "description": "History cleared successfully"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LocationResponse": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Latitude coordinate"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "description": "Longitude coordinate"
+          },
+          "accuracy": {
+            "type": "number",
+            "format": "float",
+            "description": "Accuracy in meters"
+          },
+          "address": {
+            "type": "string",
+            "description": "Human-readable address"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the location fix"
+          }
+        },
+        "required": [
+          "latitude",
+          "longitude",
+          "accuracy"
+        ]
+      },
+      "AddressResponse": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Full formatted address"
+          },
+          "street": {
+            "type": "string",
+            "description": "Street name"
+          },
+          "city": {
+            "type": "string",
+            "description": "City name"
+          },
+          "state": {
+            "type": "string",
+            "description": "State or province"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country name"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Postal or ZIP code"
+          }
+        },
+        "required": [
+          "address"
+        ]
+      },
+      "SearchResult": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the location"
+          },
+          "address": {
+            "type": "string",
+            "description": "Full address"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of location (e.g., building, park, street)"
+          }
+        },
+        "required": [
+          "name",
+          "latitude",
+          "longitude"
+        ]
+      },
+      "ShareRequest": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "type": "string",
+            "description": "Optional name for the location"
+          },
+          "address": {
+            "type": "string",
+            "description": "Address of the location"
+          }
+        },
+        "required": [
+          "latitude",
+          "longitude"
+        ]
+      },
+      "ShareResponse": {
+        "type": "object",
+        "properties": {
+          "shareLink": {
+            "type": "string",
+            "format": "uri",
+            "description": "Shareable URL for the location"
+          },
+          "qrCode": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to QR code image"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Expiration time of the share link"
+          }
+        },
+        "required": [
+          "shareLink"
+        ]
+      },
+      "Marker": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique marker identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name or label for the marker"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "address": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "latitude",
+          "longitude"
+        ]
+      },
+      "MarkerRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "address": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "latitude",
+          "longitude"
+        ]
+      },
+      "GeoJSONExport": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "FeatureCollection"
+            ]
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "Feature"
+                  ]
+                },
+                "geometry": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "Point"
+                      ]
+                    },
+                    "coordinates": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "minItems": 2,
+                      "maxItems": 2
+                    }
+                  }
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "BuildingCheckResponse": {
+        "type": "object",
+        "properties": {
+          "insideBuilding": {
+            "type": "boolean",
+            "description": "Whether the location is inside a building"
+          },
+          "buildings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "distance": {
+                  "type": "number",
+                  "format": "float",
+                  "description": "Distance to building edge in meters"
+                },
+                "highlighted": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "nearestDistance": {
+            "type": "number",
+            "format": "float",
+            "description": "Distance to nearest building edge in meters"
+          }
+        }
+      },
+      "RepeatMeasurementRequest": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 30,
+            "description": "Number of measurements to take (recommended 8-15)"
+          },
+          "interval": {
+            "type": "number",
+            "format": "float",
+            "minimum": 0.5,
+            "maximum": 10,
+            "description": "Interval between measurements in seconds (recommended 0.8-2.0)"
+          },
+          "resultType": {
+            "type": "string",
+            "enum": [
+              "best",
+              "average"
+            ],
+            "description": "Type of result to return"
+          }
+        },
+        "required": [
+          "count",
+          "interval",
+          "resultType"
+        ]
+      },
+      "RepeatMeasurementResponse": {
+        "type": "object",
+        "properties": {
+          "resultType": {
+            "type": "string",
+            "enum": [
+              "best",
+              "average"
+            ]
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "accuracy": {
+            "type": "number",
+            "format": "float"
+          },
+          "measurements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "longitude": {
+                  "type": "number",
+                  "format": "double"
+                },
+                "accuracy": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "bestAccuracy": {
+            "type": "number",
+            "format": "float",
+            "description": "Best (lowest) accuracy value from all measurements"
+          }
+        }
+      },
+      "HistoryEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "address": {
+            "type": "string"
+          },
+          "accuracy": {
+            "type": "number",
+            "format": "float"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "latitude",
+          "longitude",
+          "timestamp"
+        ]
+      },
+      "HistorySaveRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "address": {
+            "type": "string"
+          },
+          "accuracy": {
+            "type": "number",
+            "format": "float"
+          }
+        },
+        "required": [
+          "latitude",
+          "longitude"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          },
+          "details": {
+            "type": "object",
+            "description": "Additional error details"
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Location",
+      "description": "Location retrieval and positioning operations"
+    },
+    {
+      "name": "Geocoding",
+      "description": "Address and coordinate conversion operations"
+    },
+    {
+      "name": "Search",
+      "description": "Location search operations"
+    },
+    {
+      "name": "Sharing",
+      "description": "Location sharing and link generation"
+    },
+    {
+      "name": "Markers",
+      "description": "Marker management operations"
+    },
+    {
+      "name": "Export",
+      "description": "Data export operations in various formats"
+    },
+    {
+      "name": "Buildings",
+      "description": "Building detection and proximity operations"
+    },
+    {
+      "name": "Measurement",
+      "description": "Location measurement and accuracy improvement operations"
+    },
+    {
+      "name": "History",
+      "description": "Location history management"
+    }
+  ]
+}

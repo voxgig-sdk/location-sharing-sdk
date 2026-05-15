@@ -1,0 +1,41 @@
+{
+  "existing": {
+    "marker": {
+      "MARKER00": {
+        "address": "s3c",
+        "created_at": "s3d",
+        "id": "MARKER00",
+        "latitude": 63,
+        "longitude": 64,
+        "name": "s41"
+      },
+      "MARKER01": {
+        "address": "s78",
+        "created_at": "s79",
+        "id": "MARKER01",
+        "latitude": 123,
+        "longitude": 124,
+        "name": "s7d"
+      },
+      "MARKER02": {
+        "address": "sb4",
+        "created_at": "sb5",
+        "id": "MARKER02",
+        "latitude": 183,
+        "longitude": 184,
+        "name": "sb9"
+      }
+    }
+  },
+  "new": {
+    "marker": {
+      "marker_ref01": {
+        "address": "sf0",
+        "created_at": "sf1",
+        "latitude": 243,
+        "longitude": 244,
+        "name": "sf5"
+      }
+    }
+  }
+}

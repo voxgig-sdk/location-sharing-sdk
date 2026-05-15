@@ -1,0 +1,57 @@
+# Entity: location
+
+main: kit: entity: location: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "accuracy"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "address"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "latitude"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "longitude"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "timestamp"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "location"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          method: "GET"
+          orig: "/location"
+          parts: [
+            "location"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

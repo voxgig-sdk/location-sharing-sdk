@@ -1,0 +1,100 @@
+# Entity: building_check
+
+main: kit: entity: building_check: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "distance"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "highlighted"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "building_check"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "lat"
+                orig: "lat"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                kind: "query"
+                name: "lon"
+                orig: "lon"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: 40
+                kind: "query"
+                name: "radius"
+                orig: "radius"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 3
+                kind: "query"
+                name: "top"
+                orig: "top"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/buildings/check"
+          parts: [
+            "buildings"
+            "check"
+          ]
+          select: {
+            exist: [
+              "lat"
+              "lon"
+              "radius"
+              "top"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

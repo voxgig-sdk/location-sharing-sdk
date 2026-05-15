@@ -1,0 +1,33 @@
+{
+  "existing": {
+    "building_check": {
+      "BUILDING_CHECK00": {
+        "distance": 40,
+        "highlighted": false,
+        "id": "BUILDING_CHECK00",
+        "name": "s2b"
+      },
+      "BUILDING_CHECK01": {
+        "distance": 80,
+        "highlighted": false,
+        "id": "BUILDING_CHECK01",
+        "name": "s53"
+      },
+      "BUILDING_CHECK02": {
+        "distance": 120,
+        "highlighted": false,
+        "id": "BUILDING_CHECK02",
+        "name": "s7b"
+      }
+    }
+  },
+  "new": {
+    "building_check": {
+      "building_check_ref01": {
+        "distance": 160,
+        "highlighted": false,
+        "name": "sa3"
+      }
+    }
+  }
+}

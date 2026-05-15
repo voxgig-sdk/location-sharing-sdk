@@ -1,0 +1,67 @@
+# Entity: share
+
+main: kit: entity: share: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "address"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "expires_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "latitude"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "longitude"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "qr_code"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "share_link"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "share"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/share"
+          parts: [
+            "share"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

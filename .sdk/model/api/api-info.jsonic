@@ -1,0 +1,23 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        url: "https://mcinenews.net/LAT/"
+      }
+      description: "This API enables users to search for locations and share their coordinates easily. It includes features like reverse geocoding, QR code generation for locations, and the ability to display and manage map layers."
+      servers: [
+        {
+          description: "Production server"
+          url: "https://mcinenews.net/LAT"
+        }
+      ]
+      title: "Location Sharing API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

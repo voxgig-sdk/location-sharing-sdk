@@ -1,0 +1,28 @@
+# BasicAddressFlow
+
+main: kit: flow: BasicAddressFlow:
+{
+  entity: "address",
+  kind: "basic",
+  name: "BasicAddressFlow",
+  step: [
+    {
+      input: {
+        ref: "address_ref01",
+        srcdatavar: "address_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-address_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicAddressFlow"
+}

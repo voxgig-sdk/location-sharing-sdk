@@ -1,0 +1,18 @@
+# BasicRepeatFlow
+
+main: kit: flow: BasicRepeatFlow:
+{
+  entity: "repeat",
+  kind: "basic",
+  name: "BasicRepeatFlow",
+  step: [
+    {
+      input: {
+        ref: "repeat_ref01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicRepeatFlow"
+}

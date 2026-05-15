@@ -1,0 +1,14 @@
+{
+  "existing": {
+    "export": {
+      "EXPORT00": {},
+      "EXPORT01": {},
+      "EXPORT02": {}
+    }
+  },
+  "new": {
+    "export": {
+      "export_ref01": {}
+    }
+  }
+}

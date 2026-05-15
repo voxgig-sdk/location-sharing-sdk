@@ -1,0 +1,38 @@
+{
+  "existing": {
+    "search": {
+      "SEARCH00": {
+        "address": "s32",
+        "latitude": 51,
+        "longitude": 52,
+        "name": "s35",
+        "type": "s36"
+      },
+      "SEARCH01": {
+        "address": "s64",
+        "latitude": 101,
+        "longitude": 102,
+        "name": "s67",
+        "type": "s68"
+      },
+      "SEARCH02": {
+        "address": "s96",
+        "latitude": 151,
+        "longitude": 152,
+        "name": "s99",
+        "type": "s9a"
+      }
+    }
+  },
+  "new": {
+    "search": {
+      "search_ref01": {
+        "address": "sc8",
+        "latitude": 201,
+        "longitude": 202,
+        "name": "scb",
+        "type": "scc"
+      }
+    }
+  }
+}

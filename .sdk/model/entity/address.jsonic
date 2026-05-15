@@ -1,0 +1,87 @@
+# Entity: address
+
+main: kit: entity: address: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "address"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "city"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "country"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "postal_code"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "state"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "street"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "address"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "lat"
+                orig: "lat"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                kind: "query"
+                name: "lon"
+                orig: "lon"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/geocode/reverse"
+          parts: [
+            "geocode"
+            "reverse"
+          ]
+          select: {
+            exist: [
+              "lat"
+              "lon"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

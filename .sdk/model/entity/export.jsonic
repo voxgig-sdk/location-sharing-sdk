@@ -1,0 +1,63 @@
+# Entity: export
+
+main: kit: entity: export: {
+
+  alias: field: {}
+
+  name: "export"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          method: "GET"
+          orig: "/export/csv"
+          parts: [
+            "export"
+            "csv"
+          ]
+          select: {
+            "$action": "csv"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "GET"
+          orig: "/export/geojson"
+          parts: [
+            "export"
+            "geojson"
+          ]
+          select: {
+            "$action": "geojson"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "GET"
+          orig: "/export/kml"
+          parts: [
+            "export"
+            "kml"
+          ]
+          select: {
+            "$action": "kml"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

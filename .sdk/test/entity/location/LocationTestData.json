@@ -1,0 +1,38 @@
+{
+  "existing": {
+    "location": {
+      "LOCATION00": {
+        "accuracy": 50,
+        "address": "s33",
+        "latitude": 52,
+        "longitude": 53,
+        "timestamp": "s36"
+      },
+      "LOCATION01": {
+        "accuracy": 100,
+        "address": "s65",
+        "latitude": 102,
+        "longitude": 103,
+        "timestamp": "s68"
+      },
+      "LOCATION02": {
+        "accuracy": 150,
+        "address": "s97",
+        "latitude": 152,
+        "longitude": 153,
+        "timestamp": "s9a"
+      }
+    }
+  },
+  "new": {
+    "location": {
+      "location_ref01": {
+        "accuracy": 200,
+        "address": "sc9",
+        "latitude": 202,
+        "longitude": 203,
+        "timestamp": "scc"
+      }
+    }
+  }
+}

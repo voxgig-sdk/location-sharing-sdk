@@ -1,0 +1,22 @@
+# BasicBuildingCheckFlow
+
+main: kit: flow: BasicBuildingCheckFlow:
+{
+  entity: "building_check",
+  kind: "basic",
+  name: "BasicBuildingCheckFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "building_check_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicBuildingCheckFlow"
+}

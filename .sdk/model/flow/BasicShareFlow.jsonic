@@ -1,0 +1,18 @@
+# BasicShareFlow
+
+main: kit: flow: BasicShareFlow:
+{
+  entity: "share",
+  kind: "basic",
+  name: "BasicShareFlow",
+  step: [
+    {
+      input: {
+        ref: "share_ref01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicShareFlow"
+}

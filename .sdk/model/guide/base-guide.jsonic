@@ -1,0 +1,76 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 9
+  metrics: count: path: 11
+  metrics: count: method: 15
+
+  entity: address: {
+    path: "/geocode/reverse": {
+      op: load: method: *GET
+      op: load: transform: res: *("`body.address`")|top
+    }
+  }
+
+  entity: building_check: {
+    path: "/buildings/check": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: export: {
+    path: "/export/csv": {
+      action: "csv": {}
+      op: load: method: *GET
+    }
+    path: "/export/geojson": {
+      action: "geojson": {}
+      op: load: method: *GET
+    }
+    path: "/export/kml": {
+      action: "kml": {}
+      op: load: method: *GET
+    }
+  }
+
+  entity: history: {
+    path: "/history": {
+      op: create: method: *POST
+      op: list: method: *GET
+      op: remove: method: *DELETE
+    }
+  }
+
+  entity: location: {
+    path: "/location": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: marker: {
+    path: "/markers": {
+      op: create: method: *POST
+      op: list: method: *GET
+      op: remove: method: *DELETE
+    }
+  }
+
+  entity: repeat: {
+    path: "/measurement/repeat": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: search: {
+    path: "/search": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: share: {
+    path: "/share": {
+      op: create: method: *POST
+    }
+  }
+
+}
