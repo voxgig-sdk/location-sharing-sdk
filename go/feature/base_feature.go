@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/location-sharing-sdk/core"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/core"
 )
 
 type BaseFeature struct {

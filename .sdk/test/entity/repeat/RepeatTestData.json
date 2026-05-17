@@ -9,7 +9,8 @@
         "latitude": 84,
         "longitude": 85,
         "measurement": [],
-        "result_type": "s57"
+        "result_type": "s57",
+        "id": "REPEAT00"
       },
       "REPEAT01": {
         "accuracy": 160,
@@ -19,7 +20,8 @@
         "latitude": 164,
         "longitude": 165,
         "measurement": [],
-        "result_type": "sa7"
+        "result_type": "sa7",
+        "id": "REPEAT01"
       },
       "REPEAT02": {
         "accuracy": 240,
@@ -29,7 +31,8 @@
         "latitude": 244,
         "longitude": 245,
         "measurement": [],
-        "result_type": "sf7"
+        "result_type": "sf7",
+        "id": "REPEAT02"
       }
     }
   },

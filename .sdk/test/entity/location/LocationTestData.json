@@ -6,21 +6,24 @@
         "address": "s33",
         "latitude": 52,
         "longitude": 53,
-        "timestamp": "s36"
+        "timestamp": "s36",
+        "id": "LOCATION00"
       },
       "LOCATION01": {
         "accuracy": 100,
         "address": "s65",
         "latitude": 102,
         "longitude": 103,
-        "timestamp": "s68"
+        "timestamp": "s68",
+        "id": "LOCATION01"
       },
       "LOCATION02": {
         "accuracy": 150,
         "address": "s97",
         "latitude": 152,
         "longitude": 153,
-        "timestamp": "s9a"
+        "timestamp": "s9a",
+        "id": "LOCATION02"
       }
     }
   },

@@ -3,9 +3,9 @@ package utility
 import (
 	"regexp"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/location-sharing-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/location-sharing-sdk/core"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/core"
 )
 
 func makeUrlUtil(ctx *core.Context) (string, error) {

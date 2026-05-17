@@ -8,7 +8,8 @@
         "longitude": 73,
         "name": "s4a",
         "qr_code": "s4b",
-        "share_link": "s4c"
+        "share_link": "s4c",
+        "id": "SHARE00"
       },
       "SHARE01": {
         "address": "s8c",
@@ -17,7 +18,8 @@
         "longitude": 143,
         "name": "s90",
         "qr_code": "s91",
-        "share_link": "s92"
+        "share_link": "s92",
+        "id": "SHARE01"
       },
       "SHARE02": {
         "address": "sd2",
@@ -26,7 +28,8 @@
         "longitude": 213,
         "name": "sd6",
         "qr_code": "sd7",
-        "share_link": "sd8"
+        "share_link": "sd8",
+        "id": "SHARE02"
       }
     }
   },

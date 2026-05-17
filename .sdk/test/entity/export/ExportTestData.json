@@ -1,9 +1,15 @@
 {
   "existing": {
     "export": {
-      "EXPORT00": {},
-      "EXPORT01": {},
-      "EXPORT02": {}
+      "EXPORT00": {
+        "id": "EXPORT00"
+      },
+      "EXPORT01": {
+        "id": "EXPORT01"
+      },
+      "EXPORT02": {
+        "id": "EXPORT02"
+      }
     }
   },
   "new": {

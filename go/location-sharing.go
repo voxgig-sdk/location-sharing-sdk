@@ -1,10 +1,10 @@
 package voxgiglocationsharingsdk
 
 import (
-	"github.com/voxgig-sdk/location-sharing-sdk/core"
-	"github.com/voxgig-sdk/location-sharing-sdk/entity"
-	"github.com/voxgig-sdk/location-sharing-sdk/feature"
-	_ "github.com/voxgig-sdk/location-sharing-sdk/utility"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/core"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/entity"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/feature"
+	_ "github.com/voxgig-sdk/location-sharing-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

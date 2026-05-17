@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/location-sharing-sdk/core"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/location-sharing-sdk/go/utility/struct"
 )
 
 type BuildingCheckEntity struct {

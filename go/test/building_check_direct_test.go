@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/location-sharing-sdk"
-	"github.com/voxgig-sdk/location-sharing-sdk/core"
+	sdk "github.com/voxgig-sdk/location-sharing-sdk/go"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/core"
 )
 
 func TestBuildingCheckDirect(t *testing.T) {

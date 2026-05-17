@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/location-sharing-sdk"
+	sdk "github.com/voxgig-sdk/location-sharing-sdk/go"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/location-sharing-sdk/go/utility/struct"
 )
 
 func TestPrimaryUtility(t *testing.T) {

@@ -1,9 +1,9 @@
 package utility
 
 import (
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/location-sharing-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/location-sharing-sdk/core"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/core"
 )
 
 func makeFetchDefUtil(ctx *core.Context) (map[string]any, error) {

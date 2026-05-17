@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/location-sharing-sdk"
-	"github.com/voxgig-sdk/location-sharing-sdk/core"
+	sdk "github.com/voxgig-sdk/location-sharing-sdk/go"
+	"github.com/voxgig-sdk/location-sharing-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/location-sharing-sdk/go/utility/struct"
 )
 
 func TestRepeatEntity(t *testing.T) {
