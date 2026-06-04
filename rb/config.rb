@@ -15,9 +15,6 @@ module LocationSharingConfig
       },
       "options" => {
         "base" => "https://mcinenews.net/LAT",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },

@@ -77,7 +77,6 @@ def share_basic_setup(extra)
     "LOCATIONSHARING_TEST_SHARE_ENTID" => idmap,
     "LOCATIONSHARING_TEST_LIVE" => "FALSE",
     "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-    "LOCATIONSHARING_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -89,7 +88,6 @@ def share_basic_setup(extra)
   if env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["LOCATIONSHARING_APIKEY"],
       },
       extra || {},
     ])

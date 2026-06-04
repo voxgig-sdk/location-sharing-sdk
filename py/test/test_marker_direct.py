@@ -61,14 +61,12 @@ def _marker_direct_setup(mockres):
     env = runner.env_override({
         "LOCATIONSHARING_TEST_MARKER_ENTID": {},
         "LOCATIONSHARING_TEST_LIVE": "FALSE",
-        "LOCATIONSHARING_APIKEY": "NONE",
     })
 
     live = env.get("LOCATIONSHARING_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("LOCATIONSHARING_APIKEY"),
         }
         client = LocationSharingSDK(merged_opts)
         return {

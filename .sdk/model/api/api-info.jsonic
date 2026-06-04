@@ -16,8 +16,32 @@ main: {
       ]
       title: "Location Sharing API"
       version: "1.0.0"
+      tagline: "Search for places, reverse-geocode coordinates, generate QR codes, and manage map layers from one endpoint"
+      homepage: "https://mcinenews.net/LAT"
+      docs_url: "https://freepublicapis.com/location-sharing-api"
+      about_md: `The Location Sharing API is a small location utility served from [mcinenews.net/LAT](https://mcinenews.net/LAT). It pairs a location-checker web tool with a single HTTP endpoint that lets you search for places and share their coordinates.
+
+What you get from the API:
+
+- Location search and reverse geocoding of latitude / longitude pairs
+- Address lookup with accuracy (in metres) for a given coordinate
+- Building detection backed by OpenStreetMap, including distance to building edges
+- QR-code generation for a location, plus map-layer display and management
+- Repeated-measurement helpers (best-accuracy or averaged values) and export to GeoJSON, KML, or CSV
+
+Operational notes: the service exposes a single \`GET\` endpoint at \`https://mcinenews.net/LAT/\`. CORS is disabled, so calls are best made server-side. No authentication is documented, and no licence or rate-limit policy is published — treat the service as best-effort.`
+      entity_desc: {
+        address: "Address records returned for a coordinate via reverse geocoding."
+        building_check: "Building-detection results sourced from OpenStreetMap, including distance to the nearest building edge."
+        export: "Export of collected locations / measurements as GeoJSON, KML, or CSV."
+        history: "Locally stored history of past lookups and measurements."
+        location: "A latitude / longitude point together with derived address and accuracy data."
+        marker: "Map markers that can be placed and managed on the displayed map layers."
+        repeat: "Repeated-measurement helper that reduces GPS noise by taking the best or averaged value."
+        search: "Free-text location search over place names and addresses."
+        share: "Shareable representation of a location, including QR-code generation."
+      }
+      auth: false
     }
   }
-}
-
 }

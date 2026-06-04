@@ -62,14 +62,12 @@ def history_direct_setup(mockres)
   env = Runner.env_override({
     "LOCATIONSHARING_TEST_HISTORY_ENTID" => {},
     "LOCATIONSHARING_TEST_LIVE" => "FALSE",
-    "LOCATIONSHARING_APIKEY" => "NONE",
   })
 
   live = env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["LOCATIONSHARING_APIKEY"],
     }
     client = LocationSharingSDK.new(merged_opts)
     return {
