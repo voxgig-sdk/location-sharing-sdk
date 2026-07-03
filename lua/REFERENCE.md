@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -137,7 +137,7 @@ local address = client:Address(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Address(nil):load({ id = "address_id" }, nil)
+local result, err = client:Address():load({ id = "address_id" })
 ```
 
 ### Common Methods
@@ -192,7 +192,7 @@ local building_check = client:BuildingCheck(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:BuildingCheck(nil):list(nil, nil)
+local results, err = client:BuildingCheck():list()
 ```
 
 ### Common Methods
@@ -238,7 +238,7 @@ local export = client:Export(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Export(nil):load({ id = "export_id" }, nil)
+local result, err = client:Export():load({ id = "export_id" })
 ```
 
 ### Common Methods
@@ -296,11 +296,11 @@ local history = client:History(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:History(nil):create({
+local result, err = client:History():create({
   latitude = --[[ `$NUMBER` ]],
   longitude = --[[ `$NUMBER` ]],
   timestamp = --[[ `$STRING` ]],
-}, nil)
+})
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
@@ -308,7 +308,7 @@ local result, err = client:History(nil):create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:History(nil):list(nil, nil)
+local results, err = client:History():list()
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -316,7 +316,7 @@ local results, err = client:History(nil):list(nil, nil)
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:History(nil):remove({ id = "history_id" }, nil)
+local result, err = client:History():remove({ id = "history_id" })
 ```
 
 ### Common Methods
@@ -372,7 +372,7 @@ local location = client:Location(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Location(nil):load({ id = "location_id" }, nil)
+local result, err = client:Location():load({ id = "location_id" })
 ```
 
 ### Common Methods
@@ -429,10 +429,10 @@ local marker = client:Marker(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Marker(nil):create({
+local result, err = client:Marker():create({
   latitude = --[[ `$NUMBER` ]],
   longitude = --[[ `$NUMBER` ]],
-}, nil)
+})
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
@@ -440,7 +440,7 @@ local result, err = client:Marker(nil):create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Marker(nil):list(nil, nil)
+local results, err = client:Marker():list()
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -448,7 +448,7 @@ local results, err = client:Marker(nil):list(nil, nil)
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Marker(nil):remove({ id = "marker_id" }, nil)
+local result, err = client:Marker():remove({ id = "marker_id" })
 ```
 
 ### Common Methods
@@ -520,10 +520,10 @@ local repeat = client:Repeat(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Repeat(nil):create({
+local result, err = client:Repeat():create({
   count = --[[ `$INTEGER` ]],
   interval = --[[ `$NUMBER` ]],
-}, nil)
+})
 ```
 
 ### Common Methods
@@ -579,7 +579,7 @@ local search = client:Search(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Search(nil):list(nil, nil)
+local results, err = client:Search():list()
 ```
 
 ### Common Methods
@@ -637,11 +637,11 @@ local share = client:Share(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Share(nil):create({
+local result, err = client:Share():create({
   latitude = --[[ `$NUMBER` ]],
   longitude = --[[ `$NUMBER` ]],
   share_link = --[[ `$STRING` ]],
-}, nil)
+})
 ```
 
 ### Common Methods

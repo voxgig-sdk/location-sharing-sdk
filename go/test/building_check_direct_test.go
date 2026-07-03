@@ -93,12 +93,14 @@ func building_checkDirectSetup(mockres any) *building_checkDirectSetupResult {
 	env := envOverride(map[string]any{
 		"LOCATIONSHARING_TEST_BUILDING_CHECK_ENTID": map[string]any{},
 		"LOCATIONSHARING_TEST_LIVE":    "FALSE",
+		"LOCATIONSHARING_APIKEY":       "NONE",
 	})
 
 	live := env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["LOCATIONSHARING_APIKEY"],
 		}
 		client := sdk.NewLocationSharingSDK(mergedOpts)
 

@@ -1,22 +1,8 @@
 # LocationSharing SDK
 
-Search for places, reverse-geocode coordinates, generate QR codes, and manage map layers from one endpoint
+Location Sharing API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Location Sharing API
-
-The Location Sharing API is a small location utility served from [mcinenews.net/LAT](https://mcinenews.net/LAT). It pairs a location-checker web tool with a single HTTP endpoint that lets you search for places and share their coordinates.
-
-What you get from the API:
-
-- Location search and reverse geocoding of latitude / longitude pairs
-- Address lookup with accuracy (in metres) for a given coordinate
-- Building detection backed by OpenStreetMap, including distance to building edges
-- QR-code generation for a location, plus map-layer display and management
-- Repeated-measurement helpers (best-accuracy or averaged values) and export to GeoJSON, KML, or CSV
-
-Operational notes: the service exposes a single `GET` endpoint at `https://mcinenews.net/LAT/`. CORS is disabled, so calls are best made server-side. No authentication is documented, and no licence or rate-limit policy is published — treat the service as best-effort.
 
 ## Try it
 
@@ -50,27 +36,31 @@ gem install location-sharing-sdk
 luarocks install location-sharing-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { LocationSharingSDK } from 'location-sharing'
 
-const client = new LocationSharingSDK({})
+const client = new LocationSharingSDK({
+  apikey: process.env.LOCATION-SHARING_APIKEY,
+})
 
+// Load address data
+const address = await client.Address().load({})
+console.log(address.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,15 +90,15 @@ The API exposes 9 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Address** | Address records returned for a coordinate via reverse geocoding. | `/geocode/reverse` |
-| **BuildingCheck** | Building-detection results sourced from OpenStreetMap, including distance to the nearest building edge. | `/buildings/check` |
-| **Export** | Export of collected locations / measurements as GeoJSON, KML, or CSV. | `/export/csv` |
-| **History** | Locally stored history of past lookups and measurements. | `/history` |
-| **Location** | A latitude / longitude point together with derived address and accuracy data. | `/location` |
-| **Marker** | Map markers that can be placed and managed on the displayed map layers. | `/markers` |
-| **Repeat** | Repeated-measurement helper that reduces GPS noise by taking the best or averaged value. | `/measurement/repeat` |
-| **Search** | Free-text location search over place names and addresses. | `/search` |
-| **Share** | Shareable representation of a location, including QR-code generation. | `/share` |
+| **Address** |  | `/geocode/reverse` |
+| **BuildingCheck** |  | `/buildings/check` |
+| **Export** |  | `/export/csv` |
+| **History** |  | `/history` |
+| **Location** |  | `/location` |
+| **Marker** |  | `/markers` |
+| **Repeat** |  | `/measurement/repeat` |
+| **Search** |  | `/search` |
+| **Share** |  | `/share` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -118,15 +108,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from locationsharing_sdk import LocationSharingSDK
 
-client = LocationSharingSDK({})
+client = LocationSharingSDK({
+    "apikey": os.environ.get("LOCATION-SHARING_APIKEY"),
+})
 
 
 # Load a specific address
-address, err = client.Address(None).load(
-    {"id": "example_id"}, None
-)
+address, err = client.Address().load({"id": "example_id"})
+print(address)
 ```
 
 ### PHP
@@ -135,13 +127,14 @@ address, err = client.Address(None).load(
 <?php
 require_once 'locationsharing_sdk.php';
 
-$client = new LocationSharingSDK([]);
+$client = new LocationSharingSDK([
+    "apikey" => getenv("LOCATION-SHARING_APIKEY"),
+]);
 
 
 // Load a specific address
-[$address, $err] = $client->Address(null)->load(
-    ["id" => "example_id"], null
-);
+[$address, $err] = $client->Address()->load(["id" => "example_id"]);
+print_r($address);
 ```
 
 ### Golang
@@ -149,8 +142,13 @@ $client = new LocationSharingSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/location-sharing-sdk/go"
 
-client := sdk.NewLocationSharingSDK(map[string]any{})
+client := sdk.NewLocationSharingSDK(map[string]any{
+    "apikey": os.Getenv("LOCATION-SHARING_APIKEY"),
+})
 
+// Load address data
+address, err := client.Address(nil).Load(map[string]any{}, nil)
+fmt.Println(address)
 ```
 
 ### Ruby
@@ -158,13 +156,14 @@ client := sdk.NewLocationSharingSDK(map[string]any{})
 ```ruby
 require_relative "LocationSharing_sdk"
 
-client = LocationSharingSDK.new({})
+client = LocationSharingSDK.new({
+  "apikey" => ENV["LOCATION-SHARING_APIKEY"],
+})
 
 
 # Load a specific address
-address, err = client.Address(nil).load(
-  { "id" => "example_id" }, nil
-)
+address, err = client.Address().load({ "id" => "example_id" })
+puts address
 ```
 
 ### Lua
@@ -172,13 +171,14 @@ address, err = client.Address(nil).load(
 ```lua
 local sdk = require("location-sharing_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("LOCATION-SHARING_APIKEY"),
+})
 
 
 -- Load a specific address
-local address, err = client:Address(nil):load(
-  { id = "example_id" }, nil
-)
+local address, err = client:Address():load({ id = "example_id" })
+print(address)
 ```
 
 ## Unit testing in offline mode
@@ -197,25 +197,21 @@ const result = await client.Address().load({ id: 'test01' })
 ### Python
 
 ```python
-client = LocationSharingSDK.test(None, None)
-result, err = client.Address(None).load(
-    {"id": "test01"}, None
-)
+client = LocationSharingSDK.test()
+result, err = client.Address().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = LocationSharingSDK::test(null, null);
-[$result, $err] = $client->Address(null)->load(
-    ["id" => "test01"], null
-);
+$client = LocationSharingSDK::test();
+[$result, $err] = $client->Address()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Address(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -224,19 +220,15 @@ result, err := client.Address(nil).Load(
 ### Ruby
 
 ```ruby
-client = LocationSharingSDK.test(nil, nil)
-result, err = client.Address(nil).load(
-  { "id" => "test01" }, nil
-)
+client = LocationSharingSDK.test
+result, err = client.Address().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Address(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Address():load({ id = "test01" })
 ```
 
 ## How it works
@@ -340,11 +332,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Location Sharing API
-
-- Upstream: [https://mcinenews.net/LAT](https://mcinenews.net/LAT)
-- API docs: [https://freepublicapis.com/location-sharing-api](https://freepublicapis.com/location-sharing-api)
 
 ---
 

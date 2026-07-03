@@ -156,6 +156,7 @@ func historyBasicSetup(extra map[string]any) *entityTestSetup {
 		"LOCATIONSHARING_TEST_HISTORY_ENTID": idmap,
 		"LOCATIONSHARING_TEST_LIVE":      "FALSE",
 		"LOCATIONSHARING_TEST_EXPLAIN":   "FALSE",
+		"LOCATIONSHARING_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["LOCATIONSHARING_TEST_HISTORY_ENTID"])
@@ -166,6 +167,7 @@ func historyBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["LOCATIONSHARING_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["LOCATIONSHARING_APIKEY"],
 			},
 			extra,
 		})

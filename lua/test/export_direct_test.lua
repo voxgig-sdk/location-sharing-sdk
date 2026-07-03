@@ -62,12 +62,14 @@ function export_direct_setup(mockres)
   local env = runner.env_override({
     ["LOCATIONSHARING_TEST_EXPORT_ENTID"] = {},
     ["LOCATIONSHARING_TEST_LIVE"] = "FALSE",
+    ["LOCATIONSHARING_APIKEY"] = "NONE",
   })
 
   local live = env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["LOCATIONSHARING_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

@@ -113,6 +113,7 @@ function basicSetup(extra?: any) {
     'LOCATION_SHARING_TEST_SHARE_ENTID': idmap,
     'LOCATION_SHARING_TEST_LIVE': 'FALSE',
     'LOCATION_SHARING_TEST_EXPLAIN': 'FALSE',
+    'LOCATION_SHARING_APIKEY': 'NONE',
   })
 
   idmap = env['LOCATION_SHARING_TEST_SHARE_ENTID']
@@ -122,6 +123,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new LocationSharingSDK(merge([
       {
+        apikey: env.LOCATION_SHARING_APIKEY,
       },
       extra
     ]))

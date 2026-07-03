@@ -74,12 +74,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'LOCATIONSHARING_TEST_ADDRESS_ENTID': {},
     'LOCATIONSHARING_TEST_LIVE': 'FALSE',
+    'LOCATIONSHARING_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.LOCATIONSHARING_TEST_LIVE
 
   if (live) {
     const client = new LocationSharingSDK({
+      apikey: env.LOCATIONSHARING_APIKEY,
     })
 
     let idmap: any = env['LOCATIONSHARING_TEST_ADDRESS_ENTID']
