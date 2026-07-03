@@ -10,7 +10,7 @@ The Lua SDK for the LocationSharing API — an entity-oriented client using Lua 
 
 ## Install
 ```bash
-luarocks install location-sharing-sdk
+luarocks install voxgig-sdk-location-sharing
 ```
 
 If the module is not yet published, add the source directory to

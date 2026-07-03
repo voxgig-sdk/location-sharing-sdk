@@ -10,7 +10,7 @@ The TypeScript SDK for the LocationSharing API — a type-safe, entity-oriented 
 
 ## Install
 ```bash
-npm install location-sharing
+npm install @voxgig-sdk/location-sharing
 ```
 ## Tutorial: your first API call
 

@@ -10,7 +10,7 @@ The Python SDK for the LocationSharing API — an entity-oriented client followi
 
 ## Install
 ```bash
-pip install location-sharing-sdk
+pip install voxgig-sdk-location-sharing
 ```
 
 Or install from source:

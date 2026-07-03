@@ -10,7 +10,7 @@ The PHP SDK for the LocationSharing API — an entity-oriented client using PHP 
 
 ## Install
 ```bash
-composer require voxgig/location-sharing-sdk
+composer require voxgig-sdk/location-sharing
 ```
 
 

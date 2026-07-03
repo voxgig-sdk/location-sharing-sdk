@@ -10,13 +10,13 @@ The Ruby SDK for the LocationSharing API — an entity-oriented client using idi
 
 ## Install
 ```bash
-gem install location-sharing-sdk
+gem install voxgig-sdk-location-sharing
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "location-sharing-sdk"
+gem "voxgig-sdk-location-sharing"
 ```
 
 Then run:
