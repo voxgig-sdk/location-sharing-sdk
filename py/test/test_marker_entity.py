@@ -44,17 +44,14 @@ class TestMarkerEntity:
         marker_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.marker"), "marker_ref01"))
 
-        marker_ref01_data_result, err = marker_ref01_ent.create(marker_ref01_data, None)
-        assert err is None
-        marker_ref01_data = helpers.to_map(marker_ref01_data_result)
+        marker_ref01_data = helpers.to_map(marker_ref01_ent.create(marker_ref01_data, None))
         assert marker_ref01_data is not None
         assert marker_ref01_data["id"] is not None
 
         # LIST
         marker_ref01_match = {}
 
-        marker_ref01_list_result, err = marker_ref01_ent.list(marker_ref01_match, None)
-        assert err is None
+        marker_ref01_list_result = marker_ref01_ent.list(marker_ref01_match, None)
         assert isinstance(marker_ref01_list_result, list)
 
         found_item = vs.select(
@@ -66,14 +63,12 @@ class TestMarkerEntity:
         marker_ref01_match_rm0 = {
             "id": marker_ref01_data["id"],
         }
-        _, err = marker_ref01_ent.remove(marker_ref01_match_rm0, None)
-        assert err is None
+        marker_ref01_ent.remove(marker_ref01_match_rm0, None)
 
         # LIST
         marker_ref01_match_rt0 = {}
 
-        marker_ref01_list_rt0_result, err = marker_ref01_ent.list(marker_ref01_match_rt0, None)
-        assert err is None
+        marker_ref01_list_rt0_result = marker_ref01_ent.list(marker_ref01_match_rt0, None)
         assert isinstance(marker_ref01_list_rt0_result, list)
 
         not_found_item = vs.select(
@@ -119,7 +114,6 @@ def _marker_basic_setup(extra):
         "LOCATIONSHARING_TEST_MARKER_ENTID": idmap,
         "LOCATIONSHARING_TEST_LIVE": "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN": "FALSE",
-        "LOCATIONSHARING_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -130,7 +124,6 @@ def _marker_basic_setup(extra):
     if env.get("LOCATIONSHARING_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("LOCATIONSHARING_APIKEY"),
             },
             extra or {},
         ])

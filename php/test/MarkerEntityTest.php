@@ -43,8 +43,7 @@ class MarkerEntityTest extends TestCase
         $marker_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.marker"), "marker_ref01"));
 
-        [$marker_ref01_data_result, $err] = $marker_ref01_ent->create($marker_ref01_data, null);
-        $this->assertNull($err);
+        $marker_ref01_data_result = $marker_ref01_ent->create($marker_ref01_data, null);
         $marker_ref01_data = Helpers::to_map($marker_ref01_data_result);
         $this->assertNotNull($marker_ref01_data);
         $this->assertNotNull($marker_ref01_data["id"]);
@@ -52,8 +51,7 @@ class MarkerEntityTest extends TestCase
         // LIST
         $marker_ref01_match = [];
 
-        [$marker_ref01_list_result, $err] = $marker_ref01_ent->list($marker_ref01_match, null);
-        $this->assertNull($err);
+        $marker_ref01_list_result = $marker_ref01_ent->list($marker_ref01_match, null);
         $this->assertIsArray($marker_ref01_list_result);
 
         $found_item = sdk_select(
@@ -65,14 +63,12 @@ class MarkerEntityTest extends TestCase
         $marker_ref01_match_rm0 = [
             "id" => $marker_ref01_data["id"],
         ];
-        [$_, $err] = $marker_ref01_ent->remove($marker_ref01_match_rm0, null);
-        $this->assertNull($err);
+        $marker_ref01_ent->remove($marker_ref01_match_rm0, null);
 
         // LIST
         $marker_ref01_match_rt0 = [];
 
-        [$marker_ref01_list_rt0_result, $err] = $marker_ref01_ent->list($marker_ref01_match_rt0, null);
-        $this->assertNull($err);
+        $marker_ref01_list_rt0_result = $marker_ref01_ent->list($marker_ref01_match_rt0, null);
         $this->assertIsArray($marker_ref01_list_rt0_result);
 
         $not_found_item = sdk_select(
@@ -112,7 +108,6 @@ function marker_basic_setup($extra)
         "LOCATIONSHARING_TEST_MARKER_ENTID" => $idmap,
         "LOCATIONSHARING_TEST_LIVE" => "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-        "LOCATIONSHARING_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -124,7 +119,6 @@ function marker_basic_setup($extra)
     if ($env["LOCATIONSHARING_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["LOCATIONSHARING_APIKEY"],
             ],
             $extra ?? [],
         ]);

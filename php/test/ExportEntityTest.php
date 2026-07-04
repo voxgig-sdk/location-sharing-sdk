@@ -49,8 +49,7 @@ class ExportEntityTest extends TestCase
         // LOAD
         $export_ref01_ent = $client->Export(null);
         $export_ref01_match_dt0 = [];
-        [$export_ref01_data_dt0_loaded, $err] = $export_ref01_ent->load($export_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $export_ref01_data_dt0_loaded = $export_ref01_ent->load($export_ref01_match_dt0, null);
         $this->assertNotNull($export_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function export_basic_setup($extra)
         "LOCATIONSHARING_TEST_EXPORT_ENTID" => $idmap,
         "LOCATIONSHARING_TEST_LIVE" => "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-        "LOCATIONSHARING_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function export_basic_setup($extra)
     if ($env["LOCATIONSHARING_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["LOCATIONSHARING_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -36,8 +36,7 @@ class MarkerEntityTest < Minitest::Test
     marker_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.marker"), "marker_ref01"))
 
-    marker_ref01_data_result, err = marker_ref01_ent.create(marker_ref01_data, nil)
-    assert_nil err
+    marker_ref01_data_result = marker_ref01_ent.create(marker_ref01_data, nil)
     marker_ref01_data = Helpers.to_map(marker_ref01_data_result)
     assert !marker_ref01_data.nil?
     assert !marker_ref01_data["id"].nil?
@@ -45,8 +44,7 @@ class MarkerEntityTest < Minitest::Test
     # LIST
     marker_ref01_match = {}
 
-    marker_ref01_list_result, err = marker_ref01_ent.list(marker_ref01_match, nil)
-    assert_nil err
+    marker_ref01_list_result = marker_ref01_ent.list(marker_ref01_match, nil)
     assert marker_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(
@@ -58,14 +56,12 @@ class MarkerEntityTest < Minitest::Test
     marker_ref01_match_rm0 = {
       "id" => marker_ref01_data["id"],
     }
-    _, err = marker_ref01_ent.remove(marker_ref01_match_rm0, nil)
-    assert_nil err
+    marker_ref01_ent.remove(marker_ref01_match_rm0, nil)
 
     # LIST
     marker_ref01_match_rt0 = {}
 
-    marker_ref01_list_rt0_result, err = marker_ref01_ent.list(marker_ref01_match_rt0, nil)
-    assert_nil err
+    marker_ref01_list_rt0_result = marker_ref01_ent.list(marker_ref01_match_rt0, nil)
     assert marker_ref01_list_rt0_result.is_a?(Array)
 
     not_found_item = Vs.select(
@@ -109,7 +105,6 @@ def marker_basic_setup(extra)
     "LOCATIONSHARING_TEST_MARKER_ENTID" => idmap,
     "LOCATIONSHARING_TEST_LIVE" => "FALSE",
     "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-    "LOCATIONSHARING_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -121,7 +116,6 @@ def marker_basic_setup(extra)
   if env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["LOCATIONSHARING_APIKEY"],
       },
       extra || {},
     ])

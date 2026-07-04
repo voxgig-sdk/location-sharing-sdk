@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch LocationLoadMatch
+---@param ctrl? table
+---@return Location
+---@return string? err
 function LocationEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

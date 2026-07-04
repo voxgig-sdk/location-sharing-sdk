@@ -244,54 +244,171 @@ end
 
 
 
+-- Idiomatic facade: client:address():list() / client:address():load({ id = ... })
+function LocationSharingSDK:address(data)
+  local EntityMod = require("entity.address_entity")
+  if data == nil then
+    if self._address == nil then
+      self._address = EntityMod.new(self, nil)
+    end
+    return self._address
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:address() instead.
 function LocationSharingSDK:Address(data)
   local EntityMod = require("entity.address_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:building_check():list() / client:building_check():load({ id = ... })
+function LocationSharingSDK:building_check(data)
+  local EntityMod = require("entity.building_check_entity")
+  if data == nil then
+    if self._building_check == nil then
+      self._building_check = EntityMod.new(self, nil)
+    end
+    return self._building_check
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:building_check() instead.
 function LocationSharingSDK:BuildingCheck(data)
   local EntityMod = require("entity.building_check_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:export():list() / client:export():load({ id = ... })
+function LocationSharingSDK:export(data)
+  local EntityMod = require("entity.export_entity")
+  if data == nil then
+    if self._export == nil then
+      self._export = EntityMod.new(self, nil)
+    end
+    return self._export
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:export() instead.
 function LocationSharingSDK:Export(data)
   local EntityMod = require("entity.export_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:history():list() / client:history():load({ id = ... })
+function LocationSharingSDK:history(data)
+  local EntityMod = require("entity.history_entity")
+  if data == nil then
+    if self._history == nil then
+      self._history = EntityMod.new(self, nil)
+    end
+    return self._history
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:history() instead.
 function LocationSharingSDK:History(data)
   local EntityMod = require("entity.history_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:location():list() / client:location():load({ id = ... })
+function LocationSharingSDK:location(data)
+  local EntityMod = require("entity.location_entity")
+  if data == nil then
+    if self._location == nil then
+      self._location = EntityMod.new(self, nil)
+    end
+    return self._location
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:location() instead.
 function LocationSharingSDK:Location(data)
   local EntityMod = require("entity.location_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:marker():list() / client:marker():load({ id = ... })
+function LocationSharingSDK:marker(data)
+  local EntityMod = require("entity.marker_entity")
+  if data == nil then
+    if self._marker == nil then
+      self._marker = EntityMod.new(self, nil)
+    end
+    return self._marker
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:marker() instead.
 function LocationSharingSDK:Marker(data)
   local EntityMod = require("entity.marker_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:repeat():list() / client:repeat():load({ id = ... })
+function LocationSharingSDK:repeat(data)
+  local EntityMod = require("entity.repeat_entity")
+  if data == nil then
+    if self._repeat == nil then
+      self._repeat = EntityMod.new(self, nil)
+    end
+    return self._repeat
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:repeat() instead.
 function LocationSharingSDK:Repeat(data)
   local EntityMod = require("entity.repeat_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:search():list() / client:search():load({ id = ... })
+function LocationSharingSDK:search(data)
+  local EntityMod = require("entity.search_entity")
+  if data == nil then
+    if self._search == nil then
+      self._search = EntityMod.new(self, nil)
+    end
+    return self._search
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:search() instead.
 function LocationSharingSDK:Search(data)
   local EntityMod = require("entity.search_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:share():list() / client:share():load({ id = ... })
+function LocationSharingSDK:share(data)
+  local EntityMod = require("entity.share_entity")
+  if data == nil then
+    if self._share == nil then
+      self._share = EntityMod.new(self, nil)
+    end
+    return self._share
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:share() instead.
 function LocationSharingSDK:Share(data)
   local EntityMod = require("entity.share_entity")
   return EntityMod.new(self, data)

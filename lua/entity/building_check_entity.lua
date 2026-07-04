@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch BuildingCheckListMatch
+---@param ctrl? table
+---@return BuildingCheck[]
+---@return string? err
 function BuildingCheckEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

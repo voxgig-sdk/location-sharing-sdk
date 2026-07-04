@@ -103,7 +103,7 @@ class LocationSharingSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class LocationSharingSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class LocationSharingSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,80 +216,179 @@ class LocationSharingSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Address($data = null)
+    private $_address = null;
+
+    // Idiomatic facade: $client->address()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Address() (PHP method
+    // names are case-insensitive).
+    public function address($data = null)
     {
         require_once __DIR__ . '/entity/address_entity.php';
+        if ($data === null) {
+            if ($this->_address === null) {
+                $this->_address = new AddressEntity($this, null);
+            }
+            return $this->_address;
+        }
         return new AddressEntity($this, $data);
     }
 
 
-    public function BuildingCheck($data = null)
+    private $_building_check = null;
+
+    // Idiomatic facade: $client->building_check()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias BuildingCheck() (PHP method
+    // names are case-insensitive).
+    public function building_check($data = null)
     {
         require_once __DIR__ . '/entity/building_check_entity.php';
+        if ($data === null) {
+            if ($this->_building_check === null) {
+                $this->_building_check = new BuildingCheckEntity($this, null);
+            }
+            return $this->_building_check;
+        }
         return new BuildingCheckEntity($this, $data);
     }
 
 
-    public function Export($data = null)
+    private $_export = null;
+
+    // Idiomatic facade: $client->export()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Export() (PHP method
+    // names are case-insensitive).
+    public function export($data = null)
     {
         require_once __DIR__ . '/entity/export_entity.php';
+        if ($data === null) {
+            if ($this->_export === null) {
+                $this->_export = new ExportEntity($this, null);
+            }
+            return $this->_export;
+        }
         return new ExportEntity($this, $data);
     }
 
 
-    public function History($data = null)
+    private $_history = null;
+
+    // Idiomatic facade: $client->history()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias History() (PHP method
+    // names are case-insensitive).
+    public function history($data = null)
     {
         require_once __DIR__ . '/entity/history_entity.php';
+        if ($data === null) {
+            if ($this->_history === null) {
+                $this->_history = new HistoryEntity($this, null);
+            }
+            return $this->_history;
+        }
         return new HistoryEntity($this, $data);
     }
 
 
-    public function Location($data = null)
+    private $_location = null;
+
+    // Idiomatic facade: $client->location()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Location() (PHP method
+    // names are case-insensitive).
+    public function location($data = null)
     {
         require_once __DIR__ . '/entity/location_entity.php';
+        if ($data === null) {
+            if ($this->_location === null) {
+                $this->_location = new LocationEntity($this, null);
+            }
+            return $this->_location;
+        }
         return new LocationEntity($this, $data);
     }
 
 
-    public function Marker($data = null)
+    private $_marker = null;
+
+    // Idiomatic facade: $client->marker()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Marker() (PHP method
+    // names are case-insensitive).
+    public function marker($data = null)
     {
         require_once __DIR__ . '/entity/marker_entity.php';
+        if ($data === null) {
+            if ($this->_marker === null) {
+                $this->_marker = new MarkerEntity($this, null);
+            }
+            return $this->_marker;
+        }
         return new MarkerEntity($this, $data);
     }
 
 
-    public function Repeat($data = null)
+    private $_repeat = null;
+
+    // Idiomatic facade: $client->repeat()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Repeat() (PHP method
+    // names are case-insensitive).
+    public function repeat($data = null)
     {
         require_once __DIR__ . '/entity/repeat_entity.php';
+        if ($data === null) {
+            if ($this->_repeat === null) {
+                $this->_repeat = new RepeatEntity($this, null);
+            }
+            return $this->_repeat;
+        }
         return new RepeatEntity($this, $data);
     }
 
 
-    public function Search($data = null)
+    private $_search = null;
+
+    // Idiomatic facade: $client->search()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Search() (PHP method
+    // names are case-insensitive).
+    public function search($data = null)
     {
         require_once __DIR__ . '/entity/search_entity.php';
+        if ($data === null) {
+            if ($this->_search === null) {
+                $this->_search = new SearchEntity($this, null);
+            }
+            return $this->_search;
+        }
         return new SearchEntity($this, $data);
     }
 
 
-    public function Share($data = null)
+    private $_share = null;
+
+    // Idiomatic facade: $client->share()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Share() (PHP method
+    // names are case-insensitive).
+    public function share($data = null)
     {
         require_once __DIR__ . '/entity/share_entity.php';
+        if ($data === null) {
+            if ($this->_share === null) {
+                $this->_share = new ShareEntity($this, null);
+            }
+            return $this->_share;
+        }
         return new ShareEntity($this, $data);
     }
 

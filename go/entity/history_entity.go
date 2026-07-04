@@ -85,6 +85,27 @@ func (e *HistoryEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an History; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *HistoryEntity) DataTyped(data ...History) History {
+	if len(data) > 0 {
+		return typedFrom[History](e.Data(asMap(data[0])))
+	}
+	return typedFrom[History](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through History (all fields
+// optional at the wire level).
+func (e *HistoryEntity) MatchTyped(match ...History) History {
+	if len(match) > 0 {
+		return typedFrom[History](e.Match(asMap(match[0])))
+	}
+	return typedFrom[History](e.Match())
+}
+
 func (e *HistoryEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("load", e.name)
 }
@@ -110,6 +131,17 @@ func (e *HistoryEntity) List(reqmatch map[string]any, ctrl map[string]any) (any,
 	})
 }
 
+// ListTyped is the statically-typed variant of List: it takes an
+// HistoryListMatch and returns []History. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *HistoryEntity) ListTyped(reqmatch HistoryListMatch, ctrl map[string]any) ([]History, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[History](res), nil
+}
+
 
 
 
@@ -133,6 +165,17 @@ func (e *HistoryEntity) Create(reqdata map[string]any, ctrl map[string]any) (any
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// HistoryCreateData and returns an History. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *HistoryEntity) CreateTyped(reqdata HistoryCreateData, ctrl map[string]any) (History, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return History{}, err
+	}
+	return typedFrom[History](res), nil
 }
 
 
@@ -166,6 +209,17 @@ func (e *HistoryEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (an
 			}
 		}
 	})
+}
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// HistoryRemoveMatch and returns an History. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *HistoryEntity) RemoveTyped(reqmatch HistoryRemoveMatch, ctrl map[string]any) (History, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return History{}, err
+	}
+	return typedFrom[History](res), nil
 }
 
 

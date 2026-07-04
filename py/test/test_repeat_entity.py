@@ -44,9 +44,7 @@ class TestRepeatEntity:
         repeat_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.repeat"), "repeat_ref01"))
 
-        repeat_ref01_data_result, err = repeat_ref01_ent.create(repeat_ref01_data, None)
-        assert err is None
-        repeat_ref01_data = helpers.to_map(repeat_ref01_data_result)
+        repeat_ref01_data = helpers.to_map(repeat_ref01_ent.create(repeat_ref01_data, None))
         assert repeat_ref01_data is not None
 
 
@@ -87,7 +85,6 @@ def _repeat_basic_setup(extra):
         "LOCATIONSHARING_TEST_REPEAT_ENTID": idmap,
         "LOCATIONSHARING_TEST_LIVE": "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN": "FALSE",
-        "LOCATIONSHARING_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -98,7 +95,6 @@ def _repeat_basic_setup(extra):
     if env.get("LOCATIONSHARING_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("LOCATIONSHARING_APIKEY"),
             },
             extra or {},
         ])

@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -206,7 +205,7 @@ Alias for `LocationSharingSDK.test()`.
 ## AddressEntity
 
 ```ts
-const address = client.Address()
+const address = client.address
 ```
 
 ### Fields
@@ -227,7 +226,7 @@ const address = client.Address()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Address().load({ id: 'address_id' })
+const result = await client.address.load({ id: 'address_id' })
 ```
 
 ### Common Methods
@@ -261,7 +260,7 @@ Return a copy of the entity options.
 ## BuildingCheckEntity
 
 ```ts
-const building_check = client.BuildingCheck()
+const building_check = client.building_check
 ```
 
 ### Fields
@@ -280,7 +279,7 @@ const building_check = client.BuildingCheck()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.BuildingCheck().list()
+const results = await client.building_check.list()
 ```
 
 ### Common Methods
@@ -314,7 +313,7 @@ Return a copy of the entity options.
 ## ExportEntity
 
 ```ts
-const export = client.Export()
+const export = client.export
 ```
 
 ### Operations
@@ -324,7 +323,7 @@ const export = client.Export()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Export().load({ id: 'export_id' })
+const result = await client.export.load({ id: 'export_id' })
 ```
 
 ### Common Methods
@@ -358,7 +357,7 @@ Return a copy of the entity options.
 ## HistoryEntity
 
 ```ts
-const history = client.History()
+const history = client.history
 ```
 
 ### Fields
@@ -380,7 +379,7 @@ const history = client.History()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.History().create({
+const result = await client.history.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
   timestamp: /* `$STRING` */,
@@ -392,7 +391,7 @@ const result = await client.History().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.History().list()
+const results = await client.history.list()
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -400,7 +399,7 @@ const results = await client.History().list()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.History().remove({ id: 'history_id' })
+const result = await client.history.remove({ id: 'history_id' })
 ```
 
 ### Common Methods
@@ -434,7 +433,7 @@ Return a copy of the entity options.
 ## LocationEntity
 
 ```ts
-const location = client.Location()
+const location = client.location
 ```
 
 ### Fields
@@ -454,7 +453,7 @@ const location = client.Location()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Location().load({ id: 'location_id' })
+const result = await client.location.load({ id: 'location_id' })
 ```
 
 ### Common Methods
@@ -488,7 +487,7 @@ Return a copy of the entity options.
 ## MarkerEntity
 
 ```ts
-const marker = client.Marker()
+const marker = client.marker
 ```
 
 ### Fields
@@ -509,7 +508,7 @@ const marker = client.Marker()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Marker().create({
+const result = await client.marker.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
 })
@@ -520,7 +519,7 @@ const result = await client.Marker().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Marker().list()
+const results = await client.marker.list()
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -528,7 +527,7 @@ const results = await client.Marker().list()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Marker().remove({ id: 'marker_id' })
+const result = await client.marker.remove({ id: 'marker_id' })
 ```
 
 ### Common Methods
@@ -562,7 +561,7 @@ Return a copy of the entity options.
 ## RepeatEntity
 
 ```ts
-const repeat = client.Repeat()
+const repeat = client.repeat
 ```
 
 ### Fields
@@ -598,7 +597,7 @@ const repeat = client.Repeat()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Repeat().create({
+const result = await client.repeat.create({
   count: /* `$INTEGER` */,
   interval: /* `$NUMBER` */,
 })
@@ -635,7 +634,7 @@ Return a copy of the entity options.
 ## SearchEntity
 
 ```ts
-const search = client.Search()
+const search = client.search
 ```
 
 ### Fields
@@ -655,7 +654,7 @@ const search = client.Search()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Search().list()
+const results = await client.search.list()
 ```
 
 ### Common Methods
@@ -689,7 +688,7 @@ Return a copy of the entity options.
 ## ShareEntity
 
 ```ts
-const share = client.Share()
+const share = client.share
 ```
 
 ### Fields
@@ -711,7 +710,7 @@ const share = client.Share()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Share().create({
+const result = await client.share.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
   share_link: /* `$STRING` */,

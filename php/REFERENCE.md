@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `$options` | `array` | SDK configuration options. |
-| `$options["apikey"]` | `string` | API key for authentication. |
 | `$options["base"]` | `string` | Base URL for API requests. |
 | `$options["prefix"]` | `string` | URL prefix appended after base. |
 | `$options["suffix"]` | `string` | URL suffix appended after path. |
@@ -88,7 +87,10 @@ Return a copy of the SDK utility object.
 
 #### `direct(array $fetchargs = []): array`
 
-Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+Make a direct HTTP request to any API endpoint. This is the raw-HTTP escape
+hatch: it does **not** throw. It returns a result array
+`["ok" => bool, "status" => int, "headers" => array, "data" => mixed]`, or
+`["ok" => false, "err" => \Exception]` on failure. Branch on `$result["ok"]`.
 
 **Parameters:**
 
@@ -102,11 +104,12 @@ Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
 | `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
 | `$fetchargs["ctrl"]` | `array` | Control options. |
 
-**Returns:** `array [$result, $err]`
+**Returns:** `array` — the result dict (see above); never throws.
 
-#### `prepare(array $fetchargs = []): array`
+#### `prepare(array $fetchargs = []): mixed`
 
-Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+Prepare a fetch definition without sending the request. Returns the
+`$fetchdef` array. Throws on error.
 
 
 ---
@@ -114,7 +117,7 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 ## AddressEntity
 
 ```php
-$address = $client->Address();
+$address = $client->address();
 ```
 
 ### Fields
@@ -130,12 +133,12 @@ $address = $client->Address();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Address()->load(["id" => "address_id"]);
+$result = $client->address()->load(["id" => "address_id"]);
 ```
 
 ### Common Methods
@@ -171,7 +174,7 @@ Return the entity name.
 ## BuildingCheckEntity
 
 ```php
-$building_check = $client->BuildingCheck();
+$building_check = $client->building_check();
 ```
 
 ### Fields
@@ -185,12 +188,12 @@ $building_check = $client->BuildingCheck();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->BuildingCheck()->list([]);
+$results = $client->building_check()->list([]);
 ```
 
 ### Common Methods
@@ -226,17 +229,17 @@ Return the entity name.
 ## ExportEntity
 
 ```php
-$export = $client->Export();
+$export = $client->export();
 ```
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Export()->load(["id" => "export_id"]);
+$result = $client->export()->load(["id" => "export_id"]);
 ```
 
 ### Common Methods
@@ -272,7 +275,7 @@ Return the entity name.
 ## HistoryEntity
 
 ```php
-$history = $client->History();
+$history = $client->history();
 ```
 
 ### Fields
@@ -289,32 +292,32 @@ $history = $client->History();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->History()->create([
+$result = $client->history()->create([
   "latitude" => /* `$NUMBER` */,
   "longitude" => /* `$NUMBER` */,
   "timestamp" => /* `$STRING` */,
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->History()->list([]);
+$results = $client->history()->list([]);
 ```
 
-#### `remove(array $reqmatch, ?array $ctrl = null): array`
+#### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->History()->remove(["id" => "history_id"]);
+$result = $client->history()->remove(["id" => "history_id"]);
 ```
 
 ### Common Methods
@@ -350,7 +353,7 @@ Return the entity name.
 ## LocationEntity
 
 ```php
-$location = $client->Location();
+$location = $client->location();
 ```
 
 ### Fields
@@ -365,12 +368,12 @@ $location = $client->Location();
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Location()->load(["id" => "location_id"]);
+$result = $client->location()->load(["id" => "location_id"]);
 ```
 
 ### Common Methods
@@ -406,7 +409,7 @@ Return the entity name.
 ## MarkerEntity
 
 ```php
-$marker = $client->Marker();
+$marker = $client->marker();
 ```
 
 ### Fields
@@ -422,31 +425,31 @@ $marker = $client->Marker();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Marker()->create([
+$result = $client->marker()->create([
   "latitude" => /* `$NUMBER` */,
   "longitude" => /* `$NUMBER` */,
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Marker()->list([]);
+$results = $client->marker()->list([]);
 ```
 
-#### `remove(array $reqmatch, ?array $ctrl = null): array`
+#### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Marker()->remove(["id" => "marker_id"]);
+$result = $client->marker()->remove(["id" => "marker_id"]);
 ```
 
 ### Common Methods
@@ -482,7 +485,7 @@ Return the entity name.
 ## RepeatEntity
 
 ```php
-$repeat = $client->Repeat();
+$repeat = $client->repeat();
 ```
 
 ### Fields
@@ -513,12 +516,12 @@ $repeat = $client->Repeat();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Repeat()->create([
+$result = $client->repeat()->create([
   "count" => /* `$INTEGER` */,
   "interval" => /* `$NUMBER` */,
 ]);
@@ -557,7 +560,7 @@ Return the entity name.
 ## SearchEntity
 
 ```php
-$search = $client->Search();
+$search = $client->search();
 ```
 
 ### Fields
@@ -572,12 +575,12 @@ $search = $client->Search();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Search()->list([]);
+$results = $client->search()->list([]);
 ```
 
 ### Common Methods
@@ -613,7 +616,7 @@ Return the entity name.
 ## ShareEntity
 
 ```php
-$share = $client->Share();
+$share = $client->share();
 ```
 
 ### Fields
@@ -630,12 +633,12 @@ $share = $client->Share();
 
 ### Operations
 
-#### `create(array $reqdata, ?array $ctrl = null): array`
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Throws on error.
 
 ```php
-[$result, $err] = $client->Share()->create([
+$result = $client->share()->create([
   "latitude" => /* `$NUMBER` */,
   "longitude" => /* `$NUMBER` */,
   "share_link" => /* `$STRING` */,

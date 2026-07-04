@@ -10,6 +10,8 @@ import { RepeatEntity } from './entity/RepeatEntity'
 import { SearchEntity } from './entity/SearchEntity'
 import { ShareEntity } from './entity/ShareEntity'
 
+export type * from './LocationSharingTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -210,54 +212,126 @@ class LocationSharingSDK {
 
 
 
+  _address?: AddressEntity
+
+  // Idiomatic facade: `client.address.list()` / `client.address.load({ id })`.
+  get address(): AddressEntity {
+    return (this._address ??= new AddressEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.address` instead. */
   Address(data?: any) {
     const self = this
     return new AddressEntity(self,data)
   }
 
 
+  _building_check?: BuildingCheckEntity
+
+  // Idiomatic facade: `client.building_check.list()` / `client.building_check.load({ id })`.
+  get building_check(): BuildingCheckEntity {
+    return (this._building_check ??= new BuildingCheckEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.building_check` instead. */
   BuildingCheck(data?: any) {
     const self = this
     return new BuildingCheckEntity(self,data)
   }
 
 
+  _export?: ExportEntity
+
+  // Idiomatic facade: `client.export.list()` / `client.export.load({ id })`.
+  get export(): ExportEntity {
+    return (this._export ??= new ExportEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.export` instead. */
   Export(data?: any) {
     const self = this
     return new ExportEntity(self,data)
   }
 
 
+  _history?: HistoryEntity
+
+  // Idiomatic facade: `client.history.list()` / `client.history.load({ id })`.
+  get history(): HistoryEntity {
+    return (this._history ??= new HistoryEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.history` instead. */
   History(data?: any) {
     const self = this
     return new HistoryEntity(self,data)
   }
 
 
+  _location?: LocationEntity
+
+  // Idiomatic facade: `client.location.list()` / `client.location.load({ id })`.
+  get location(): LocationEntity {
+    return (this._location ??= new LocationEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.location` instead. */
   Location(data?: any) {
     const self = this
     return new LocationEntity(self,data)
   }
 
 
+  _marker?: MarkerEntity
+
+  // Idiomatic facade: `client.marker.list()` / `client.marker.load({ id })`.
+  get marker(): MarkerEntity {
+    return (this._marker ??= new MarkerEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.marker` instead. */
   Marker(data?: any) {
     const self = this
     return new MarkerEntity(self,data)
   }
 
 
+  _repeat?: RepeatEntity
+
+  // Idiomatic facade: `client.repeat.list()` / `client.repeat.load({ id })`.
+  get repeat(): RepeatEntity {
+    return (this._repeat ??= new RepeatEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.repeat` instead. */
   Repeat(data?: any) {
     const self = this
     return new RepeatEntity(self,data)
   }
 
 
+  _search?: SearchEntity
+
+  // Idiomatic facade: `client.search.list()` / `client.search.load({ id })`.
+  get search(): SearchEntity {
+    return (this._search ??= new SearchEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.search` instead. */
   Search(data?: any) {
     const self = this
     return new SearchEntity(self,data)
   }
 
 
+  _share?: ShareEntity
+
+  // Idiomatic facade: `client.share.list()` / `client.share.load({ id })`.
+  get share(): ShareEntity {
+    return (this._share ??= new ShareEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.share` instead. */
   Share(data?: any) {
     const self = this
     return new ShareEntity(self,data)

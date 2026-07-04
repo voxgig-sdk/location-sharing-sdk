@@ -9,21 +9,10 @@ The Ruby SDK for the LocationSharing API — an entity-oriented client using idi
 
 
 ## Install
-```bash
-gem install voxgig-sdk-location-sharing
-```
+This package is not yet published to RubyGems. Install it from the
+GitHub release tag (`rb/vX.Y.Z`):
 
-Or add to your `Gemfile`:
-
-```ruby
-gem "voxgig-sdk-location-sharing"
-```
-
-Then run:
-
-```bash
-bundle install
-```
+- Releases: [https://github.com/voxgig-sdk/location-sharing-sdk/releases](https://github.com/voxgig-sdk/location-sharing-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -36,17 +25,18 @@ loading a specific record.
 ```ruby
 require_relative "LocationSharing_sdk"
 
-client = LocationSharingSDK.new({
-  "apikey" => ENV["LOCATION-SHARING_APIKEY"],
-})
+client = LocationSharingSDK.new
 ```
 
-### 3. Load a address
+### 3. Load an address
 
 ```ruby
-result, err = client.Address().load({ "id" => "example_id" })
-raise err if err
-puts result
+begin
+  result = client.address.load({ "id" => "example_id" })
+  puts result
+rescue => err
+  warn "load failed: #{err}"
+end
 ```
 
 
@@ -57,32 +47,35 @@ puts result
 For endpoints not covered by entity methods:
 
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },
 })
-raise err if err
 
 if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
+else
+  warn result["err"]
 end
 ```
 
 ### Prepare a request without sending it
 
 ```ruby
-fetchdef, err = client.prepare({
-  "path" => "/api/resource/{id}",
-  "method" => "DELETE",
-  "params" => { "id" => "example" },
-})
-raise err if err
-
-puts fetchdef["url"]
-puts fetchdef["method"]
-puts fetchdef["headers"]
+begin
+  fetchdef = client.prepare({
+    "path" => "/api/resource/{id}",
+    "method" => "DELETE",
+    "params" => { "id" => "example" },
+  })
+  puts fetchdef["url"]
+  puts fetchdef["method"]
+  puts fetchdef["headers"]
+rescue => err
+  warn "prepare failed: #{err}"
+end
 ```
 
 ### Use test mode
@@ -92,7 +85,7 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = LocationSharingSDK.test
 
-result, err = client.LocationSharing().load({ "id" => "test01" })
+result = client.address.load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -123,8 +116,7 @@ client = LocationSharingSDK.new({
 Create a `.env.local` file at the project root:
 
 ```
-LOCATION-SHARING_TEST_LIVE=TRUE
-LOCATION-SHARING_APIKEY=<your-key>
+LOCATION_SHARING_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -147,7 +139,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |
@@ -169,8 +160,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | --- | --- | --- |
 | `options_map` | `() -> Hash` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> [Hash, err]` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> [Hash, err]` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Address` | `(data) -> AddressEntity` | Create a Address entity instance. |
 | `BuildingCheck` | `(data) -> BuildingCheckEntity` | Create a BuildingCheck entity instance. |
 | `Export` | `(data) -> ExportEntity` | Create a Export entity instance. |
@@ -187,11 +178,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> [any, err]` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> [any, err]` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> [any, err]` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> [any, err]` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> [any, err]` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -201,8 +192,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[any, err]`. The first value is a
-`Hash` with these keys:
+Entity operations return the result data directly. On failure they
+raise a `LocationSharingError` (a `StandardError` subclass), so wrap
+calls in `begin`/`rescue` where you need to handle errors.
+
+The `direct` escape hatch is the exception: it never raises and instead
+returns a result `Hash` with these keys:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -210,8 +205,7 @@ Entity operations return `[any, err]`. The first value is a
 | `status` | `Integer` | HTTP status code. |
 | `headers` | `Hash` | Response headers. |
 | `data` | `any` | Parsed JSON response body. |
-
-On error, `ok` is `false` and `err` contains the error value.
+| `err` | `Error` | Present when `ok` is `false`. |
 
 ### Entities
 
@@ -351,7 +345,7 @@ API path: `/share`
 
 ### Address
 
-Create an instance: `const address = client.Address()`
+Create an instance: `const address = client.address`
 
 #### Operations
 
@@ -373,13 +367,13 @@ Create an instance: `const address = client.Address()`
 #### Example: Load
 
 ```ts
-const address = await client.Address().load({ id: 'address_id' })
+const address = await client.address.load({ id: 'address_id' })
 ```
 
 
 ### BuildingCheck
 
-Create an instance: `const building_check = client.BuildingCheck()`
+Create an instance: `const building_check = client.building_check`
 
 #### Operations
 
@@ -399,13 +393,13 @@ Create an instance: `const building_check = client.BuildingCheck()`
 #### Example: List
 
 ```ts
-const building_checks = await client.BuildingCheck().list()
+const building_checks = await client.building_check.list()
 ```
 
 
 ### Export
 
-Create an instance: `const export = client.Export()`
+Create an instance: `const export = client.export`
 
 #### Operations
 
@@ -416,13 +410,13 @@ Create an instance: `const export = client.Export()`
 #### Example: Load
 
 ```ts
-const export = await client.Export().load({ id: 'export_id' })
+const export = await client.export.load({ id: 'export_id' })
 ```
 
 
 ### History
 
-Create an instance: `const history = client.History()`
+Create an instance: `const history = client.history`
 
 #### Operations
 
@@ -447,13 +441,13 @@ Create an instance: `const history = client.History()`
 #### Example: List
 
 ```ts
-const historys = await client.History().list()
+const historys = await client.history.list()
 ```
 
 #### Example: Create
 
 ```ts
-const history = await client.History().create({
+const history = await client.history.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
   timestamp: /* `$STRING` */,
@@ -463,7 +457,7 @@ const history = await client.History().create({
 
 ### Location
 
-Create an instance: `const location = client.Location()`
+Create an instance: `const location = client.location`
 
 #### Operations
 
@@ -484,13 +478,13 @@ Create an instance: `const location = client.Location()`
 #### Example: Load
 
 ```ts
-const location = await client.Location().load({ id: 'location_id' })
+const location = await client.location.load({ id: 'location_id' })
 ```
 
 
 ### Marker
 
-Create an instance: `const marker = client.Marker()`
+Create an instance: `const marker = client.marker`
 
 #### Operations
 
@@ -514,13 +508,13 @@ Create an instance: `const marker = client.Marker()`
 #### Example: List
 
 ```ts
-const markers = await client.Marker().list()
+const markers = await client.marker.list()
 ```
 
 #### Example: Create
 
 ```ts
-const marker = await client.Marker().create({
+const marker = await client.marker.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
 })
@@ -529,7 +523,7 @@ const marker = await client.Marker().create({
 
 ### Repeat
 
-Create an instance: `const repeat = client.Repeat()`
+Create an instance: `const repeat = client.repeat`
 
 #### Operations
 
@@ -553,7 +547,7 @@ Create an instance: `const repeat = client.Repeat()`
 #### Example: Create
 
 ```ts
-const repeat = await client.Repeat().create({
+const repeat = await client.repeat.create({
   count: /* `$INTEGER` */,
   interval: /* `$NUMBER` */,
 })
@@ -562,7 +556,7 @@ const repeat = await client.Repeat().create({
 
 ### Search
 
-Create an instance: `const search = client.Search()`
+Create an instance: `const search = client.search`
 
 #### Operations
 
@@ -583,13 +577,13 @@ Create an instance: `const search = client.Search()`
 #### Example: List
 
 ```ts
-const searchs = await client.Search().list()
+const searchs = await client.search.list()
 ```
 
 
 ### Share
 
-Create an instance: `const share = client.Share()`
+Create an instance: `const share = client.share`
 
 #### Operations
 
@@ -612,7 +606,7 @@ Create an instance: `const share = client.Share()`
 #### Example: Create
 
 ```ts
-const share = await client.Share().create({
+const share = await client.share.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
   share_link: /* `$STRING` */,
@@ -691,11 +685,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-moon = client.Moon
-moon.load({ "planet_id" => "earth", "id" => "luna" })
+address = client.address
+address.load({ "id" => "example_id" })
 
-# moon.data_get now returns the loaded moon data
-# moon.match_get returns the last match criteria
+# address.data_get now returns the loaded address data
+# address.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

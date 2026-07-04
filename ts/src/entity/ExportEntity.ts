@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Export,
+  ExportLoadMatch,
+} from '../LocationSharingTypes'
 
 // TODO: needs Entity superclass
-class ExportEntity extends LocationSharingEntityBase {
+class ExportEntity extends LocationSharingEntityBase<Export> {
 
   constructor(client: LocationSharingSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class ExportEntity extends LocationSharingEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: ExportLoadMatch, ctrl?: Control): Promise<Export> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class ExportEntity extends LocationSharingEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Export> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

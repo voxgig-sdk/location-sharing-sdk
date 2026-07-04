@@ -43,8 +43,7 @@ class HistoryEntityTest extends TestCase
         $history_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.history"), "history_ref01"));
 
-        [$history_ref01_data_result, $err] = $history_ref01_ent->create($history_ref01_data, null);
-        $this->assertNull($err);
+        $history_ref01_data_result = $history_ref01_ent->create($history_ref01_data, null);
         $history_ref01_data = Helpers::to_map($history_ref01_data_result);
         $this->assertNotNull($history_ref01_data);
         $this->assertNotNull($history_ref01_data["id"]);
@@ -52,8 +51,7 @@ class HistoryEntityTest extends TestCase
         // LIST
         $history_ref01_match = [];
 
-        [$history_ref01_list_result, $err] = $history_ref01_ent->list($history_ref01_match, null);
-        $this->assertNull($err);
+        $history_ref01_list_result = $history_ref01_ent->list($history_ref01_match, null);
         $this->assertIsArray($history_ref01_list_result);
 
         $found_item = sdk_select(
@@ -65,14 +63,12 @@ class HistoryEntityTest extends TestCase
         $history_ref01_match_rm0 = [
             "id" => $history_ref01_data["id"],
         ];
-        [$_, $err] = $history_ref01_ent->remove($history_ref01_match_rm0, null);
-        $this->assertNull($err);
+        $history_ref01_ent->remove($history_ref01_match_rm0, null);
 
         // LIST
         $history_ref01_match_rt0 = [];
 
-        [$history_ref01_list_rt0_result, $err] = $history_ref01_ent->list($history_ref01_match_rt0, null);
-        $this->assertNull($err);
+        $history_ref01_list_rt0_result = $history_ref01_ent->list($history_ref01_match_rt0, null);
         $this->assertIsArray($history_ref01_list_rt0_result);
 
         $not_found_item = sdk_select(
@@ -112,7 +108,6 @@ function history_basic_setup($extra)
         "LOCATIONSHARING_TEST_HISTORY_ENTID" => $idmap,
         "LOCATIONSHARING_TEST_LIVE" => "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-        "LOCATIONSHARING_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -124,7 +119,6 @@ function history_basic_setup($extra)
     if ($env["LOCATIONSHARING_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["LOCATIONSHARING_APIKEY"],
             ],
             $extra ?? [],
         ]);

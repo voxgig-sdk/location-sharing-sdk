@@ -45,6 +45,7 @@ class MarkerEntity
     end
   end
 
+  # @return [Marker, Hash] the current Marker data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class MarkerEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Marker fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class MarkerEntity
   
 
   
+  # List Marker items matching the given filter.
+  #
+  # @param reqmatch [MarkerListMatch, Hash, nil] match filter (any subset of Marker fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Marker>, Array] the matching Marker items; raises LocationSharingError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -85,6 +92,11 @@ class MarkerEntity
 
 
   
+  # Create a new Marker.
+  #
+  # @param reqdata [MarkerCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Marker, Hash] the created Marker; raises LocationSharingError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -109,6 +121,11 @@ class MarkerEntity
   
 
   
+  # Remove an Marker matching the given criteria.
+  #
+  # @param reqmatch [MarkerRemoveMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Marker, Hash] the removed Marker; raises LocationSharingError on failure
   def remove(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

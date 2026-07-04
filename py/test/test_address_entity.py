@@ -49,8 +49,7 @@ class TestAddressEntity:
         # LOAD
         address_ref01_ent = client.Address(None)
         address_ref01_match_dt0 = {}
-        address_ref01_data_dt0_loaded, err = address_ref01_ent.load(address_ref01_match_dt0, None)
-        assert err is None
+        address_ref01_data_dt0_loaded = address_ref01_ent.load(address_ref01_match_dt0, None)
         assert address_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _address_basic_setup(extra):
         "LOCATIONSHARING_TEST_ADDRESS_ENTID": idmap,
         "LOCATIONSHARING_TEST_LIVE": "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN": "FALSE",
-        "LOCATIONSHARING_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _address_basic_setup(extra):
     if env.get("LOCATIONSHARING_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("LOCATIONSHARING_APIKEY"),
             },
             extra or {},
         ])

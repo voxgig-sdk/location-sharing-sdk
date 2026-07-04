@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `dict` | SDK configuration options. |
-| `options["apikey"]` | `str` | API key for authentication. |
 | `options["base"]` | `str` | Base URL for API requests. |
 | `options["prefix"]` | `str` | URL prefix appended after base. |
 | `options["suffix"]` | `str` | URL suffix appended after path. |
@@ -86,9 +85,9 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs=None) -> tuple`
+#### `direct(fetchargs=None) -> dict`
 
-Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
+Make a direct HTTP request to any API endpoint. Returns a result `dict` with `ok`, `status`, `headers`, and `data` (or `err` on failure). This escape hatch never raises — branch on `result["ok"]`.
 
 **Parameters:**
 
@@ -101,11 +100,11 @@ Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
 | `fetchargs["headers"]` | `dict` | Request headers (merged with defaults). |
 | `fetchargs["body"]` | `any` | Request body (dicts are JSON-serialized). |
 
-**Returns:** `(result_dict, err)`
+**Returns:** `result_dict`
 
-#### `prepare(fetchargs=None) -> tuple`
+#### `prepare(fetchargs=None) -> dict`
 
-Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
+Prepare a fetch definition without sending. Returns the `fetchdef` and raises on error.
 
 
 ---
@@ -113,7 +112,7 @@ Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
 ## AddressEntity
 
 ```python
-address = client.Address()
+address = client.address
 ```
 
 ### Fields
@@ -129,12 +128,12 @@ address = client.Address()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Address().load({"id": "address_id"})
+result = client.address.load({"id": "address_id"})
 ```
 
 ### Common Methods
@@ -169,7 +168,7 @@ Return the entity name.
 ## BuildingCheckEntity
 
 ```python
-building_check = client.BuildingCheck()
+building_check = client.building_check
 ```
 
 ### Fields
@@ -183,12 +182,12 @@ building_check = client.BuildingCheck()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.BuildingCheck().list({})
+results = client.building_check.list({})
 ```
 
 ### Common Methods
@@ -223,17 +222,17 @@ Return the entity name.
 ## ExportEntity
 
 ```python
-export = client.Export()
+export = client.export
 ```
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Export().load({"id": "export_id"})
+result = client.export.load({"id": "export_id"})
 ```
 
 ### Common Methods
@@ -268,7 +267,7 @@ Return the entity name.
 ## HistoryEntity
 
 ```python
-history = client.History()
+history = client.history
 ```
 
 ### Fields
@@ -285,32 +284,32 @@ history = client.History()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.History().create({
+result = client.history.create({
     "latitude": # `$NUMBER`,
     "longitude": # `$NUMBER`,
     "timestamp": # `$STRING`,
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.History().list({})
+results = client.history.list({})
 ```
 
-#### `remove(reqmatch, ctrl=None) -> tuple`
+#### `remove(reqmatch, ctrl=None) -> dict`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result, err = client.History().remove({"id": "history_id"})
+result = client.history.remove({"id": "history_id"})
 ```
 
 ### Common Methods
@@ -345,7 +344,7 @@ Return the entity name.
 ## LocationEntity
 
 ```python
-location = client.Location()
+location = client.location
 ```
 
 ### Fields
@@ -360,12 +359,12 @@ location = client.Location()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Location().load({"id": "location_id"})
+result = client.location.load({"id": "location_id"})
 ```
 
 ### Common Methods
@@ -400,7 +399,7 @@ Return the entity name.
 ## MarkerEntity
 
 ```python
-marker = client.Marker()
+marker = client.marker
 ```
 
 ### Fields
@@ -416,31 +415,31 @@ marker = client.Marker()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.Marker().create({
+result = client.marker.create({
     "latitude": # `$NUMBER`,
     "longitude": # `$NUMBER`,
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Marker().list({})
+results = client.marker.list({})
 ```
 
-#### `remove(reqmatch, ctrl=None) -> tuple`
+#### `remove(reqmatch, ctrl=None) -> dict`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result, err = client.Marker().remove({"id": "marker_id"})
+result = client.marker.remove({"id": "marker_id"})
 ```
 
 ### Common Methods
@@ -475,7 +474,7 @@ Return the entity name.
 ## RepeatEntity
 
 ```python
-repeat = client.Repeat()
+repeat = client.repeat
 ```
 
 ### Fields
@@ -506,12 +505,12 @@ repeat = client.Repeat()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.Repeat().create({
+result = client.repeat.create({
     "count": # `$INTEGER`,
     "interval": # `$NUMBER`,
 })
@@ -549,7 +548,7 @@ Return the entity name.
 ## SearchEntity
 
 ```python
-search = client.Search()
+search = client.search
 ```
 
 ### Fields
@@ -564,12 +563,12 @@ search = client.Search()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Search().list({})
+results = client.search.list({})
 ```
 
 ### Common Methods
@@ -604,7 +603,7 @@ Return the entity name.
 ## ShareEntity
 
 ```python
-share = client.Share()
+share = client.share
 ```
 
 ### Fields
@@ -621,12 +620,12 @@ share = client.Share()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.Share().create({
+result = client.share.create({
     "latitude": # `$NUMBER`,
     "longitude": # `$NUMBER`,
     "share_link": # `$STRING`,

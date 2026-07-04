@@ -43,8 +43,7 @@ class RepeatEntityTest extends TestCase
         $repeat_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.repeat"), "repeat_ref01"));
 
-        [$repeat_ref01_data_result, $err] = $repeat_ref01_ent->create($repeat_ref01_data, null);
-        $this->assertNull($err);
+        $repeat_ref01_data_result = $repeat_ref01_ent->create($repeat_ref01_data, null);
         $repeat_ref01_data = Helpers::to_map($repeat_ref01_data_result);
         $this->assertNotNull($repeat_ref01_data);
 
@@ -80,7 +79,6 @@ function repeat_basic_setup($extra)
         "LOCATIONSHARING_TEST_REPEAT_ENTID" => $idmap,
         "LOCATIONSHARING_TEST_LIVE" => "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-        "LOCATIONSHARING_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -92,7 +90,6 @@ function repeat_basic_setup($extra)
     if ($env["LOCATIONSHARING_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["LOCATIONSHARING_APIKEY"],
             ],
             $extra ?? [],
         ]);

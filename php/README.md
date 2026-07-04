@@ -9,9 +9,10 @@ The PHP SDK for the LocationSharing API — an entity-oriented client using PHP 
 
 
 ## Install
-```bash
-composer require voxgig-sdk/location-sharing
-```
+This package is not yet published to Packagist. Install it from the
+GitHub release tag (`php/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/location-sharing-sdk/releases](https://github.com/voxgig-sdk/location-sharing-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -25,17 +26,18 @@ loading a specific record.
 <?php
 require_once 'locationsharing_sdk.php';
 
-$client = new LocationSharingSDK([
-    "apikey" => getenv("LOCATION-SHARING_APIKEY"),
-]);
+$client = new LocationSharingSDK();
 ```
 
-### 3. Load a address
+### 3. Load an address
 
 ```php
-[$result, $err] = $client->Address()->load(["id" => "example_id"]);
-if ($err) { throw new \Exception($err); }
-print_r($result);
+try {
+    $result = $client->address()->load(["id" => "example_id"]);
+    print_r($result);
+} catch (\Exception $err) {
+    echo "Error: " . $err->getMessage();
+}
 ```
 
 
@@ -46,28 +48,31 @@ print_r($result);
 For endpoints not covered by entity methods:
 
 ```php
-[$result, $err] = $client->direct([
+// direct() is the raw-HTTP escape hatch: it returns a result array
+// (it does not throw). Branch on $result["ok"].
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
+} else {
+    echo "Error: " . $result["err"]->getMessage();
 }
 ```
 
 ### Prepare a request without sending it
 
 ```php
-[$fetchdef, $err] = $client->prepare([
+// prepare() throws on error and returns the fetch definition.
+$fetchdef = $client->prepare([
     "path" => "/api/resource/{id}",
     "method" => "DELETE",
     "params" => ["id" => "example"],
 ]);
-if ($err) { throw new \Exception($err); }
 
 echo $fetchdef["url"];
 echo $fetchdef["method"];
@@ -81,7 +86,7 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = LocationSharingSDK::test();
 
-[$result, $err] = $client->LocationSharing()->load(["id" => "test01"]);
+$result = $client->address()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -115,8 +120,7 @@ $client = new LocationSharingSDK([
 Create a `.env.local` file at the project root:
 
 ```
-LOCATION-SHARING_TEST_LIVE=TRUE
-LOCATION-SHARING_APIKEY=<your-key>
+LOCATION_SHARING_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -139,7 +143,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -193,8 +196,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[$result, $err]`. The first value is an
-`array` with these keys:
+Entity operations return the bare result data (an `array` for single-entity
+ops, a `list` for `list`) and throw on error. Wrap calls in
+`try`/`catch` to handle failures.
+
+The `direct()` escape hatch never throws — it returns a result `array`
+you branch on via `$result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -343,7 +350,7 @@ API path: `/share`
 
 ### Address
 
-Create an instance: `const address = client.Address()`
+Create an instance: `const address = client.address`
 
 #### Operations
 
@@ -365,13 +372,13 @@ Create an instance: `const address = client.Address()`
 #### Example: Load
 
 ```ts
-const address = await client.Address().load({ id: 'address_id' })
+const address = await client.address.load({ id: 'address_id' })
 ```
 
 
 ### BuildingCheck
 
-Create an instance: `const building_check = client.BuildingCheck()`
+Create an instance: `const building_check = client.building_check`
 
 #### Operations
 
@@ -391,13 +398,13 @@ Create an instance: `const building_check = client.BuildingCheck()`
 #### Example: List
 
 ```ts
-const building_checks = await client.BuildingCheck().list()
+const building_checks = await client.building_check.list()
 ```
 
 
 ### Export
 
-Create an instance: `const export = client.Export()`
+Create an instance: `const export = client.export`
 
 #### Operations
 
@@ -408,13 +415,13 @@ Create an instance: `const export = client.Export()`
 #### Example: Load
 
 ```ts
-const export = await client.Export().load({ id: 'export_id' })
+const export = await client.export.load({ id: 'export_id' })
 ```
 
 
 ### History
 
-Create an instance: `const history = client.History()`
+Create an instance: `const history = client.history`
 
 #### Operations
 
@@ -439,13 +446,13 @@ Create an instance: `const history = client.History()`
 #### Example: List
 
 ```ts
-const historys = await client.History().list()
+const historys = await client.history.list()
 ```
 
 #### Example: Create
 
 ```ts
-const history = await client.History().create({
+const history = await client.history.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
   timestamp: /* `$STRING` */,
@@ -455,7 +462,7 @@ const history = await client.History().create({
 
 ### Location
 
-Create an instance: `const location = client.Location()`
+Create an instance: `const location = client.location`
 
 #### Operations
 
@@ -476,13 +483,13 @@ Create an instance: `const location = client.Location()`
 #### Example: Load
 
 ```ts
-const location = await client.Location().load({ id: 'location_id' })
+const location = await client.location.load({ id: 'location_id' })
 ```
 
 
 ### Marker
 
-Create an instance: `const marker = client.Marker()`
+Create an instance: `const marker = client.marker`
 
 #### Operations
 
@@ -506,13 +513,13 @@ Create an instance: `const marker = client.Marker()`
 #### Example: List
 
 ```ts
-const markers = await client.Marker().list()
+const markers = await client.marker.list()
 ```
 
 #### Example: Create
 
 ```ts
-const marker = await client.Marker().create({
+const marker = await client.marker.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
 })
@@ -521,7 +528,7 @@ const marker = await client.Marker().create({
 
 ### Repeat
 
-Create an instance: `const repeat = client.Repeat()`
+Create an instance: `const repeat = client.repeat`
 
 #### Operations
 
@@ -545,7 +552,7 @@ Create an instance: `const repeat = client.Repeat()`
 #### Example: Create
 
 ```ts
-const repeat = await client.Repeat().create({
+const repeat = await client.repeat.create({
   count: /* `$INTEGER` */,
   interval: /* `$NUMBER` */,
 })
@@ -554,7 +561,7 @@ const repeat = await client.Repeat().create({
 
 ### Search
 
-Create an instance: `const search = client.Search()`
+Create an instance: `const search = client.search`
 
 #### Operations
 
@@ -575,13 +582,13 @@ Create an instance: `const search = client.Search()`
 #### Example: List
 
 ```ts
-const searchs = await client.Search().list()
+const searchs = await client.search.list()
 ```
 
 
 ### Share
 
-Create an instance: `const share = client.Share()`
+Create an instance: `const share = client.share`
 
 #### Operations
 
@@ -604,7 +611,7 @@ Create an instance: `const share = client.Share()`
 #### Example: Create
 
 ```ts
-const share = await client.Share().create({
+const share = await client.share.create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
   share_link: /* `$STRING` */,
@@ -683,11 +690,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$moon = $client->Moon();
-[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+$address = $client->address();
+$address->load(["id" => "example_id"]);
 
-// $moon->dataGet() now returns the loaded moon data
-// $moon->matchGet() returns the last match criteria
+// $address->dataGet() now returns the loaded address data
+// $address->matchGet() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

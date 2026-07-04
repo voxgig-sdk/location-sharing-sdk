@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Location,
+  LocationLoadMatch,
+} from '../LocationSharingTypes'
 
 // TODO: needs Entity superclass
-class LocationEntity extends LocationSharingEntityBase {
+class LocationEntity extends LocationSharingEntityBase<Location> {
 
   constructor(client: LocationSharingSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class LocationEntity extends LocationSharingEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: LocationLoadMatch, ctrl?: Control): Promise<Location> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class LocationEntity extends LocationSharingEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Location> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

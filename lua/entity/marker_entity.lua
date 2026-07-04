@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch MarkerListMatch
+---@param ctrl? table
+---@return Marker[]
+---@return string? err
 function MarkerEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -103,6 +107,10 @@ end
 
 
 
+---@param reqdata MarkerCreateData
+---@param ctrl? table
+---@return Marker
+---@return string? err
 function MarkerEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -127,6 +135,10 @@ end
 
 
 
+---@param reqmatch MarkerRemoveMatch
+---@param ctrl? table
+---@return Marker
+---@return string? err
 function MarkerEntity:remove(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

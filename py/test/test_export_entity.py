@@ -49,8 +49,7 @@ class TestExportEntity:
         # LOAD
         export_ref01_ent = client.Export(None)
         export_ref01_match_dt0 = {}
-        export_ref01_data_dt0_loaded, err = export_ref01_ent.load(export_ref01_match_dt0, None)
-        assert err is None
+        export_ref01_data_dt0_loaded = export_ref01_ent.load(export_ref01_match_dt0, None)
         assert export_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _export_basic_setup(extra):
         "LOCATIONSHARING_TEST_EXPORT_ENTID": idmap,
         "LOCATIONSHARING_TEST_LIVE": "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN": "FALSE",
-        "LOCATIONSHARING_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _export_basic_setup(extra):
     if env.get("LOCATIONSHARING_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("LOCATIONSHARING_APIKEY"),
             },
             extra or {},
         ])

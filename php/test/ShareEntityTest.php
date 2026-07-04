@@ -43,8 +43,7 @@ class ShareEntityTest extends TestCase
         $share_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.share"), "share_ref01"));
 
-        [$share_ref01_data_result, $err] = $share_ref01_ent->create($share_ref01_data, null);
-        $this->assertNull($err);
+        $share_ref01_data_result = $share_ref01_ent->create($share_ref01_data, null);
         $share_ref01_data = Helpers::to_map($share_ref01_data_result);
         $this->assertNotNull($share_ref01_data);
 
@@ -80,7 +79,6 @@ function share_basic_setup($extra)
         "LOCATIONSHARING_TEST_SHARE_ENTID" => $idmap,
         "LOCATIONSHARING_TEST_LIVE" => "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-        "LOCATIONSHARING_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -92,7 +90,6 @@ function share_basic_setup($extra)
     if ($env["LOCATIONSHARING_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["LOCATIONSHARING_APIKEY"],
             ],
             $extra ?? [],
         ]);

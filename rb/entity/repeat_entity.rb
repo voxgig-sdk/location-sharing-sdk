@@ -45,6 +45,7 @@ class RepeatEntity
     end
   end
 
+  # @return [Repeat, Hash] the current Repeat data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class RepeatEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Repeat fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -67,6 +69,11 @@ class RepeatEntity
   
 
   
+  # Create a new Repeat.
+  #
+  # @param reqdata [RepeatCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Repeat, Hash] the created Repeat; raises LocationSharingError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

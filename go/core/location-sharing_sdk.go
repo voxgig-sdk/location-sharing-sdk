@@ -245,46 +245,73 @@ func (sdk *LocationSharingSDK) Direct(fetchargs map[string]any) (map[string]any,
 }
 
 
+// Address returns a Address entity bound to this client.
+// Idiomatic usage: client.Address(nil).List(nil, nil) or
+// client.Address(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) Address(data map[string]any) LocationSharingEntity {
 	return NewAddressEntityFunc(sdk, data)
 }
 
 
+// BuildingCheck returns a BuildingCheck entity bound to this client.
+// Idiomatic usage: client.BuildingCheck(nil).List(nil, nil) or
+// client.BuildingCheck(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) BuildingCheck(data map[string]any) LocationSharingEntity {
 	return NewBuildingCheckEntityFunc(sdk, data)
 }
 
 
+// Export returns a Export entity bound to this client.
+// Idiomatic usage: client.Export(nil).List(nil, nil) or
+// client.Export(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) Export(data map[string]any) LocationSharingEntity {
 	return NewExportEntityFunc(sdk, data)
 }
 
 
+// History returns a History entity bound to this client.
+// Idiomatic usage: client.History(nil).List(nil, nil) or
+// client.History(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) History(data map[string]any) LocationSharingEntity {
 	return NewHistoryEntityFunc(sdk, data)
 }
 
 
+// Location returns a Location entity bound to this client.
+// Idiomatic usage: client.Location(nil).List(nil, nil) or
+// client.Location(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) Location(data map[string]any) LocationSharingEntity {
 	return NewLocationEntityFunc(sdk, data)
 }
 
 
+// Marker returns a Marker entity bound to this client.
+// Idiomatic usage: client.Marker(nil).List(nil, nil) or
+// client.Marker(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) Marker(data map[string]any) LocationSharingEntity {
 	return NewMarkerEntityFunc(sdk, data)
 }
 
 
+// Repeat returns a Repeat entity bound to this client.
+// Idiomatic usage: client.Repeat(nil).List(nil, nil) or
+// client.Repeat(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) Repeat(data map[string]any) LocationSharingEntity {
 	return NewRepeatEntityFunc(sdk, data)
 }
 
 
+// Search returns a Search entity bound to this client.
+// Idiomatic usage: client.Search(nil).List(nil, nil) or
+// client.Search(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) Search(data map[string]any) LocationSharingEntity {
 	return NewSearchEntityFunc(sdk, data)
 }
 
 
+// Share returns a Share entity bound to this client.
+// Idiomatic usage: client.Share(nil).List(nil, nil) or
+// client.Share(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *LocationSharingSDK) Share(data map[string]any) LocationSharingEntity {
 	return NewShareEntityFunc(sdk, data)
 }

@@ -45,6 +45,7 @@ class HistoryEntity
     end
   end
 
+  # @return [History, Hash] the current History data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class HistoryEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of History fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class HistoryEntity
   
 
   
+  # List History items matching the given filter.
+  #
+  # @param reqmatch [HistoryListMatch, Hash, nil] match filter (any subset of History fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<History>, Array] the matching History items; raises LocationSharingError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -85,6 +92,11 @@ class HistoryEntity
 
 
   
+  # Create a new History.
+  #
+  # @param reqdata [HistoryCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [History, Hash] the created History; raises LocationSharingError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -109,6 +121,11 @@ class HistoryEntity
   
 
   
+  # Remove an History matching the given criteria.
+  #
+  # @param reqmatch [HistoryRemoveMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [History, Hash] the removed History; raises LocationSharingError on failure
   def remove(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

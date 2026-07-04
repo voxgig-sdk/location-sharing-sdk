@@ -83,6 +83,10 @@ end
 
 
 
+---@param reqdata ShareCreateData
+---@param ctrl? table
+---@return Share
+---@return string? err
 function ShareEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

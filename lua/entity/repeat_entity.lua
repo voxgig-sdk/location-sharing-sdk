@@ -83,6 +83,10 @@ end
 
 
 
+---@param reqdata RepeatCreateData
+---@param ctrl? table
+---@return Repeat
+---@return string? err
 function RepeatEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

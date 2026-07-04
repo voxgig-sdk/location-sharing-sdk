@@ -55,6 +55,9 @@ class MarkerEntity
         return new MarkerEntity($this->_client, $opts);
     }
 
+    /**
+     * @param Marker|array $args Marker data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class MarkerEntity
         }
     }
 
+    /**
+     * @return Marker|array The current Marker data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Marker fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class MarkerEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Marker fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -86,7 +98,16 @@ class MarkerEntity
     
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List Marker items matching the given filter.
+     *
+     * @param MarkerListMatch|array|null $reqmatch Match filter (any subset
+     *   of Marker fields) as an assoc-array; MarkerListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Marker[]|array A list of Marker items as assoc-arrays at
+     *   the SDK boundary; throws LocationSharingError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -109,7 +130,16 @@ class MarkerEntity
 
 
     
-    public function create($reqdata, $ctrl = null): array
+    /**
+     * Create a new Marker.
+     *
+     * @param MarkerCreateData|array|null $reqdata Body data as an assoc-array;
+     *   a typed MarkerCreateData names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Marker|array The created Marker as an assoc-array at the
+     *   SDK boundary; throws LocationSharingError on failure (item-5 convention).
+     */
+    public function create(?array $reqdata = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -134,7 +164,16 @@ class MarkerEntity
     
 
     
-    public function remove($reqmatch, $ctrl = null): array
+    /**
+     * Remove an Marker matching the given criteria.
+     *
+     * @param MarkerRemoveMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; MarkerRemoveMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Marker|array The removed Marker as an assoc-array at the
+     *   SDK boundary; throws LocationSharingError on failure (item-5 convention).
+     */
+    public function remove(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -159,7 +198,7 @@ class MarkerEntity
 
 
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

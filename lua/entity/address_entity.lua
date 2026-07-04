@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch AddressLoadMatch
+---@param ctrl? table
+---@return Address
+---@return string? err
 function AddressEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -36,8 +36,7 @@ class HistoryEntityTest < Minitest::Test
     history_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.history"), "history_ref01"))
 
-    history_ref01_data_result, err = history_ref01_ent.create(history_ref01_data, nil)
-    assert_nil err
+    history_ref01_data_result = history_ref01_ent.create(history_ref01_data, nil)
     history_ref01_data = Helpers.to_map(history_ref01_data_result)
     assert !history_ref01_data.nil?
     assert !history_ref01_data["id"].nil?
@@ -45,8 +44,7 @@ class HistoryEntityTest < Minitest::Test
     # LIST
     history_ref01_match = {}
 
-    history_ref01_list_result, err = history_ref01_ent.list(history_ref01_match, nil)
-    assert_nil err
+    history_ref01_list_result = history_ref01_ent.list(history_ref01_match, nil)
     assert history_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(
@@ -58,14 +56,12 @@ class HistoryEntityTest < Minitest::Test
     history_ref01_match_rm0 = {
       "id" => history_ref01_data["id"],
     }
-    _, err = history_ref01_ent.remove(history_ref01_match_rm0, nil)
-    assert_nil err
+    history_ref01_ent.remove(history_ref01_match_rm0, nil)
 
     # LIST
     history_ref01_match_rt0 = {}
 
-    history_ref01_list_rt0_result, err = history_ref01_ent.list(history_ref01_match_rt0, nil)
-    assert_nil err
+    history_ref01_list_rt0_result = history_ref01_ent.list(history_ref01_match_rt0, nil)
     assert history_ref01_list_rt0_result.is_a?(Array)
 
     not_found_item = Vs.select(
@@ -109,7 +105,6 @@ def history_basic_setup(extra)
     "LOCATIONSHARING_TEST_HISTORY_ENTID" => idmap,
     "LOCATIONSHARING_TEST_LIVE" => "FALSE",
     "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-    "LOCATIONSHARING_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -121,7 +116,6 @@ def history_basic_setup(extra)
   if env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["LOCATIONSHARING_APIKEY"],
       },
       extra || {},
     ])

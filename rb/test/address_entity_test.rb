@@ -42,8 +42,7 @@ class AddressEntityTest < Minitest::Test
     # LOAD
     address_ref01_ent = client.Address(nil)
     address_ref01_match_dt0 = {}
-    address_ref01_data_dt0_loaded, err = address_ref01_ent.load(address_ref01_match_dt0, nil)
-    assert_nil err
+    address_ref01_data_dt0_loaded = address_ref01_ent.load(address_ref01_match_dt0, nil)
     assert !address_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def address_basic_setup(extra)
     "LOCATIONSHARING_TEST_ADDRESS_ENTID" => idmap,
     "LOCATIONSHARING_TEST_LIVE" => "FALSE",
     "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
-    "LOCATIONSHARING_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def address_basic_setup(extra)
   if env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["LOCATIONSHARING_APIKEY"],
       },
       extra || {},
     ])

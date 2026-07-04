@@ -44,9 +44,7 @@ class TestShareEntity:
         share_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.share"), "share_ref01"))
 
-        share_ref01_data_result, err = share_ref01_ent.create(share_ref01_data, None)
-        assert err is None
-        share_ref01_data = helpers.to_map(share_ref01_data_result)
+        share_ref01_data = helpers.to_map(share_ref01_ent.create(share_ref01_data, None))
         assert share_ref01_data is not None
 
 
@@ -87,7 +85,6 @@ def _share_basic_setup(extra):
         "LOCATIONSHARING_TEST_SHARE_ENTID": idmap,
         "LOCATIONSHARING_TEST_LIVE": "FALSE",
         "LOCATIONSHARING_TEST_EXPLAIN": "FALSE",
-        "LOCATIONSHARING_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -98,7 +95,6 @@ def _share_basic_setup(extra):
     if env.get("LOCATIONSHARING_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("LOCATIONSHARING_APIKEY"),
             },
             extra or {},
         ])

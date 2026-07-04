@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch HistoryListMatch
+---@param ctrl? table
+---@return History[]
+---@return string? err
 function HistoryEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -103,6 +107,10 @@ end
 
 
 
+---@param reqdata HistoryCreateData
+---@param ctrl? table
+---@return History
+---@return string? err
 function HistoryEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -127,6 +135,10 @@ end
 
 
 
+---@param reqmatch HistoryRemoveMatch
+---@param ctrl? table
+---@return History
+---@return string? err
 function HistoryEntity:remove(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
