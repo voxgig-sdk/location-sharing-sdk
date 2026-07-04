@@ -75,7 +75,7 @@ main: kit: entity: address: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body.address`"
+            res: "`body`"
           }
         }
       ]

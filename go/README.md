@@ -30,36 +30,30 @@ go mod edit -replace github.com/voxgig-sdk/location-sharing-sdk/go=../location-s
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
 
 import (
     "fmt"
-
     sdk "github.com/voxgig-sdk/location-sharing-sdk/go"
-    "github.com/voxgig-sdk/location-sharing-sdk/go/core"
 )
 
 func main() {
     client := sdk.New()
-```
 
-### 3. Load an address
-
-```go
-    result, err = client.Address(nil).Load(
-        map[string]any{"id": "example_id"}, nil,
-    )
+    // Load a single address — the value is the loaded record.
+    address, err := client.Address(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
-
-    rm = core.ToMapAny(result)
-    if rm["ok"] == true {
-        fmt.Println(rm["data"])
-    }
+    fmt.Println(address)
 }
 ```
 
@@ -110,10 +104,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Address(nil).Load(
+address, err := client.Address(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(address) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -190,9 +187,9 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `Address` | `(data map[string]any) LocationSharingEntity` | Create a Address entity instance. |
+| `Address` | `(data map[string]any) LocationSharingEntity` | Create an Address entity instance. |
 | `BuildingCheck` | `(data map[string]any) LocationSharingEntity` | Create a BuildingCheck entity instance. |
-| `Export` | `(data map[string]any) LocationSharingEntity` | Create a Export entity instance. |
+| `Export` | `(data map[string]any) LocationSharingEntity` | Create an Export entity instance. |
 | `History` | `(data map[string]any) LocationSharingEntity` | Create a History entity instance. |
 | `Location` | `(data map[string]any) LocationSharingEntity` | Create a Location entity instance. |
 | `Marker` | `(data map[string]any) LocationSharingEntity` | Create a Marker entity instance. |
@@ -218,17 +215,24 @@ All entities implement the `LocationSharingEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    address, err := client.Address(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // address is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -390,7 +394,11 @@ Create an instance: `address := client.Address(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Address(nil).Load(map[string]any{"id": "address_id"}, nil)
+address, err := client.Address(nil).Load(map[string]any{"id": "address_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(address) // the loaded record
 ```
 
 
@@ -416,7 +424,11 @@ Create an instance: `building_check := client.BuildingCheck(nil)`
 #### Example: List
 
 ```go
-results, err := client.BuildingCheck(nil).List(nil, nil)
+building_checks, err := client.BuildingCheck(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(building_checks) // the array of records
 ```
 
 
@@ -433,7 +445,11 @@ Create an instance: `export := client.Export(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Export(nil).Load(map[string]any{"id": "export_id"}, nil)
+export, err := client.Export(nil).Load(map[string]any{"id": "export_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(export) // the loaded record
 ```
 
 
@@ -464,7 +480,11 @@ Create an instance: `history := client.History(nil)`
 #### Example: List
 
 ```go
-results, err := client.History(nil).List(nil, nil)
+historys, err := client.History(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(historys) // the array of records
 ```
 
 #### Example: Create
@@ -501,7 +521,11 @@ Create an instance: `location := client.Location(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Location(nil).Load(map[string]any{"id": "location_id"}, nil)
+location, err := client.Location(nil).Load(map[string]any{"id": "location_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(location) // the loaded record
 ```
 
 
@@ -531,7 +555,11 @@ Create an instance: `marker := client.Marker(nil)`
 #### Example: List
 
 ```go
-results, err := client.Marker(nil).List(nil, nil)
+markers, err := client.Marker(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(markers) // the array of records
 ```
 
 #### Example: Create
@@ -600,7 +628,11 @@ Create an instance: `search := client.Search(nil)`
 #### Example: List
 
 ```go
-results, err := client.Search(nil).List(nil, nil)
+searchs, err := client.Search(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(searchs) // the array of records
 ```
 
 

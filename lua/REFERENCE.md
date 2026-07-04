@@ -115,7 +115,7 @@ same parameters as `direct()`.
 ## AddressEntity
 
 ```lua
-local address = client:address(nil)
+local address = client:Address(nil)
 ```
 
 ### Fields
@@ -136,7 +136,7 @@ local address = client:address(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:address():load({ id = "address_id" })
+local result, err = client:Address():load({ id = "address_id" })
 ```
 
 ### Common Methods
@@ -172,7 +172,7 @@ Return the entity name.
 ## BuildingCheckEntity
 
 ```lua
-local building_check = client:building_check(nil)
+local building_check = client:BuildingCheck(nil)
 ```
 
 ### Fields
@@ -191,7 +191,7 @@ local building_check = client:building_check(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:building_check():list()
+local results, err = client:BuildingCheck():list()
 ```
 
 ### Common Methods
@@ -227,7 +227,7 @@ Return the entity name.
 ## ExportEntity
 
 ```lua
-local export = client:export(nil)
+local export = client:Export(nil)
 ```
 
 ### Operations
@@ -237,7 +237,7 @@ local export = client:export(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:export():load({ id = "export_id" })
+local result, err = client:Export():load({ id = "export_id" })
 ```
 
 ### Common Methods
@@ -273,7 +273,7 @@ Return the entity name.
 ## HistoryEntity
 
 ```lua
-local history = client:history(nil)
+local history = client:History(nil)
 ```
 
 ### Fields
@@ -295,7 +295,7 @@ local history = client:history(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:history():create({
+local result, err = client:History():create({
   latitude = --[[ `$NUMBER` ]],
   longitude = --[[ `$NUMBER` ]],
   timestamp = --[[ `$STRING` ]],
@@ -307,7 +307,7 @@ local result, err = client:history():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:history():list()
+local results, err = client:History():list()
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -315,7 +315,7 @@ local results, err = client:history():list()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:history():remove({ id = "history_id" })
+local result, err = client:History():remove({ id = "history_id" })
 ```
 
 ### Common Methods
@@ -351,7 +351,7 @@ Return the entity name.
 ## LocationEntity
 
 ```lua
-local location = client:location(nil)
+local location = client:Location(nil)
 ```
 
 ### Fields
@@ -371,7 +371,7 @@ local location = client:location(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:location():load({ id = "location_id" })
+local result, err = client:Location():load({ id = "location_id" })
 ```
 
 ### Common Methods
@@ -407,7 +407,7 @@ Return the entity name.
 ## MarkerEntity
 
 ```lua
-local marker = client:marker(nil)
+local marker = client:Marker(nil)
 ```
 
 ### Fields
@@ -428,7 +428,7 @@ local marker = client:marker(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:marker():create({
+local result, err = client:Marker():create({
   latitude = --[[ `$NUMBER` ]],
   longitude = --[[ `$NUMBER` ]],
 })
@@ -439,7 +439,7 @@ local result, err = client:marker():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:marker():list()
+local results, err = client:Marker():list()
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -447,7 +447,7 @@ local results, err = client:marker():list()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:marker():remove({ id = "marker_id" })
+local result, err = client:Marker():remove({ id = "marker_id" })
 ```
 
 ### Common Methods
@@ -483,7 +483,7 @@ Return the entity name.
 ## RepeatEntity
 
 ```lua
-local repeat = client:repeat(nil)
+local repeat = client:Repeat(nil)
 ```
 
 ### Fields
@@ -519,7 +519,7 @@ local repeat = client:repeat(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:repeat():create({
+local result, err = client:Repeat():create({
   count = --[[ `$INTEGER` ]],
   interval = --[[ `$NUMBER` ]],
 })
@@ -558,7 +558,7 @@ Return the entity name.
 ## SearchEntity
 
 ```lua
-local search = client:search(nil)
+local search = client:Search(nil)
 ```
 
 ### Fields
@@ -578,7 +578,7 @@ local search = client:search(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:search():list()
+local results, err = client:Search():list()
 ```
 
 ### Common Methods
@@ -614,7 +614,7 @@ Return the entity name.
 ## ShareEntity
 
 ```lua
-local share = client:share(nil)
+local share = client:Share(nil)
 ```
 
 ### Fields
@@ -636,7 +636,7 @@ local share = client:share(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:share():create({
+local result, err = client:Share():create({
   latitude = --[[ `$NUMBER` ]],
   longitude = --[[ `$NUMBER` ]],
   share_link = --[[ `$STRING` ]],

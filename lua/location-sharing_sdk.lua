@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:address():list() / client:address():load({ id = ... })
-function LocationSharingSDK:address(data)
+-- Idiomatic facade: client:Address():list() / client:Address():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:Address(data)
   local EntityMod = require("entity.address_entity")
   if data == nil then
     if self._address == nil then
@@ -256,15 +257,10 @@ function LocationSharingSDK:address(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:address() instead.
-function LocationSharingSDK:Address(data)
-  local EntityMod = require("entity.address_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:building_check():list() / client:building_check():load({ id = ... })
-function LocationSharingSDK:building_check(data)
+-- Idiomatic facade: client:BuildingCheck():list() / client:BuildingCheck():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:BuildingCheck(data)
   local EntityMod = require("entity.building_check_entity")
   if data == nil then
     if self._building_check == nil then
@@ -275,15 +271,10 @@ function LocationSharingSDK:building_check(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:building_check() instead.
-function LocationSharingSDK:BuildingCheck(data)
-  local EntityMod = require("entity.building_check_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:export():list() / client:export():load({ id = ... })
-function LocationSharingSDK:export(data)
+-- Idiomatic facade: client:Export():list() / client:Export():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:Export(data)
   local EntityMod = require("entity.export_entity")
   if data == nil then
     if self._export == nil then
@@ -294,15 +285,10 @@ function LocationSharingSDK:export(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:export() instead.
-function LocationSharingSDK:Export(data)
-  local EntityMod = require("entity.export_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:history():list() / client:history():load({ id = ... })
-function LocationSharingSDK:history(data)
+-- Idiomatic facade: client:History():list() / client:History():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:History(data)
   local EntityMod = require("entity.history_entity")
   if data == nil then
     if self._history == nil then
@@ -313,15 +299,10 @@ function LocationSharingSDK:history(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:history() instead.
-function LocationSharingSDK:History(data)
-  local EntityMod = require("entity.history_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:location():list() / client:location():load({ id = ... })
-function LocationSharingSDK:location(data)
+-- Idiomatic facade: client:Location():list() / client:Location():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:Location(data)
   local EntityMod = require("entity.location_entity")
   if data == nil then
     if self._location == nil then
@@ -332,15 +313,10 @@ function LocationSharingSDK:location(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:location() instead.
-function LocationSharingSDK:Location(data)
-  local EntityMod = require("entity.location_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:marker():list() / client:marker():load({ id = ... })
-function LocationSharingSDK:marker(data)
+-- Idiomatic facade: client:Marker():list() / client:Marker():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:Marker(data)
   local EntityMod = require("entity.marker_entity")
   if data == nil then
     if self._marker == nil then
@@ -351,15 +327,10 @@ function LocationSharingSDK:marker(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:marker() instead.
-function LocationSharingSDK:Marker(data)
-  local EntityMod = require("entity.marker_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:repeat():list() / client:repeat():load({ id = ... })
-function LocationSharingSDK:repeat(data)
+-- Idiomatic facade: client:Repeat():list() / client:Repeat():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:Repeat(data)
   local EntityMod = require("entity.repeat_entity")
   if data == nil then
     if self._repeat == nil then
@@ -370,15 +341,10 @@ function LocationSharingSDK:repeat(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:repeat() instead.
-function LocationSharingSDK:Repeat(data)
-  local EntityMod = require("entity.repeat_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:search():list() / client:search():load({ id = ... })
-function LocationSharingSDK:search(data)
+-- Idiomatic facade: client:Search():list() / client:Search():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:Search(data)
   local EntityMod = require("entity.search_entity")
   if data == nil then
     if self._search == nil then
@@ -389,15 +355,10 @@ function LocationSharingSDK:search(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:search() instead.
-function LocationSharingSDK:Search(data)
-  local EntityMod = require("entity.search_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:share():list() / client:share():load({ id = ... })
-function LocationSharingSDK:share(data)
+-- Idiomatic facade: client:Share():list() / client:Share():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function LocationSharingSDK:Share(data)
   local EntityMod = require("entity.share_entity")
   if data == nil then
     if self._share == nil then
@@ -405,12 +366,6 @@ function LocationSharingSDK:share(data)
     end
     return self._share
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:share() instead.
-function LocationSharingSDK:Share(data)
-  local EntityMod = require("entity.share_entity")
   return EntityMod.new(self, data)
 end
 

@@ -118,7 +118,7 @@ def make_config():
                 },
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body.address`",
+                  "res": "`body`",
                 },
                 "index$": 0,
               },

@@ -117,7 +117,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## AddressEntity
 
 ```php
-$address = $client->address();
+$address = $client->Address();
 ```
 
 ### Fields
@@ -138,7 +138,7 @@ $address = $client->address();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->address()->load(["id" => "address_id"]);
+$result = $client->Address()->load(["id" => "address_id"]);
 ```
 
 ### Common Methods
@@ -174,7 +174,7 @@ Return the entity name.
 ## BuildingCheckEntity
 
 ```php
-$building_check = $client->building_check();
+$building_check = $client->BuildingCheck();
 ```
 
 ### Fields
@@ -193,7 +193,7 @@ $building_check = $client->building_check();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->building_check()->list([]);
+$results = $client->BuildingCheck()->list([]);
 ```
 
 ### Common Methods
@@ -229,7 +229,7 @@ Return the entity name.
 ## ExportEntity
 
 ```php
-$export = $client->export();
+$export = $client->Export();
 ```
 
 ### Operations
@@ -239,7 +239,7 @@ $export = $client->export();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->export()->load(["id" => "export_id"]);
+$result = $client->Export()->load(["id" => "export_id"]);
 ```
 
 ### Common Methods
@@ -275,7 +275,7 @@ Return the entity name.
 ## HistoryEntity
 
 ```php
-$history = $client->history();
+$history = $client->History();
 ```
 
 ### Fields
@@ -297,7 +297,7 @@ $history = $client->history();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->history()->create([
+$result = $client->History()->create([
   "latitude" => /* `$NUMBER` */,
   "longitude" => /* `$NUMBER` */,
   "timestamp" => /* `$STRING` */,
@@ -309,7 +309,7 @@ $result = $client->history()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->history()->list([]);
+$results = $client->History()->list([]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -317,7 +317,7 @@ $results = $client->history()->list([]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->history()->remove(["id" => "history_id"]);
+$result = $client->History()->remove(["id" => "history_id"]);
 ```
 
 ### Common Methods
@@ -353,7 +353,7 @@ Return the entity name.
 ## LocationEntity
 
 ```php
-$location = $client->location();
+$location = $client->Location();
 ```
 
 ### Fields
@@ -373,7 +373,7 @@ $location = $client->location();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->location()->load(["id" => "location_id"]);
+$result = $client->Location()->load(["id" => "location_id"]);
 ```
 
 ### Common Methods
@@ -409,7 +409,7 @@ Return the entity name.
 ## MarkerEntity
 
 ```php
-$marker = $client->marker();
+$marker = $client->Marker();
 ```
 
 ### Fields
@@ -430,7 +430,7 @@ $marker = $client->marker();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->marker()->create([
+$result = $client->Marker()->create([
   "latitude" => /* `$NUMBER` */,
   "longitude" => /* `$NUMBER` */,
 ]);
@@ -441,7 +441,7 @@ $result = $client->marker()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->marker()->list([]);
+$results = $client->Marker()->list([]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -449,7 +449,7 @@ $results = $client->marker()->list([]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->marker()->remove(["id" => "marker_id"]);
+$result = $client->Marker()->remove(["id" => "marker_id"]);
 ```
 
 ### Common Methods
@@ -485,7 +485,7 @@ Return the entity name.
 ## RepeatEntity
 
 ```php
-$repeat = $client->repeat();
+$repeat = $client->Repeat();
 ```
 
 ### Fields
@@ -521,7 +521,7 @@ $repeat = $client->repeat();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->repeat()->create([
+$result = $client->Repeat()->create([
   "count" => /* `$INTEGER` */,
   "interval" => /* `$NUMBER` */,
 ]);
@@ -560,7 +560,7 @@ Return the entity name.
 ## SearchEntity
 
 ```php
-$search = $client->search();
+$search = $client->Search();
 ```
 
 ### Fields
@@ -580,7 +580,7 @@ $search = $client->search();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->search()->list([]);
+$results = $client->Search()->list([]);
 ```
 
 ### Common Methods
@@ -616,7 +616,7 @@ Return the entity name.
 ## ShareEntity
 
 ```php
-$share = $client->share();
+$share = $client->Share();
 ```
 
 ### Fields
@@ -638,7 +638,7 @@ $share = $client->share();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->share()->create([
+$result = $client->Share()->create([
   "latitude" => /* `$NUMBER` */,
   "longitude" => /* `$NUMBER` */,
   "share_link" => /* `$STRING` */,

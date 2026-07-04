@@ -233,10 +233,10 @@ class LocationSharingSDK
 
     private $_address = null;
 
-    // Idiomatic facade: $client->address()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Address() (PHP method
-    // names are case-insensitive).
-    public function address($data = null)
+    // Canonical facade: $client->Address()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->address()
+    // resolves here too.
+    public function Address($data = null)
     {
         require_once __DIR__ . '/entity/address_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class LocationSharingSDK
 
     private $_building_check = null;
 
-    // Idiomatic facade: $client->building_check()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias BuildingCheck() (PHP method
-    // names are case-insensitive).
-    public function building_check($data = null)
+    // Canonical facade: $client->BuildingCheck()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->building_check()
+    // resolves here too.
+    public function BuildingCheck($data = null)
     {
         require_once __DIR__ . '/entity/building_check_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class LocationSharingSDK
 
     private $_export = null;
 
-    // Idiomatic facade: $client->export()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Export() (PHP method
-    // names are case-insensitive).
-    public function export($data = null)
+    // Canonical facade: $client->Export()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->export()
+    // resolves here too.
+    public function Export($data = null)
     {
         require_once __DIR__ . '/entity/export_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class LocationSharingSDK
 
     private $_history = null;
 
-    // Idiomatic facade: $client->history()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias History() (PHP method
-    // names are case-insensitive).
-    public function history($data = null)
+    // Canonical facade: $client->History()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->history()
+    // resolves here too.
+    public function History($data = null)
     {
         require_once __DIR__ . '/entity/history_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class LocationSharingSDK
 
     private $_location = null;
 
-    // Idiomatic facade: $client->location()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Location() (PHP method
-    // names are case-insensitive).
-    public function location($data = null)
+    // Canonical facade: $client->Location()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->location()
+    // resolves here too.
+    public function Location($data = null)
     {
         require_once __DIR__ . '/entity/location_entity.php';
         if ($data === null) {
@@ -323,10 +323,10 @@ class LocationSharingSDK
 
     private $_marker = null;
 
-    // Idiomatic facade: $client->marker()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Marker() (PHP method
-    // names are case-insensitive).
-    public function marker($data = null)
+    // Canonical facade: $client->Marker()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->marker()
+    // resolves here too.
+    public function Marker($data = null)
     {
         require_once __DIR__ . '/entity/marker_entity.php';
         if ($data === null) {
@@ -341,10 +341,10 @@ class LocationSharingSDK
 
     private $_repeat = null;
 
-    // Idiomatic facade: $client->repeat()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Repeat() (PHP method
-    // names are case-insensitive).
-    public function repeat($data = null)
+    // Canonical facade: $client->Repeat()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->repeat()
+    // resolves here too.
+    public function Repeat($data = null)
     {
         require_once __DIR__ . '/entity/repeat_entity.php';
         if ($data === null) {
@@ -359,10 +359,10 @@ class LocationSharingSDK
 
     private $_search = null;
 
-    // Idiomatic facade: $client->search()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Search() (PHP method
-    // names are case-insensitive).
-    public function search($data = null)
+    // Canonical facade: $client->Search()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->search()
+    // resolves here too.
+    public function Search($data = null)
     {
         require_once __DIR__ . '/entity/search_entity.php';
         if ($data === null) {
@@ -377,10 +377,10 @@ class LocationSharingSDK
 
     private $_share = null;
 
-    // Idiomatic facade: $client->share()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Share() (PHP method
-    // names are case-insensitive).
-    public function share($data = null)
+    // Canonical facade: $client->Share()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->share()
+    // resolves here too.
+    public function Share($data = null)
     {
         require_once __DIR__ . '/entity/share_entity.php';
         if ($data === null) {

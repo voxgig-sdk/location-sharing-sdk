@@ -34,9 +34,9 @@ local client = sdk.new()
 ### 3. Load an address
 
 ```lua
-local result, err = client:address():load({ id = "example_id" })
+local address, err = client:Address():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(address)
 ```
 
 
@@ -82,8 +82,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:address():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Address():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -161,9 +161,9 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
-| `Address` | `(data) -> AddressEntity` | Create a Address entity instance. |
+| `Address` | `(data) -> AddressEntity` | Create an Address entity instance. |
 | `BuildingCheck` | `(data) -> BuildingCheckEntity` | Create a BuildingCheck entity instance. |
-| `Export` | `(data) -> ExportEntity` | Create a Export entity instance. |
+| `Export` | `(data) -> ExportEntity` | Create an Export entity instance. |
 | `History` | `(data) -> HistoryEntity` | Create a History entity instance. |
 | `Location` | `(data) -> LocationEntity` | Create a Location entity instance. |
 | `Marker` | `(data) -> MarkerEntity` | Create a Marker entity instance. |
@@ -191,17 +191,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local address, err = client:Address():load({ id = "example_id" })
+    if err then error(err) end
+    -- address is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -341,7 +346,7 @@ API path: `/share`
 
 ### Address
 
-Create an instance: `const address = client.address`
+Create an instance: `local address = client:Address(nil)`
 
 #### Operations
 
@@ -362,14 +367,14 @@ Create an instance: `const address = client.address`
 
 #### Example: Load
 
-```ts
-const address = await client.address.load({ id: 'address_id' })
+```lua
+local address, err = client:Address():load({ id = "address_id" })
 ```
 
 
 ### BuildingCheck
 
-Create an instance: `const building_check = client.building_check`
+Create an instance: `local building_check = client:BuildingCheck(nil)`
 
 #### Operations
 
@@ -388,14 +393,14 @@ Create an instance: `const building_check = client.building_check`
 
 #### Example: List
 
-```ts
-const building_checks = await client.building_check.list()
+```lua
+local building_checks, err = client:BuildingCheck():list()
 ```
 
 
 ### Export
 
-Create an instance: `const export = client.export`
+Create an instance: `local export = client:Export(nil)`
 
 #### Operations
 
@@ -405,14 +410,14 @@ Create an instance: `const export = client.export`
 
 #### Example: Load
 
-```ts
-const export = await client.export.load({ id: 'export_id' })
+```lua
+local export, err = client:Export():load({ id = "export_id" })
 ```
 
 
 ### History
 
-Create an instance: `const history = client.history`
+Create an instance: `local history = client:History(nil)`
 
 #### Operations
 
@@ -436,24 +441,24 @@ Create an instance: `const history = client.history`
 
 #### Example: List
 
-```ts
-const historys = await client.history.list()
+```lua
+local historys, err = client:History():list()
 ```
 
 #### Example: Create
 
-```ts
-const history = await client.history.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  timestamp: /* `$STRING` */,
+```lua
+local history, err = client:History():create({
+  latitude = nil, -- `$NUMBER`
+  longitude = nil, -- `$NUMBER`
+  timestamp = nil, -- `$STRING`
 })
 ```
 
 
 ### Location
 
-Create an instance: `const location = client.location`
+Create an instance: `local location = client:Location(nil)`
 
 #### Operations
 
@@ -473,14 +478,14 @@ Create an instance: `const location = client.location`
 
 #### Example: Load
 
-```ts
-const location = await client.location.load({ id: 'location_id' })
+```lua
+local location, err = client:Location():load({ id = "location_id" })
 ```
 
 
 ### Marker
 
-Create an instance: `const marker = client.marker`
+Create an instance: `local marker = client:Marker(nil)`
 
 #### Operations
 
@@ -503,23 +508,23 @@ Create an instance: `const marker = client.marker`
 
 #### Example: List
 
-```ts
-const markers = await client.marker.list()
+```lua
+local markers, err = client:Marker():list()
 ```
 
 #### Example: Create
 
-```ts
-const marker = await client.marker.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
+```lua
+local marker, err = client:Marker():create({
+  latitude = nil, -- `$NUMBER`
+  longitude = nil, -- `$NUMBER`
 })
 ```
 
 
 ### Repeat
 
-Create an instance: `const repeat = client.repeat`
+Create an instance: `local repeat = client:Repeat(nil)`
 
 #### Operations
 
@@ -542,17 +547,17 @@ Create an instance: `const repeat = client.repeat`
 
 #### Example: Create
 
-```ts
-const repeat = await client.repeat.create({
-  count: /* `$INTEGER` */,
-  interval: /* `$NUMBER` */,
+```lua
+local repeat, err = client:Repeat():create({
+  count = nil, -- `$INTEGER`
+  interval = nil, -- `$NUMBER`
 })
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `local search = client:Search(nil)`
 
 #### Operations
 
@@ -572,14 +577,14 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```lua
+local searchs, err = client:Search():list()
 ```
 
 
 ### Share
 
-Create an instance: `const share = client.share`
+Create an instance: `local share = client:Share(nil)`
 
 #### Operations
 
@@ -601,11 +606,11 @@ Create an instance: `const share = client.share`
 
 #### Example: Create
 
-```ts
-const share = await client.share.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  share_link: /* `$STRING` */,
+```lua
+local share, err = client:Share():create({
+  latitude = nil, -- `$NUMBER`
+  longitude = nil, -- `$NUMBER`
+  share_link = nil, -- `$STRING`
 })
 ```
 
@@ -681,7 +686,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local address = client:address()
+local address = client:Address()
 address:load({ id = "example_id" })
 
 -- address:data_get() now returns the loaded address data

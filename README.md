@@ -26,9 +26,9 @@ import { LocationSharingSDK } from '@voxgig-sdk/location-sharing'
 
 const client = new LocationSharingSDK()
 
-// Load address data
-const address = await client.address.load({})
-console.log(address.data)
+// Load address data (returns a Address)
+const address = await client.Address().load()
+console.log(address)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -92,8 +92,8 @@ from locationsharing_sdk import LocationSharingSDK
 client = LocationSharingSDK()
 
 
-# Load a specific address
-address = client.address.load({"id": "example_id"})
+# Load a specific address (returns the record, raises on error)
+address = client.Address().load({"id": "example_id"})
 print(address)
 ```
 
@@ -106,8 +106,8 @@ require_once 'locationsharing_sdk.php';
 $client = new LocationSharingSDK();
 
 
-// Load a specific address
-$address = $client->address()->load(["id" => "example_id"]);
+// Load a specific address (returns the bare record; throws on error)
+$address = $client->Address()->load(["id" => "example_id"]);
 print_r($address);
 ```
 
@@ -131,8 +131,8 @@ require_relative "LocationSharing_sdk"
 client = LocationSharingSDK.new
 
 
-# Load a specific address
-address = client.address.load({ "id" => "example_id" })
+# Load a specific address (returns the bare record; raises on error)
+address = client.Address.load({ "id" => "example_id" })
 puts address
 ```
 
@@ -145,7 +145,7 @@ local client = sdk.new()
 
 
 -- Load a specific address
-local address, err = client:address():load({ id = "example_id" })
+local address, err = client:Address():load({ id = "example_id" })
 print(address)
 ```
 
@@ -158,22 +158,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = LocationSharingSDK.test()
-const result = await client.address.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const address = await client.Address().load({ id: 'test01' })
+// address is a bare Address populated with mock data
+console.log(address)
 ```
 
 ### Python
 
 ```python
 client = LocationSharingSDK.test()
-result = client.address.load({"id": "test01"})
+address = client.Address().load({"id": "test01"})
+print(address)
 ```
 
 ### PHP
 
 ```php
-$client = LocationSharingSDK::test();
-$result = $client->address()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = LocationSharingSDK::test([
+    "entity" => ["address" => ["test01" => ["id" => "test01"]]],
+]);
+$address = $client->Address()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -188,15 +193,18 @@ result, err := client.Address(nil).Load(
 ### Ruby
 
 ```ruby
-client = LocationSharingSDK.test
-result = client.address.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = LocationSharingSDK.test({
+  "entity" => { "address" => { "test01" => { "id" => "test01" } } },
+})
+address = client.Address.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:address():load({ id = "test01" })
+local result, err = client:Address():load({ id = "test01" })
 ```
 
 ## How it works
@@ -244,6 +252,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

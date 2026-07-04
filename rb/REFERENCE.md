@@ -118,7 +118,7 @@ same parameters as `direct()`. Raises on error.
 ## AddressEntity
 
 ```ruby
-address = client.address
+address = client.Address
 ```
 
 ### Fields
@@ -139,7 +139,7 @@ address = client.address
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.address.load({ "id" => "address_id" })
+result = client.Address.load({ "id" => "address_id" })
 ```
 
 ### Common Methods
@@ -175,7 +175,7 @@ Return the entity name.
 ## BuildingCheckEntity
 
 ```ruby
-building_check = client.building_check
+building_check = client.BuildingCheck
 ```
 
 ### Fields
@@ -194,7 +194,7 @@ building_check = client.building_check
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.building_check.list(nil)
+results = client.BuildingCheck.list(nil)
 ```
 
 ### Common Methods
@@ -230,7 +230,7 @@ Return the entity name.
 ## ExportEntity
 
 ```ruby
-export = client.export
+export = client.Export
 ```
 
 ### Operations
@@ -240,7 +240,7 @@ export = client.export
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.export.load({ "id" => "export_id" })
+result = client.Export.load({ "id" => "export_id" })
 ```
 
 ### Common Methods
@@ -276,7 +276,7 @@ Return the entity name.
 ## HistoryEntity
 
 ```ruby
-history = client.history
+history = client.History
 ```
 
 ### Fields
@@ -298,7 +298,7 @@ history = client.history
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.history.create({
+result = client.History.create({
   "latitude" => # `$NUMBER`,
   "longitude" => # `$NUMBER`,
   "timestamp" => # `$STRING`,
@@ -310,7 +310,7 @@ result = client.history.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.history.list(nil)
+results = client.History.list(nil)
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -318,7 +318,7 @@ results = client.history.list(nil)
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.history.remove({ "id" => "history_id" })
+result = client.History.remove({ "id" => "history_id" })
 ```
 
 ### Common Methods
@@ -354,7 +354,7 @@ Return the entity name.
 ## LocationEntity
 
 ```ruby
-location = client.location
+location = client.Location
 ```
 
 ### Fields
@@ -374,7 +374,7 @@ location = client.location
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.location.load({ "id" => "location_id" })
+result = client.Location.load({ "id" => "location_id" })
 ```
 
 ### Common Methods
@@ -410,7 +410,7 @@ Return the entity name.
 ## MarkerEntity
 
 ```ruby
-marker = client.marker
+marker = client.Marker
 ```
 
 ### Fields
@@ -431,7 +431,7 @@ marker = client.marker
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.marker.create({
+result = client.Marker.create({
   "latitude" => # `$NUMBER`,
   "longitude" => # `$NUMBER`,
 })
@@ -442,7 +442,7 @@ result = client.marker.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.marker.list(nil)
+results = client.Marker.list(nil)
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -450,7 +450,7 @@ results = client.marker.list(nil)
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.marker.remove({ "id" => "marker_id" })
+result = client.Marker.remove({ "id" => "marker_id" })
 ```
 
 ### Common Methods
@@ -486,7 +486,7 @@ Return the entity name.
 ## RepeatEntity
 
 ```ruby
-repeat = client.repeat
+repeat = client.Repeat
 ```
 
 ### Fields
@@ -522,7 +522,7 @@ repeat = client.repeat
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.repeat.create({
+result = client.Repeat.create({
   "count" => # `$INTEGER`,
   "interval" => # `$NUMBER`,
 })
@@ -561,7 +561,7 @@ Return the entity name.
 ## SearchEntity
 
 ```ruby
-search = client.search
+search = client.Search
 ```
 
 ### Fields
@@ -581,7 +581,7 @@ search = client.search
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.search.list(nil)
+results = client.Search.list(nil)
 ```
 
 ### Common Methods
@@ -617,7 +617,7 @@ Return the entity name.
 ## ShareEntity
 
 ```ruby
-share = client.share
+share = client.Share
 ```
 
 ### Fields
@@ -639,7 +639,7 @@ share = client.share
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.share.create({
+result = client.Share.create({
   "latitude" => # `$NUMBER`,
   "longitude" => # `$NUMBER`,
   "share_link" => # `$STRING`,

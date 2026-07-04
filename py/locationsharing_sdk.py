@@ -220,153 +220,63 @@ class LocationSharingSDK:
         }
 
 
-    @property
-    def address(self):
-        """Idiomatic facade: client.address.list() / client.address.load({"id": ...})."""
-        from entity.address_entity import AddressEntity
-        cached = getattr(self, "_address", None)
-        if cached is None:
-            cached = AddressEntity(self, None)
-            self._address = cached
-        return cached
-
-    def Address(self, data=None):
-        # Deprecated: use client.address instead.
+    def Address(self, data=None) -> "AddressEntity":
+        """Entity factory: client.Address().list({}) / client.Address().load({"id": ...})."""
         from entity.address_entity import AddressEntity
         return AddressEntity(self, data)
 
 
-    @property
-    def building_check(self):
-        """Idiomatic facade: client.building_check.list() / client.building_check.load({"id": ...})."""
-        from entity.building_check_entity import BuildingCheckEntity
-        cached = getattr(self, "_building_check", None)
-        if cached is None:
-            cached = BuildingCheckEntity(self, None)
-            self._building_check = cached
-        return cached
-
-    def BuildingCheck(self, data=None):
-        # Deprecated: use client.building_check instead.
+    def BuildingCheck(self, data=None) -> "BuildingCheckEntity":
+        """Entity factory: client.BuildingCheck().list({}) / client.BuildingCheck().load({"id": ...})."""
         from entity.building_check_entity import BuildingCheckEntity
         return BuildingCheckEntity(self, data)
 
 
-    @property
-    def export(self):
-        """Idiomatic facade: client.export.list() / client.export.load({"id": ...})."""
-        from entity.export_entity import ExportEntity
-        cached = getattr(self, "_export", None)
-        if cached is None:
-            cached = ExportEntity(self, None)
-            self._export = cached
-        return cached
-
-    def Export(self, data=None):
-        # Deprecated: use client.export instead.
+    def Export(self, data=None) -> "ExportEntity":
+        """Entity factory: client.Export().list({}) / client.Export().load({"id": ...})."""
         from entity.export_entity import ExportEntity
         return ExportEntity(self, data)
 
 
-    @property
-    def history(self):
-        """Idiomatic facade: client.history.list() / client.history.load({"id": ...})."""
-        from entity.history_entity import HistoryEntity
-        cached = getattr(self, "_history", None)
-        if cached is None:
-            cached = HistoryEntity(self, None)
-            self._history = cached
-        return cached
-
-    def History(self, data=None):
-        # Deprecated: use client.history instead.
+    def History(self, data=None) -> "HistoryEntity":
+        """Entity factory: client.History().list({}) / client.History().load({"id": ...})."""
         from entity.history_entity import HistoryEntity
         return HistoryEntity(self, data)
 
 
-    @property
-    def location(self):
-        """Idiomatic facade: client.location.list() / client.location.load({"id": ...})."""
-        from entity.location_entity import LocationEntity
-        cached = getattr(self, "_location", None)
-        if cached is None:
-            cached = LocationEntity(self, None)
-            self._location = cached
-        return cached
-
-    def Location(self, data=None):
-        # Deprecated: use client.location instead.
+    def Location(self, data=None) -> "LocationEntity":
+        """Entity factory: client.Location().list({}) / client.Location().load({"id": ...})."""
         from entity.location_entity import LocationEntity
         return LocationEntity(self, data)
 
 
-    @property
-    def marker(self):
-        """Idiomatic facade: client.marker.list() / client.marker.load({"id": ...})."""
-        from entity.marker_entity import MarkerEntity
-        cached = getattr(self, "_marker", None)
-        if cached is None:
-            cached = MarkerEntity(self, None)
-            self._marker = cached
-        return cached
-
-    def Marker(self, data=None):
-        # Deprecated: use client.marker instead.
+    def Marker(self, data=None) -> "MarkerEntity":
+        """Entity factory: client.Marker().list({}) / client.Marker().load({"id": ...})."""
         from entity.marker_entity import MarkerEntity
         return MarkerEntity(self, data)
 
 
-    @property
-    def repeat(self):
-        """Idiomatic facade: client.repeat.list() / client.repeat.load({"id": ...})."""
-        from entity.repeat_entity import RepeatEntity
-        cached = getattr(self, "_repeat", None)
-        if cached is None:
-            cached = RepeatEntity(self, None)
-            self._repeat = cached
-        return cached
-
-    def Repeat(self, data=None):
-        # Deprecated: use client.repeat instead.
+    def Repeat(self, data=None) -> "RepeatEntity":
+        """Entity factory: client.Repeat().list({}) / client.Repeat().load({"id": ...})."""
         from entity.repeat_entity import RepeatEntity
         return RepeatEntity(self, data)
 
 
-    @property
-    def search(self):
-        """Idiomatic facade: client.search.list() / client.search.load({"id": ...})."""
-        from entity.search_entity import SearchEntity
-        cached = getattr(self, "_search", None)
-        if cached is None:
-            cached = SearchEntity(self, None)
-            self._search = cached
-        return cached
-
-    def Search(self, data=None):
-        # Deprecated: use client.search instead.
+    def Search(self, data=None) -> "SearchEntity":
+        """Entity factory: client.Search().list({}) / client.Search().load({"id": ...})."""
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 
 
-    @property
-    def share(self):
-        """Idiomatic facade: client.share.list() / client.share.load({"id": ...})."""
-        from entity.share_entity import ShareEntity
-        cached = getattr(self, "_share", None)
-        if cached is None:
-            cached = ShareEntity(self, None)
-            self._share = cached
-        return cached
-
-    def Share(self, data=None):
-        # Deprecated: use client.share instead.
+    def Share(self, data=None) -> "ShareEntity":
+        """Entity factory: client.Share().list({}) / client.Share().load({"id": ...})."""
         from entity.share_entity import ShareEntity
         return ShareEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "LocationSharingSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -386,3 +296,17 @@ class LocationSharingSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.address_entity import AddressEntity
+    from entity.building_check_entity import BuildingCheckEntity
+    from entity.export_entity import ExportEntity
+    from entity.history_entity import HistoryEntity
+    from entity.location_entity import LocationEntity
+    from entity.marker_entity import MarkerEntity
+    from entity.repeat_entity import RepeatEntity
+    from entity.search_entity import SearchEntity
+    from entity.share_entity import ShareEntity

@@ -4,221 +4,224 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Address:
+class AddressRequired(TypedDict):
     address: str
-    city: Optional[str] = None
-    country: Optional[str] = None
-    postal_code: Optional[str] = None
-    state: Optional[str] = None
-    street: Optional[str] = None
 
 
-@dataclass
-class AddressLoadMatch:
-    address: Optional[str] = None
-    city: Optional[str] = None
-    country: Optional[str] = None
-    postal_code: Optional[str] = None
-    state: Optional[str] = None
-    street: Optional[str] = None
+class Address(AddressRequired, total=False):
+    city: str
+    country: str
+    postal_code: str
+    state: str
+    street: str
 
 
-@dataclass
-class BuildingCheck:
-    distance: Optional[float] = None
-    highlighted: Optional[bool] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
+class AddressLoadMatch(TypedDict, total=False):
+    address: str
+    city: str
+    country: str
+    postal_code: str
+    state: str
+    street: str
 
 
-@dataclass
-class BuildingCheckListMatch:
-    distance: Optional[float] = None
-    highlighted: Optional[bool] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
+class BuildingCheck(TypedDict, total=False):
+    distance: float
+    highlighted: bool
+    id: str
+    name: str
 
 
-@dataclass
-class Export:
+class BuildingCheckListMatch(TypedDict, total=False):
+    distance: float
+    highlighted: bool
+    id: str
+    name: str
+
+
+class Export(TypedDict):
     pass
 
 
-@dataclass
-class ExportLoadMatch:
+class ExportLoadMatch(TypedDict):
     pass
 
 
-@dataclass
-class History:
+class HistoryRequired(TypedDict):
     id: str
     latitude: float
     longitude: float
     timestamp: str
-    accuracy: Optional[float] = None
-    address: Optional[str] = None
-    name: Optional[str] = None
 
 
-@dataclass
-class HistoryListMatch:
-    accuracy: Optional[float] = None
-    address: Optional[str] = None
-    id: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-    timestamp: Optional[str] = None
-
-
-@dataclass
-class HistoryCreateData:
-    accuracy: Optional[float] = None
-    address: Optional[str] = None
-    id: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-    timestamp: Optional[str] = None
-
-
-@dataclass
-class HistoryRemoveMatch:
-    accuracy: Optional[float] = None
-    address: Optional[str] = None
-    id: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-    timestamp: Optional[str] = None
-
-
-@dataclass
-class Location:
+class History(HistoryRequired, total=False):
     accuracy: float
-    latitude: float
-    longitude: float
-    address: Optional[str] = None
-    timestamp: Optional[str] = None
+    address: str
+    name: str
 
 
-@dataclass
-class LocationLoadMatch:
-    accuracy: Optional[float] = None
-    address: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    timestamp: Optional[str] = None
-
-
-@dataclass
-class Marker:
+class HistoryListMatch(TypedDict, total=False):
+    accuracy: float
+    address: str
     id: str
     latitude: float
     longitude: float
-    address: Optional[str] = None
-    created_at: Optional[str] = None
-    name: Optional[str] = None
+    name: str
+    timestamp: str
 
 
-@dataclass
-class MarkerListMatch:
-    address: Optional[str] = None
-    created_at: Optional[str] = None
-    id: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-
-
-@dataclass
-class MarkerCreateData:
-    address: Optional[str] = None
-    created_at: Optional[str] = None
-    id: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-
-
-@dataclass
-class MarkerRemoveMatch:
-    address: Optional[str] = None
-    created_at: Optional[str] = None
-    id: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-
-
-@dataclass
-class Repeat:
-    count: int
-    interval: float
-    accuracy: Optional[float] = None
-    best_accuracy: Optional[float] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    measurement: Optional[list] = None
-    result_type: Optional[str] = None
-
-
-@dataclass
-class RepeatCreateData:
-    accuracy: Optional[float] = None
-    best_accuracy: Optional[float] = None
-    count: Optional[int] = None
-    interval: Optional[float] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    measurement: Optional[list] = None
-    result_type: Optional[str] = None
-
-
-@dataclass
-class Search:
+class HistoryCreateData(TypedDict, total=False):
+    accuracy: float
+    address: str
+    id: str
     latitude: float
     longitude: float
     name: str
-    address: Optional[str] = None
-    type: Optional[str] = None
+    timestamp: str
 
 
-@dataclass
-class SearchListMatch:
-    address: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-    type: Optional[str] = None
+class HistoryRemoveMatch(TypedDict, total=False):
+    accuracy: float
+    address: str
+    id: str
+    latitude: float
+    longitude: float
+    name: str
+    timestamp: str
 
 
-@dataclass
-class Share:
+class LocationRequired(TypedDict):
+    accuracy: float
+    latitude: float
+    longitude: float
+
+
+class Location(LocationRequired, total=False):
+    address: str
+    timestamp: str
+
+
+class LocationLoadMatch(TypedDict, total=False):
+    accuracy: float
+    address: str
+    latitude: float
+    longitude: float
+    timestamp: str
+
+
+class MarkerRequired(TypedDict):
+    id: str
+    latitude: float
+    longitude: float
+
+
+class Marker(MarkerRequired, total=False):
+    address: str
+    created_at: str
+    name: str
+
+
+class MarkerListMatch(TypedDict, total=False):
+    address: str
+    created_at: str
+    id: str
+    latitude: float
+    longitude: float
+    name: str
+
+
+class MarkerCreateData(TypedDict, total=False):
+    address: str
+    created_at: str
+    id: str
+    latitude: float
+    longitude: float
+    name: str
+
+
+class MarkerRemoveMatch(TypedDict, total=False):
+    address: str
+    created_at: str
+    id: str
+    latitude: float
+    longitude: float
+    name: str
+
+
+class RepeatRequired(TypedDict):
+    count: int
+    interval: float
+
+
+class Repeat(RepeatRequired, total=False):
+    accuracy: float
+    best_accuracy: float
+    latitude: float
+    longitude: float
+    measurement: list
+    result_type: str
+
+
+class RepeatCreateData(TypedDict, total=False):
+    accuracy: float
+    best_accuracy: float
+    count: int
+    interval: float
+    latitude: float
+    longitude: float
+    measurement: list
+    result_type: str
+
+
+class SearchRequired(TypedDict):
+    latitude: float
+    longitude: float
+    name: str
+
+
+class Search(SearchRequired, total=False):
+    address: str
+    type: str
+
+
+class SearchListMatch(TypedDict, total=False):
+    address: str
+    latitude: float
+    longitude: float
+    name: str
+    type: str
+
+
+class ShareRequired(TypedDict):
     latitude: float
     longitude: float
     share_link: str
-    address: Optional[str] = None
-    expires_at: Optional[str] = None
-    name: Optional[str] = None
-    qr_code: Optional[str] = None
 
 
-@dataclass
-class ShareCreateData:
-    address: Optional[str] = None
-    expires_at: Optional[str] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    name: Optional[str] = None
-    qr_code: Optional[str] = None
-    share_link: Optional[str] = None
+class Share(ShareRequired, total=False):
+    address: str
+    expires_at: str
+    name: str
+    qr_code: str
 
+
+class ShareCreateData(TypedDict, total=False):
+    address: str
+    expires_at: str
+    latitude: float
+    longitude: float
+    name: str
+    qr_code: str
+    share_link: str

@@ -32,8 +32,9 @@ client = LocationSharingSDK.new
 
 ```ruby
 begin
-  result = client.address.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Address record (raises on error).
+  address = client.Address.load({ "id" => "example_id" })
+  puts address
 rescue => err
   warn "load failed: #{err}"
 end
@@ -80,13 +81,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = LocationSharingSDK.test
+client = LocationSharingSDK.test({
+  "entity" => { "address" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.address.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+address = client.Address.load({ "id" => "test01" })
+puts address
 ```
 
 ### Use a custom fetch function
@@ -162,9 +167,9 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Address` | `(data) -> AddressEntity` | Create a Address entity instance. |
+| `Address` | `(data) -> AddressEntity` | Create an Address entity instance. |
 | `BuildingCheck` | `(data) -> BuildingCheckEntity` | Create a BuildingCheck entity instance. |
-| `Export` | `(data) -> ExportEntity` | Create a Export entity instance. |
+| `Export` | `(data) -> ExportEntity` | Create an Export entity instance. |
 | `History` | `(data) -> HistoryEntity` | Create a History entity instance. |
 | `Location` | `(data) -> LocationEntity` | Create a Location entity instance. |
 | `Marker` | `(data) -> MarkerEntity` | Create a Marker entity instance. |
@@ -345,7 +350,7 @@ API path: `/share`
 
 ### Address
 
-Create an instance: `const address = client.address`
+Create an instance: `address = client.Address`
 
 #### Operations
 
@@ -366,14 +371,15 @@ Create an instance: `const address = client.address`
 
 #### Example: Load
 
-```ts
-const address = await client.address.load({ id: 'address_id' })
+```ruby
+# load returns the bare Address record (raises on error).
+address = client.Address.load({ "id" => "address_id" })
 ```
 
 
 ### BuildingCheck
 
-Create an instance: `const building_check = client.building_check`
+Create an instance: `building_check = client.BuildingCheck`
 
 #### Operations
 
@@ -392,14 +398,15 @@ Create an instance: `const building_check = client.building_check`
 
 #### Example: List
 
-```ts
-const building_checks = await client.building_check.list()
+```ruby
+# list returns an Array of BuildingCheck records (raises on error).
+building_checks = client.BuildingCheck.list
 ```
 
 
 ### Export
 
-Create an instance: `const export = client.export`
+Create an instance: `export = client.Export`
 
 #### Operations
 
@@ -409,14 +416,15 @@ Create an instance: `const export = client.export`
 
 #### Example: Load
 
-```ts
-const export = await client.export.load({ id: 'export_id' })
+```ruby
+# load returns the bare Export record (raises on error).
+export = client.Export.load({ "id" => "export_id" })
 ```
 
 
 ### History
 
-Create an instance: `const history = client.history`
+Create an instance: `history = client.History`
 
 #### Operations
 
@@ -440,24 +448,25 @@ Create an instance: `const history = client.history`
 
 #### Example: List
 
-```ts
-const historys = await client.history.list()
+```ruby
+# list returns an Array of History records (raises on error).
+historys = client.History.list
 ```
 
 #### Example: Create
 
-```ts
-const history = await client.history.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  timestamp: /* `$STRING` */,
+```ruby
+history = client.History.create({
+  "latitude" => nil, # `$NUMBER`
+  "longitude" => nil, # `$NUMBER`
+  "timestamp" => nil, # `$STRING`
 })
 ```
 
 
 ### Location
 
-Create an instance: `const location = client.location`
+Create an instance: `location = client.Location`
 
 #### Operations
 
@@ -477,14 +486,15 @@ Create an instance: `const location = client.location`
 
 #### Example: Load
 
-```ts
-const location = await client.location.load({ id: 'location_id' })
+```ruby
+# load returns the bare Location record (raises on error).
+location = client.Location.load({ "id" => "location_id" })
 ```
 
 
 ### Marker
 
-Create an instance: `const marker = client.marker`
+Create an instance: `marker = client.Marker`
 
 #### Operations
 
@@ -507,23 +517,24 @@ Create an instance: `const marker = client.marker`
 
 #### Example: List
 
-```ts
-const markers = await client.marker.list()
+```ruby
+# list returns an Array of Marker records (raises on error).
+markers = client.Marker.list
 ```
 
 #### Example: Create
 
-```ts
-const marker = await client.marker.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
+```ruby
+marker = client.Marker.create({
+  "latitude" => nil, # `$NUMBER`
+  "longitude" => nil, # `$NUMBER`
 })
 ```
 
 
 ### Repeat
 
-Create an instance: `const repeat = client.repeat`
+Create an instance: `repeat = client.Repeat`
 
 #### Operations
 
@@ -546,17 +557,17 @@ Create an instance: `const repeat = client.repeat`
 
 #### Example: Create
 
-```ts
-const repeat = await client.repeat.create({
-  count: /* `$INTEGER` */,
-  interval: /* `$NUMBER` */,
+```ruby
+repeat = client.Repeat.create({
+  "count" => nil, # `$INTEGER`
+  "interval" => nil, # `$NUMBER`
 })
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `search = client.Search`
 
 #### Operations
 
@@ -576,14 +587,15 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```ruby
+# list returns an Array of Search records (raises on error).
+searchs = client.Search.list
 ```
 
 
 ### Share
 
-Create an instance: `const share = client.share`
+Create an instance: `share = client.Share`
 
 #### Operations
 
@@ -605,11 +617,11 @@ Create an instance: `const share = client.share`
 
 #### Example: Create
 
-```ts
-const share = await client.share.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  share_link: /* `$STRING` */,
+```ruby
+share = client.Share.create({
+  "latitude" => nil, # `$NUMBER`
+  "longitude" => nil, # `$NUMBER`
+  "share_link" => nil, # `$STRING`
 })
 ```
 
@@ -685,7 +697,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-address = client.address
+address = client.Address
 address.load({ "id" => "example_id" })
 
 # address.data_get now returns the loaded address data

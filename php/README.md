@@ -33,9 +33,10 @@ $client = new LocationSharingSDK();
 
 ```php
 try {
-    $result = $client->address()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Address record (throws on error).
+    $address = $client->Address()->load(["id" => "example_id"]);
+    print_r($address);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -81,13 +82,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = LocationSharingSDK::test();
+$client = LocationSharingSDK::test([
+    "entity" => ["address" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->address()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$address = $client->Address()->load(["id" => "test01"]);
+print_r($address);
 ```
 
 ### Use a custom fetch function
@@ -166,9 +171,9 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Address` | `($data): AddressEntity` | Create a Address entity instance. |
+| `Address` | `($data): AddressEntity` | Create an Address entity instance. |
 | `BuildingCheck` | `($data): BuildingCheckEntity` | Create a BuildingCheck entity instance. |
-| `Export` | `($data): ExportEntity` | Create a Export entity instance. |
+| `Export` | `($data): ExportEntity` | Create an Export entity instance. |
 | `History` | `($data): HistoryEntity` | Create a History entity instance. |
 | `Location` | `($data): LocationEntity` | Create a Location entity instance. |
 | `Marker` | `($data): MarkerEntity` | Create a Marker entity instance. |
@@ -350,7 +355,7 @@ API path: `/share`
 
 ### Address
 
-Create an instance: `const address = client.address`
+Create an instance: `$address = $client->Address();`
 
 #### Operations
 
@@ -371,14 +376,15 @@ Create an instance: `const address = client.address`
 
 #### Example: Load
 
-```ts
-const address = await client.address.load({ id: 'address_id' })
+```php
+// load() returns the bare Address record (throws on error).
+$address = $client->Address()->load(["id" => "address_id"]);
 ```
 
 
 ### BuildingCheck
 
-Create an instance: `const building_check = client.building_check`
+Create an instance: `$building_check = $client->BuildingCheck();`
 
 #### Operations
 
@@ -397,14 +403,15 @@ Create an instance: `const building_check = client.building_check`
 
 #### Example: List
 
-```ts
-const building_checks = await client.building_check.list()
+```php
+// list() returns an array of BuildingCheck records (throws on error).
+$building_checks = $client->BuildingCheck()->list();
 ```
 
 
 ### Export
 
-Create an instance: `const export = client.export`
+Create an instance: `$export = $client->Export();`
 
 #### Operations
 
@@ -414,14 +421,15 @@ Create an instance: `const export = client.export`
 
 #### Example: Load
 
-```ts
-const export = await client.export.load({ id: 'export_id' })
+```php
+// load() returns the bare Export record (throws on error).
+$export = $client->Export()->load(["id" => "export_id"]);
 ```
 
 
 ### History
 
-Create an instance: `const history = client.history`
+Create an instance: `$history = $client->History();`
 
 #### Operations
 
@@ -445,24 +453,25 @@ Create an instance: `const history = client.history`
 
 #### Example: List
 
-```ts
-const historys = await client.history.list()
+```php
+// list() returns an array of History records (throws on error).
+$historys = $client->History()->list();
 ```
 
 #### Example: Create
 
-```ts
-const history = await client.history.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  timestamp: /* `$STRING` */,
-})
+```php
+$history = $client->History()->create([
+    "latitude" => null, // `$NUMBER`
+    "longitude" => null, // `$NUMBER`
+    "timestamp" => null, // `$STRING`
+]);
 ```
 
 
 ### Location
 
-Create an instance: `const location = client.location`
+Create an instance: `$location = $client->Location();`
 
 #### Operations
 
@@ -482,14 +491,15 @@ Create an instance: `const location = client.location`
 
 #### Example: Load
 
-```ts
-const location = await client.location.load({ id: 'location_id' })
+```php
+// load() returns the bare Location record (throws on error).
+$location = $client->Location()->load(["id" => "location_id"]);
 ```
 
 
 ### Marker
 
-Create an instance: `const marker = client.marker`
+Create an instance: `$marker = $client->Marker();`
 
 #### Operations
 
@@ -512,23 +522,24 @@ Create an instance: `const marker = client.marker`
 
 #### Example: List
 
-```ts
-const markers = await client.marker.list()
+```php
+// list() returns an array of Marker records (throws on error).
+$markers = $client->Marker()->list();
 ```
 
 #### Example: Create
 
-```ts
-const marker = await client.marker.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-})
+```php
+$marker = $client->Marker()->create([
+    "latitude" => null, // `$NUMBER`
+    "longitude" => null, // `$NUMBER`
+]);
 ```
 
 
 ### Repeat
 
-Create an instance: `const repeat = client.repeat`
+Create an instance: `$repeat = $client->Repeat();`
 
 #### Operations
 
@@ -551,17 +562,17 @@ Create an instance: `const repeat = client.repeat`
 
 #### Example: Create
 
-```ts
-const repeat = await client.repeat.create({
-  count: /* `$INTEGER` */,
-  interval: /* `$NUMBER` */,
-})
+```php
+$repeat = $client->Repeat()->create([
+    "count" => null, // `$INTEGER`
+    "interval" => null, // `$NUMBER`
+]);
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `$search = $client->Search();`
 
 #### Operations
 
@@ -581,14 +592,15 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```php
+// list() returns an array of Search records (throws on error).
+$searchs = $client->Search()->list();
 ```
 
 
 ### Share
 
-Create an instance: `const share = client.share`
+Create an instance: `$share = $client->Share();`
 
 #### Operations
 
@@ -610,12 +622,12 @@ Create an instance: `const share = client.share`
 
 #### Example: Create
 
-```ts
-const share = await client.share.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  share_link: /* `$STRING` */,
-})
+```php
+$share = $client->Share()->create([
+    "latitude" => null, // `$NUMBER`
+    "longitude" => null, // `$NUMBER`
+    "share_link" => null, // `$STRING`
+]);
 ```
 
 
@@ -690,7 +702,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$address = $client->address();
+$address = $client->Address();
 $address->load(["id" => "example_id"]);
 
 // $address->dataGet() now returns the loaded address data

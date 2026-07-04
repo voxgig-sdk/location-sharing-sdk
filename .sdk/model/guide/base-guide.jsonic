@@ -8,7 +8,6 @@ guide: {
   entity: address: {
     path: "/geocode/reverse": {
       op: load: method: *GET
-      op: load: transform: res: *("`body.address`")|top
     }
   }
 

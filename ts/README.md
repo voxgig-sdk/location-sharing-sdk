@@ -30,11 +30,14 @@ const client = new LocationSharingSDK()
 
 ### 3. Load an address
 
-```ts
-const result = await client.address.load({ id: 'example_id' })
+`load()` returns the entity directly and throws on failure:
 
-if (result.ok) {
-  console.log(result.data)
+```ts
+try {
+  const address = await client.Address().load({ id: 'example_id' })
+  console.log(address)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -52,6 +55,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -80,9 +86,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = LocationSharingSDK.test()
 
-const result = await client.address.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const address = await client.Address().load({ id: 'test01' })
+// address is a bare entity populated with mock response data
+console.log(address)
 ```
 
 You can also use the instance method:
@@ -97,7 +103,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.address
+const entity = client.Address()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -175,9 +181,9 @@ new LocationSharingSDK(options?: {
 | `utility()` | `Utility` | Deep copy of the SDK utility object. |
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
-| `Address(data?)` | `AddressEntity` | Create a Address entity instance. |
+| `Address(data?)` | `AddressEntity` | Create an Address entity instance. |
 | `BuildingCheck(data?)` | `BuildingCheckEntity` | Create a BuildingCheck entity instance. |
-| `Export(data?)` | `ExportEntity` | Create a Export entity instance. |
+| `Export(data?)` | `ExportEntity` | Create an Export entity instance. |
 | `History(data?)` | `HistoryEntity` | Create a History entity instance. |
 | `Location(data?)` | `LocationEntity` | Create a Location entity instance. |
 | `Marker(data?)` | `MarkerEntity` | Create a Marker entity instance. |
@@ -200,29 +206,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): LocationSharingSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -390,7 +397,7 @@ API path: `/share`
 
 ### Address
 
-Create an instance: `const address = client.address`
+Create an instance: `const address = client.Address()`
 
 #### Operations
 
@@ -412,13 +419,13 @@ Create an instance: `const address = client.address`
 #### Example: Load
 
 ```ts
-const address = await client.address.load({ id: 'address_id' })
+const address = await client.Address().load({ id: 'address_id' })
 ```
 
 
 ### BuildingCheck
 
-Create an instance: `const building_check = client.building_check`
+Create an instance: `const building_check = client.BuildingCheck()`
 
 #### Operations
 
@@ -438,13 +445,13 @@ Create an instance: `const building_check = client.building_check`
 #### Example: List
 
 ```ts
-const building_checks = await client.building_check.list()
+const building_checks = await client.BuildingCheck().list()
 ```
 
 
 ### Export
 
-Create an instance: `const export = client.export`
+Create an instance: `const export = client.Export()`
 
 #### Operations
 
@@ -455,13 +462,13 @@ Create an instance: `const export = client.export`
 #### Example: Load
 
 ```ts
-const export = await client.export.load({ id: 'export_id' })
+const export = await client.Export().load({ id: 'export_id' })
 ```
 
 
 ### History
 
-Create an instance: `const history = client.history`
+Create an instance: `const history = client.History()`
 
 #### Operations
 
@@ -486,13 +493,13 @@ Create an instance: `const history = client.history`
 #### Example: List
 
 ```ts
-const historys = await client.history.list()
+const historys = await client.History().list()
 ```
 
 #### Example: Create
 
 ```ts
-const history = await client.history.create({
+const history = await client.History().create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
   timestamp: /* `$STRING` */,
@@ -502,7 +509,7 @@ const history = await client.history.create({
 
 ### Location
 
-Create an instance: `const location = client.location`
+Create an instance: `const location = client.Location()`
 
 #### Operations
 
@@ -523,13 +530,13 @@ Create an instance: `const location = client.location`
 #### Example: Load
 
 ```ts
-const location = await client.location.load({ id: 'location_id' })
+const location = await client.Location().load({ id: 'location_id' })
 ```
 
 
 ### Marker
 
-Create an instance: `const marker = client.marker`
+Create an instance: `const marker = client.Marker()`
 
 #### Operations
 
@@ -553,13 +560,13 @@ Create an instance: `const marker = client.marker`
 #### Example: List
 
 ```ts
-const markers = await client.marker.list()
+const markers = await client.Marker().list()
 ```
 
 #### Example: Create
 
 ```ts
-const marker = await client.marker.create({
+const marker = await client.Marker().create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
 })
@@ -568,7 +575,7 @@ const marker = await client.marker.create({
 
 ### Repeat
 
-Create an instance: `const repeat = client.repeat`
+Create an instance: `const repeat = client.Repeat()`
 
 #### Operations
 
@@ -592,7 +599,7 @@ Create an instance: `const repeat = client.repeat`
 #### Example: Create
 
 ```ts
-const repeat = await client.repeat.create({
+const repeat = await client.Repeat().create({
   count: /* `$INTEGER` */,
   interval: /* `$NUMBER` */,
 })
@@ -601,7 +608,7 @@ const repeat = await client.repeat.create({
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `const search = client.Search()`
 
 #### Operations
 
@@ -622,13 +629,13 @@ Create an instance: `const search = client.search`
 #### Example: List
 
 ```ts
-const searchs = await client.search.list()
+const searchs = await client.Search().list()
 ```
 
 
 ### Share
 
-Create an instance: `const share = client.share`
+Create an instance: `const share = client.Share()`
 
 #### Operations
 
@@ -651,7 +658,7 @@ Create an instance: `const share = client.share`
 #### Example: Create
 
 ```ts
-const share = await client.share.create({
+const share = await client.Share().create({
   latitude: /* `$NUMBER` */,
   longitude: /* `$NUMBER` */,
   share_link: /* `$STRING` */,
@@ -726,7 +733,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const address = client.address
+const address = client.Address()
 await address.load({ id: "example_id" })
 
 // address.data() now returns the loaded address data

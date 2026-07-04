@@ -208,117 +208,63 @@ class LocationSharingSDK
   end
 
 
-  # Idiomatic facade: client.address.list / client.address.load({ "id" => ... })
-  def address
-    require_relative 'entity/address_entity'
-    @address ||= AddressEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.address instead.
+  # Canonical facade: client.Address.list / client.Address.load({ "id" => ... })
   def Address(data = nil)
     require_relative 'entity/address_entity'
     AddressEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.building_check.list / client.building_check.load({ "id" => ... })
-  def building_check
-    require_relative 'entity/building_check_entity'
-    @building_check ||= BuildingCheckEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.building_check instead.
+  # Canonical facade: client.BuildingCheck.list / client.BuildingCheck.load({ "id" => ... })
   def BuildingCheck(data = nil)
     require_relative 'entity/building_check_entity'
     BuildingCheckEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.export.list / client.export.load({ "id" => ... })
-  def export
-    require_relative 'entity/export_entity'
-    @export ||= ExportEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.export instead.
+  # Canonical facade: client.Export.list / client.Export.load({ "id" => ... })
   def Export(data = nil)
     require_relative 'entity/export_entity'
     ExportEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.history.list / client.history.load({ "id" => ... })
-  def history
-    require_relative 'entity/history_entity'
-    @history ||= HistoryEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.history instead.
+  # Canonical facade: client.History.list / client.History.load({ "id" => ... })
   def History(data = nil)
     require_relative 'entity/history_entity'
     HistoryEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.location.list / client.location.load({ "id" => ... })
-  def location
-    require_relative 'entity/location_entity'
-    @location ||= LocationEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.location instead.
+  # Canonical facade: client.Location.list / client.Location.load({ "id" => ... })
   def Location(data = nil)
     require_relative 'entity/location_entity'
     LocationEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.marker.list / client.marker.load({ "id" => ... })
-  def marker
-    require_relative 'entity/marker_entity'
-    @marker ||= MarkerEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.marker instead.
+  # Canonical facade: client.Marker.list / client.Marker.load({ "id" => ... })
   def Marker(data = nil)
     require_relative 'entity/marker_entity'
     MarkerEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.repeat.list / client.repeat.load({ "id" => ... })
-  def repeat
-    require_relative 'entity/repeat_entity'
-    @repeat ||= RepeatEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.repeat instead.
+  # Canonical facade: client.Repeat.list / client.Repeat.load({ "id" => ... })
   def Repeat(data = nil)
     require_relative 'entity/repeat_entity'
     RepeatEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.search.list / client.search.load({ "id" => ... })
-  def search
-    require_relative 'entity/search_entity'
-    @search ||= SearchEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.search instead.
+  # Canonical facade: client.Search.list / client.Search.load({ "id" => ... })
   def Search(data = nil)
     require_relative 'entity/search_entity'
     SearchEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.share.list / client.share.load({ "id" => ... })
-  def share
-    require_relative 'entity/share_entity'
-    @share ||= ShareEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.share instead.
+  # Canonical facade: client.Share.list / client.Share.load({ "id" => ... })
   def Share(data = nil)
     require_relative 'entity/share_entity'
     ShareEntity.new(self, data)

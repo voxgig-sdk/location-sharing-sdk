@@ -163,7 +163,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body.address`"
+                "res": "`body`"
               },
               "index$": 0
             }

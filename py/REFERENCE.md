@@ -112,7 +112,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## AddressEntity
 
 ```python
-address = client.address
+address = client.Address()
 ```
 
 ### Fields
@@ -133,7 +133,7 @@ address = client.address
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.address.load({"id": "address_id"})
+result = client.Address().load({"id": "address_id"})
 ```
 
 ### Common Methods
@@ -168,7 +168,7 @@ Return the entity name.
 ## BuildingCheckEntity
 
 ```python
-building_check = client.building_check
+building_check = client.BuildingCheck()
 ```
 
 ### Fields
@@ -187,7 +187,9 @@ building_check = client.building_check
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.building_check.list({})
+results = client.BuildingCheck().list({})
+for building_check in results:
+    print(building_check)
 ```
 
 ### Common Methods
@@ -222,7 +224,7 @@ Return the entity name.
 ## ExportEntity
 
 ```python
-export = client.export
+export = client.Export()
 ```
 
 ### Operations
@@ -232,7 +234,7 @@ export = client.export
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.export.load({"id": "export_id"})
+result = client.Export().load({"id": "export_id"})
 ```
 
 ### Common Methods
@@ -267,7 +269,7 @@ Return the entity name.
 ## HistoryEntity
 
 ```python
-history = client.history
+history = client.History()
 ```
 
 ### Fields
@@ -289,10 +291,10 @@ history = client.history
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.history.create({
-    "latitude": # `$NUMBER`,
-    "longitude": # `$NUMBER`,
-    "timestamp": # `$STRING`,
+result = client.History().create({
+    "latitude": ...,  # `$NUMBER`
+    "longitude": ...,  # `$NUMBER`
+    "timestamp": ...,  # `$STRING`
 })
 ```
 
@@ -301,7 +303,9 @@ result = client.history.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.history.list({})
+results = client.History().list({})
+for history in results:
+    print(history)
 ```
 
 #### `remove(reqmatch, ctrl=None) -> dict`
@@ -309,7 +313,7 @@ results = client.history.list({})
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.history.remove({"id": "history_id"})
+result = client.History().remove({"id": "history_id"})
 ```
 
 ### Common Methods
@@ -344,7 +348,7 @@ Return the entity name.
 ## LocationEntity
 
 ```python
-location = client.location
+location = client.Location()
 ```
 
 ### Fields
@@ -364,7 +368,7 @@ location = client.location
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.location.load({"id": "location_id"})
+result = client.Location().load({"id": "location_id"})
 ```
 
 ### Common Methods
@@ -399,7 +403,7 @@ Return the entity name.
 ## MarkerEntity
 
 ```python
-marker = client.marker
+marker = client.Marker()
 ```
 
 ### Fields
@@ -420,9 +424,9 @@ marker = client.marker
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.marker.create({
-    "latitude": # `$NUMBER`,
-    "longitude": # `$NUMBER`,
+result = client.Marker().create({
+    "latitude": ...,  # `$NUMBER`
+    "longitude": ...,  # `$NUMBER`
 })
 ```
 
@@ -431,7 +435,9 @@ result = client.marker.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.marker.list({})
+results = client.Marker().list({})
+for marker in results:
+    print(marker)
 ```
 
 #### `remove(reqmatch, ctrl=None) -> dict`
@@ -439,7 +445,7 @@ results = client.marker.list({})
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.marker.remove({"id": "marker_id"})
+result = client.Marker().remove({"id": "marker_id"})
 ```
 
 ### Common Methods
@@ -474,7 +480,7 @@ Return the entity name.
 ## RepeatEntity
 
 ```python
-repeat = client.repeat
+repeat = client.Repeat()
 ```
 
 ### Fields
@@ -510,9 +516,9 @@ repeat = client.repeat
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.repeat.create({
-    "count": # `$INTEGER`,
-    "interval": # `$NUMBER`,
+result = client.Repeat().create({
+    "count": ...,  # `$INTEGER`
+    "interval": ...,  # `$NUMBER`
 })
 ```
 
@@ -548,7 +554,7 @@ Return the entity name.
 ## SearchEntity
 
 ```python
-search = client.search
+search = client.Search()
 ```
 
 ### Fields
@@ -568,7 +574,9 @@ search = client.search
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.search.list({})
+results = client.Search().list({})
+for search in results:
+    print(search)
 ```
 
 ### Common Methods
@@ -603,7 +611,7 @@ Return the entity name.
 ## ShareEntity
 
 ```python
-share = client.share
+share = client.Share()
 ```
 
 ### Fields
@@ -625,10 +633,10 @@ share = client.share
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.share.create({
-    "latitude": # `$NUMBER`,
-    "longitude": # `$NUMBER`,
-    "share_link": # `$STRING`,
+result = client.Share().create({
+    "latitude": ...,  # `$NUMBER`
+    "longitude": ...,  # `$NUMBER`
+    "share_link": ...,  # `$STRING`
 })
 ```
 

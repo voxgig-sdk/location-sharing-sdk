@@ -33,10 +33,12 @@ client = LocationSharingSDK()
 
 ### 3. Load an address
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.address.load({"id": "example_id"})
-    print(result)
+    address = client.Address().load({"id": "example_id"})
+    print(address)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -84,8 +86,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = LocationSharingSDK.test()
 
-result = client.address.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+address = client.Address().load({"id": "test01"})
+# address contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -161,9 +164,9 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Address` | `(data) -> AddressEntity` | Create a Address entity instance. |
+| `Address` | `(data) -> AddressEntity` | Create an Address entity instance. |
 | `BuildingCheck` | `(data) -> BuildingCheckEntity` | Create a BuildingCheck entity instance. |
-| `Export` | `(data) -> ExportEntity` | Create a Export entity instance. |
+| `Export` | `(data) -> ExportEntity` | Create an Export entity instance. |
 | `History` | `(data) -> HistoryEntity` | Create a History entity instance. |
 | `Location` | `(data) -> LocationEntity` | Create a Location entity instance. |
 | `Marker` | `(data) -> MarkerEntity` | Create a Marker entity instance. |
@@ -345,7 +348,7 @@ API path: `/share`
 
 ### Address
 
-Create an instance: `const address = client.address`
+Create an instance: `address = client.Address()`
 
 #### Operations
 
@@ -366,14 +369,14 @@ Create an instance: `const address = client.address`
 
 #### Example: Load
 
-```ts
-const address = await client.address.load({ id: 'address_id' })
+```python
+address = client.Address().load({"id": "address_id"})
 ```
 
 
 ### BuildingCheck
 
-Create an instance: `const building_check = client.building_check`
+Create an instance: `building_check = client.BuildingCheck()`
 
 #### Operations
 
@@ -392,14 +395,14 @@ Create an instance: `const building_check = client.building_check`
 
 #### Example: List
 
-```ts
-const building_checks = await client.building_check.list()
+```python
+building_checks = client.BuildingCheck().list({})
 ```
 
 
 ### Export
 
-Create an instance: `const export = client.export`
+Create an instance: `export = client.Export()`
 
 #### Operations
 
@@ -409,14 +412,14 @@ Create an instance: `const export = client.export`
 
 #### Example: Load
 
-```ts
-const export = await client.export.load({ id: 'export_id' })
+```python
+export = client.Export().load({"id": "export_id"})
 ```
 
 
 ### History
 
-Create an instance: `const history = client.history`
+Create an instance: `history = client.History()`
 
 #### Operations
 
@@ -440,24 +443,24 @@ Create an instance: `const history = client.history`
 
 #### Example: List
 
-```ts
-const historys = await client.history.list()
+```python
+historys = client.History().list({})
 ```
 
 #### Example: Create
 
-```ts
-const history = await client.history.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  timestamp: /* `$STRING` */,
+```python
+history = client.History().create({
+    "latitude": ...,  # `$NUMBER`
+    "longitude": ...,  # `$NUMBER`
+    "timestamp": ...,  # `$STRING`
 })
 ```
 
 
 ### Location
 
-Create an instance: `const location = client.location`
+Create an instance: `location = client.Location()`
 
 #### Operations
 
@@ -477,14 +480,14 @@ Create an instance: `const location = client.location`
 
 #### Example: Load
 
-```ts
-const location = await client.location.load({ id: 'location_id' })
+```python
+location = client.Location().load({"id": "location_id"})
 ```
 
 
 ### Marker
 
-Create an instance: `const marker = client.marker`
+Create an instance: `marker = client.Marker()`
 
 #### Operations
 
@@ -507,23 +510,23 @@ Create an instance: `const marker = client.marker`
 
 #### Example: List
 
-```ts
-const markers = await client.marker.list()
+```python
+markers = client.Marker().list({})
 ```
 
 #### Example: Create
 
-```ts
-const marker = await client.marker.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
+```python
+marker = client.Marker().create({
+    "latitude": ...,  # `$NUMBER`
+    "longitude": ...,  # `$NUMBER`
 })
 ```
 
 
 ### Repeat
 
-Create an instance: `const repeat = client.repeat`
+Create an instance: `repeat = client.Repeat()`
 
 #### Operations
 
@@ -546,17 +549,17 @@ Create an instance: `const repeat = client.repeat`
 
 #### Example: Create
 
-```ts
-const repeat = await client.repeat.create({
-  count: /* `$INTEGER` */,
-  interval: /* `$NUMBER` */,
+```python
+repeat = client.Repeat().create({
+    "count": ...,  # `$INTEGER`
+    "interval": ...,  # `$NUMBER`
 })
 ```
 
 
 ### Search
 
-Create an instance: `const search = client.search`
+Create an instance: `search = client.Search()`
 
 #### Operations
 
@@ -576,14 +579,14 @@ Create an instance: `const search = client.search`
 
 #### Example: List
 
-```ts
-const searchs = await client.search.list()
+```python
+searchs = client.Search().list({})
 ```
 
 
 ### Share
 
-Create an instance: `const share = client.share`
+Create an instance: `share = client.Share()`
 
 #### Operations
 
@@ -605,11 +608,11 @@ Create an instance: `const share = client.share`
 
 #### Example: Create
 
-```ts
-const share = await client.share.create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  share_link: /* `$STRING` */,
+```python
+share = client.Share().create({
+    "latitude": ...,  # `$NUMBER`
+    "longitude": ...,  # `$NUMBER`
+    "share_link": ...,  # `$STRING`
 })
 ```
 
@@ -684,7 +687,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-address = client.address
+address = client.Address()
 address.load({"id": "example_id"})
 
 # address.data_get() now returns the loaded address data
