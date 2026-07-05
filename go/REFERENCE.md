@@ -129,12 +129,12 @@ address := client.Address(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | Yes |  |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `postal_code` | ``$STRING`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `street` | ``$STRING`` | No |  |
+| `address` | `string` | Yes |  |
+| `city` | `string` | No |  |
+| `country` | `string` | No |  |
+| `postal_code` | `string` | No |  |
+| `state` | `string` | No |  |
+| `street` | `string` | No |  |
 
 ### Operations
 
@@ -143,7 +143,7 @@ address := client.Address(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Address(nil).Load(map[string]any{"id": "address_id"}, nil)
+result, err := client.Address(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -180,10 +180,10 @@ building_check := client.BuildingCheck(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | ``$NUMBER`` | No |  |
-| `highlighted` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `distance` | `float64` | No |  |
+| `highlighted` | `bool` | No |  |
+| `id` | `string` | No |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -232,7 +232,7 @@ export := client.Export(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Export(nil).Load(map[string]any{"id": "export_id"}, nil)
+result, err := client.Export(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -269,13 +269,13 @@ history := client.History(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `address` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `timestamp` | ``$STRING`` | Yes |  |
+| `accuracy` | `float64` | No |  |
+| `address` | `string` | No |  |
+| `id` | `string` | Yes |  |
+| `latitude` | `float64` | Yes |  |
+| `longitude` | `float64` | Yes |  |
+| `name` | `string` | No |  |
+| `timestamp` | `string` | Yes |  |
 
 ### Operations
 
@@ -285,9 +285,9 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.History(nil).Create(map[string]any{
-    "latitude": /* `$NUMBER` */,
-    "longitude": /* `$NUMBER` */,
-    "timestamp": /* `$STRING` */,
+    "latitude": /* float64 */,
+    "longitude": /* float64 */,
+    "timestamp": /* string */,
 }, nil)
 ```
 
@@ -304,7 +304,7 @@ results, err := client.History(nil).List(nil, nil)
 Remove the entity matching the given criteria.
 
 ```go
-result, err := client.History(nil).Remove(map[string]any{"id": "history_id"}, nil)
+result, err := client.History(nil).Remove(nil, nil)
 ```
 
 ### Common Methods
@@ -341,11 +341,11 @@ location := client.Location(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | Yes |  |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `timestamp` | ``$STRING`` | No |  |
+| `accuracy` | `float64` | Yes |  |
+| `address` | `string` | No |  |
+| `latitude` | `float64` | Yes |  |
+| `longitude` | `float64` | Yes |  |
+| `timestamp` | `string` | No |  |
 
 ### Operations
 
@@ -354,7 +354,7 @@ location := client.Location(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Location(nil).Load(map[string]any{"id": "location_id"}, nil)
+result, err := client.Location(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -391,12 +391,12 @@ marker := client.Marker(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `id` | `string` | Yes |  |
+| `latitude` | `float64` | Yes |  |
+| `longitude` | `float64` | Yes |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -406,8 +406,8 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Marker(nil).Create(map[string]any{
-    "latitude": /* `$NUMBER` */,
-    "longitude": /* `$NUMBER` */,
+    "latitude": /* float64 */,
+    "longitude": /* float64 */,
 }, nil)
 ```
 
@@ -424,7 +424,7 @@ results, err := client.Marker(nil).List(nil, nil)
 Remove the entity matching the given criteria.
 
 ```go
-result, err := client.Marker(nil).Remove(map[string]any{"id": "marker_id"}, nil)
+result, err := client.Marker(nil).Remove(nil, nil)
 ```
 
 ### Common Methods
@@ -461,27 +461,27 @@ repeat := client.Repeat(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `best_accuracy` | ``$NUMBER`` | No |  |
-| `count` | ``$INTEGER`` | Yes |  |
-| `interval` | ``$NUMBER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `measurement` | ``$ARRAY`` | No |  |
-| `result_type` | ``$STRING`` | No |  |
+| `accuracy` | `float64` | No |  |
+| `best_accuracy` | `float64` | No |  |
+| `count` | `int` | Yes |  |
+| `interval` | `float64` | Yes |  |
+| `latitude` | `float64` | No |  |
+| `longitude` | `float64` | No |  |
+| `measurement` | `[]any` | No |  |
+| `result_type` | `string` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `accuracy` | - | - | - | - | - |
-| `best_accuracy` | - | - | - | - | - |
-| `count` | - | - | - | - | - |
-| `interval` | - | - | - | - | - |
-| `latitude` | - | - | - | - | - |
-| `longitude` | - | - | - | - | - |
-| `measurement` | - | - | - | - | - |
-| `result_type` | - | - | Yes | - | - |
+| Field | create |
+| --- | --- |
+| `accuracy` | - |
+| `best_accuracy` | - |
+| `count` | - |
+| `interval` | - |
+| `latitude` | - |
+| `longitude` | - |
+| `measurement` | - |
+| `result_type` | Yes |
 
 ### Operations
 
@@ -491,8 +491,8 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Repeat(nil).Create(map[string]any{
-    "count": /* `$INTEGER` */,
-    "interval": /* `$NUMBER` */,
+    "count": /* int */,
+    "interval": /* float64 */,
 }, nil)
 ```
 
@@ -530,11 +530,11 @@ search := client.Search(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `type` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `latitude` | `float64` | Yes |  |
+| `longitude` | `float64` | Yes |  |
+| `name` | `string` | Yes |  |
+| `type` | `string` | No |  |
 
 ### Operations
 
@@ -580,13 +580,13 @@ share := client.Share(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `qr_code` | ``$STRING`` | No |  |
-| `share_link` | ``$STRING`` | Yes |  |
+| `address` | `string` | No |  |
+| `expires_at` | `string` | No |  |
+| `latitude` | `float64` | Yes |  |
+| `longitude` | `float64` | Yes |  |
+| `name` | `string` | No |  |
+| `qr_code` | `string` | No |  |
+| `share_link` | `string` | Yes |  |
 
 ### Operations
 
@@ -596,9 +596,9 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Share(nil).Create(map[string]any{
-    "latitude": /* `$NUMBER` */,
-    "longitude": /* `$NUMBER` */,
-    "share_link": /* `$STRING` */,
+    "latitude": /* float64 */,
+    "longitude": /* float64 */,
+    "share_link": /* string */,
 }, nil)
 ```
 

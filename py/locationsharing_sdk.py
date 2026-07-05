@@ -221,55 +221,55 @@ class LocationSharingSDK:
 
 
     def Address(self, data=None) -> "AddressEntity":
-        """Entity factory: client.Address().list({}) / client.Address().load({"id": ...})."""
+        """Entity factory: client.Address().list() / client.Address().load({"id": ...})."""
         from entity.address_entity import AddressEntity
         return AddressEntity(self, data)
 
 
     def BuildingCheck(self, data=None) -> "BuildingCheckEntity":
-        """Entity factory: client.BuildingCheck().list({}) / client.BuildingCheck().load({"id": ...})."""
+        """Entity factory: client.BuildingCheck().list() / client.BuildingCheck().load({"id": ...})."""
         from entity.building_check_entity import BuildingCheckEntity
         return BuildingCheckEntity(self, data)
 
 
     def Export(self, data=None) -> "ExportEntity":
-        """Entity factory: client.Export().list({}) / client.Export().load({"id": ...})."""
+        """Entity factory: client.Export().list() / client.Export().load({"id": ...})."""
         from entity.export_entity import ExportEntity
         return ExportEntity(self, data)
 
 
     def History(self, data=None) -> "HistoryEntity":
-        """Entity factory: client.History().list({}) / client.History().load({"id": ...})."""
+        """Entity factory: client.History().list() / client.History().load({"id": ...})."""
         from entity.history_entity import HistoryEntity
         return HistoryEntity(self, data)
 
 
     def Location(self, data=None) -> "LocationEntity":
-        """Entity factory: client.Location().list({}) / client.Location().load({"id": ...})."""
+        """Entity factory: client.Location().list() / client.Location().load({"id": ...})."""
         from entity.location_entity import LocationEntity
         return LocationEntity(self, data)
 
 
     def Marker(self, data=None) -> "MarkerEntity":
-        """Entity factory: client.Marker().list({}) / client.Marker().load({"id": ...})."""
+        """Entity factory: client.Marker().list() / client.Marker().load({"id": ...})."""
         from entity.marker_entity import MarkerEntity
         return MarkerEntity(self, data)
 
 
     def Repeat(self, data=None) -> "RepeatEntity":
-        """Entity factory: client.Repeat().list({}) / client.Repeat().load({"id": ...})."""
+        """Entity factory: client.Repeat().list() / client.Repeat().load({"id": ...})."""
         from entity.repeat_entity import RepeatEntity
         return RepeatEntity(self, data)
 
 
     def Search(self, data=None) -> "SearchEntity":
-        """Entity factory: client.Search().list({}) / client.Search().load({"id": ...})."""
+        """Entity factory: client.Search().list() / client.Search().load({"id": ...})."""
         from entity.search_entity import SearchEntity
         return SearchEntity(self, data)
 
 
     def Share(self, data=None) -> "ShareEntity":
-        """Entity factory: client.Share().list({}) / client.Share().load({"id": ...})."""
+        """Entity factory: client.Share().list() / client.Share().load({"id": ...})."""
         from entity.share_entity import ShareEntity
         return ShareEntity(self, data)
 

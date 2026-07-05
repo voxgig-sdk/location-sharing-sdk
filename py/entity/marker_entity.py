@@ -68,8 +68,12 @@ class MarkerEntity:
     
 
     
-    def list(self, reqmatch: MarkerListMatch, ctrl=None) -> list[Marker]:
+    def list(self, reqmatch=None, ctrl=None) -> list[Marker]:
         utility = self._utility
+        # reqmatch is optional: an omitted match lists all records. Treat None
+        # as an empty match so client.Marker().list() works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "list",
             "ctrl": ctrl,
@@ -110,8 +114,13 @@ class MarkerEntity:
     
 
     
-    def remove(self, reqmatch: MarkerRemoveMatch, ctrl=None) -> Marker:
+    def remove(self, reqmatch=None, ctrl=None) -> Marker:
         utility = self._utility
+        # reqmatch is optional: an entity with no id-like key removes with no
+        # match. Treat None as an empty match so client.Marker().remove()
+        # works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "remove",
             "ctrl": ctrl,

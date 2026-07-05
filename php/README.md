@@ -4,6 +4,8 @@
 
 The PHP SDK for the LocationSharing API — an entity-oriented client using PHP conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Address()` — with named operations (`list`/`load`/`create`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -34,10 +36,41 @@ $client = new LocationSharingSDK();
 ```php
 try {
     // load() returns the bare Address record (throws on error).
-    $address = $client->Address()->load(["id" => "example_id"]);
+    $address = $client->Address()->load();
     print_r($address);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
+}
+```
+
+
+## Error handling
+
+Entity operations throw a `\Throwable` on failure, so wrap them in
+`try` / `catch`:
+
+```php
+try {
+    $address = $client->Address()->load();
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
+`direct()` does **not** throw — it returns the result array. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```php
+$result = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example_id"],
+]);
+
+if (! $result["ok"]) {
+    $err = $result["err"] ?? null;
+    echo "request failed: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -61,7 +94,10 @@ if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
 } else {
-    echo "Error: " . $result["err"]->getMessage();
+    // On an HTTP error status there is no err (only a transport failure sets
+    // it), so fall back to the status code.
+    $err = $result["err"] ?? null;
+    echo "Error: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -82,16 +118,13 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = LocationSharingSDK::test([
-    "entity" => ["address" => ["test01" => ["id" => "test01"]]],
-]);
+$client = LocationSharingSDK::test();
 
-// load() returns the bare mock record (throws on error).
-$address = $client->Address()->load(["id" => "test01"]);
+// Entity ops return the bare mock record (throws on error).
+$address = $client->Address()->load();
 print_r($address);
 ```
 
@@ -188,9 +221,8 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `($reqmatch, $ctrl): array` | List entities matching the criteria. |
+| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
 | `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
 | `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
@@ -367,18 +399,18 @@ Create an instance: `$address = $client->Address();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `city` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `postal_code` | ``$STRING`` |  |
-| `state` | ``$STRING`` |  |
-| `street` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `city` | `string` |  |
+| `country` | `string` |  |
+| `postal_code` | `string` |  |
+| `state` | `string` |  |
+| `street` | `string` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Address record (throws on error).
-$address = $client->Address()->load(["id" => "address_id"]);
+$address = $client->Address()->load();
 ```
 
 
@@ -396,10 +428,10 @@ Create an instance: `$building_check = $client->BuildingCheck();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `distance` | ``$NUMBER`` |  |
-| `highlighted` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `distance` | `float` |  |
+| `highlighted` | `bool` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -423,7 +455,7 @@ Create an instance: `$export = $client->Export();`
 
 ```php
 // load() returns the bare Export record (throws on error).
-$export = $client->Export()->load(["id" => "export_id"]);
+$export = $client->Export()->load();
 ```
 
 
@@ -443,13 +475,13 @@ Create an instance: `$history = $client->History();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `address` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `timestamp` | ``$STRING`` |  |
+| `accuracy` | `float` |  |
+| `address` | `string` |  |
+| `id` | `string` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `name` | `string` |  |
+| `timestamp` | `string` |  |
 
 #### Example: List
 
@@ -462,9 +494,9 @@ $historys = $client->History()->list();
 
 ```php
 $history = $client->History()->create([
-    "latitude" => null, // `$NUMBER`
-    "longitude" => null, // `$NUMBER`
-    "timestamp" => null, // `$STRING`
+    "latitude" => null, // float
+    "longitude" => null, // float
+    "timestamp" => null, // string
 ]);
 ```
 
@@ -483,17 +515,17 @@ Create an instance: `$location = $client->Location();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `address` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `timestamp` | ``$STRING`` |  |
+| `accuracy` | `float` |  |
+| `address` | `string` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `timestamp` | `string` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Location record (throws on error).
-$location = $client->Location()->load(["id" => "location_id"]);
+$location = $client->Location()->load();
 ```
 
 
@@ -513,12 +545,12 @@ Create an instance: `$marker = $client->Marker();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `created_at` | `string` |  |
+| `id` | `string` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -531,8 +563,8 @@ $markers = $client->Marker()->list();
 
 ```php
 $marker = $client->Marker()->create([
-    "latitude" => null, // `$NUMBER`
-    "longitude" => null, // `$NUMBER`
+    "latitude" => null, // float
+    "longitude" => null, // float
 ]);
 ```
 
@@ -551,21 +583,21 @@ Create an instance: `$repeat = $client->Repeat();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `best_accuracy` | ``$NUMBER`` |  |
-| `count` | ``$INTEGER`` |  |
-| `interval` | ``$NUMBER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `measurement` | ``$ARRAY`` |  |
-| `result_type` | ``$STRING`` |  |
+| `accuracy` | `float` |  |
+| `best_accuracy` | `float` |  |
+| `count` | `int` |  |
+| `interval` | `float` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `measurement` | `array` |  |
+| `result_type` | `string` |  |
 
 #### Example: Create
 
 ```php
 $repeat = $client->Repeat()->create([
-    "count" => null, // `$INTEGER`
-    "interval" => null, // `$NUMBER`
+    "count" => null, // int
+    "interval" => null, // float
 ]);
 ```
 
@@ -584,11 +616,11 @@ Create an instance: `$search = $client->Search();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `type` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `name` | `string` |  |
+| `type` | `string` |  |
 
 #### Example: List
 
@@ -612,31 +644,35 @@ Create an instance: `$share = $client->Share();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `qr_code` | ``$STRING`` |  |
-| `share_link` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `expires_at` | `string` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `name` | `string` |  |
+| `qr_code` | `string` |  |
+| `share_link` | `string` |  |
 
 #### Example: Create
 
 ```php
 $share = $client->Share()->create([
-    "latitude" => null, // `$NUMBER`
-    "longitude" => null, // `$NUMBER`
-    "share_link" => null, // `$STRING`
+    "latitude" => null, // float
+    "longitude" => null, // float
+    "share_link" => null, // string
 ]);
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -653,8 +689,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return array.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -703,10 +740,10 @@ stores the returned data and match criteria internally.
 
 ```php
 $address = $client->Address();
-$address->load(["id" => "example_id"]);
+$address->load();
 
-// $address->dataGet() now returns the loaded address data
-// $address->matchGet() returns the last match criteria
+// $address->data_get() now returns the address data from the last load
+// $address->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

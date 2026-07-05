@@ -8,7 +8,7 @@ Complete API reference for the LocationSharing PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/location-sharing_sdk.php';
+require_once __DIR__ . '/locationsharing_sdk.php';
 
 $client = new LocationSharingSDK($options);
 ```
@@ -77,11 +77,11 @@ Create a new `SearchEntity` instance. Pass `null` for no initial data.
 
 Create a new `ShareEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): LocationSharingUtility`
 
 Return a copy of the SDK utility object.
 
@@ -124,12 +124,12 @@ $address = $client->Address();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | Yes |  |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `postal_code` | ``$STRING`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `street` | ``$STRING`` | No |  |
+| `address` | `string` | Yes |  |
+| `city` | `string` | No |  |
+| `country` | `string` | No |  |
+| `postal_code` | `string` | No |  |
+| `state` | `string` | No |  |
+| `street` | `string` | No |  |
 
 ### Operations
 
@@ -138,24 +138,24 @@ $address = $client->Address();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Address()->load(["id" => "address_id"]);
+$result = $client->Address()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -164,7 +164,7 @@ Set the entity match criteria.
 Create a new `AddressEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -181,36 +181,36 @@ $building_check = $client->BuildingCheck();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | ``$NUMBER`` | No |  |
-| `highlighted` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `distance` | `float` | No |  |
+| `highlighted` | `bool` | No |  |
+| `id` | `string` | No |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->BuildingCheck()->list([]);
+$results = $client->BuildingCheck()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -219,7 +219,7 @@ Set the entity match criteria.
 Create a new `BuildingCheckEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -239,24 +239,24 @@ $export = $client->Export();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Export()->load(["id" => "export_id"]);
+$result = $client->Export()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -265,7 +265,7 @@ Set the entity match criteria.
 Create a new `ExportEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -282,13 +282,13 @@ $history = $client->History();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `address` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `timestamp` | ``$STRING`` | Yes |  |
+| `accuracy` | `float` | No |  |
+| `address` | `string` | No |  |
+| `id` | `string` | Yes |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `string` | No |  |
+| `timestamp` | `string` | Yes |  |
 
 ### Operations
 
@@ -298,18 +298,18 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->History()->create([
-  "latitude" => /* `$NUMBER` */,
-  "longitude" => /* `$NUMBER` */,
-  "timestamp" => /* `$STRING` */,
+  "latitude" => null, // float
+  "longitude" => null, // float
+  "timestamp" => null, // string
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->History()->list([]);
+$results = $client->History()->list();
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -317,24 +317,24 @@ $results = $client->History()->list([]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->History()->remove(["id" => "history_id"]);
+$result = $client->History()->remove();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -343,7 +343,7 @@ Set the entity match criteria.
 Create a new `HistoryEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -360,11 +360,11 @@ $location = $client->Location();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | Yes |  |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `timestamp` | ``$STRING`` | No |  |
+| `accuracy` | `float` | Yes |  |
+| `address` | `string` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `timestamp` | `string` | No |  |
 
 ### Operations
 
@@ -373,24 +373,24 @@ $location = $client->Location();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Location()->load(["id" => "location_id"]);
+$result = $client->Location()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -399,7 +399,7 @@ Set the entity match criteria.
 Create a new `LocationEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -416,12 +416,12 @@ $marker = $client->Marker();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `id` | `string` | Yes |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -431,17 +431,17 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Marker()->create([
-  "latitude" => /* `$NUMBER` */,
-  "longitude" => /* `$NUMBER` */,
+  "latitude" => null, // float
+  "longitude" => null, // float
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Marker()->list([]);
+$results = $client->Marker()->list();
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -449,24 +449,24 @@ $results = $client->Marker()->list([]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Marker()->remove(["id" => "marker_id"]);
+$result = $client->Marker()->remove();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -475,7 +475,7 @@ Set the entity match criteria.
 Create a new `MarkerEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -492,27 +492,27 @@ $repeat = $client->Repeat();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `best_accuracy` | ``$NUMBER`` | No |  |
-| `count` | ``$INTEGER`` | Yes |  |
-| `interval` | ``$NUMBER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `measurement` | ``$ARRAY`` | No |  |
-| `result_type` | ``$STRING`` | No |  |
+| `accuracy` | `float` | No |  |
+| `best_accuracy` | `float` | No |  |
+| `count` | `int` | Yes |  |
+| `interval` | `float` | Yes |  |
+| `latitude` | `float` | No |  |
+| `longitude` | `float` | No |  |
+| `measurement` | `array` | No |  |
+| `result_type` | `string` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `accuracy` | - | - | - | - | - |
-| `best_accuracy` | - | - | - | - | - |
-| `count` | - | - | - | - | - |
-| `interval` | - | - | - | - | - |
-| `latitude` | - | - | - | - | - |
-| `longitude` | - | - | - | - | - |
-| `measurement` | - | - | - | - | - |
-| `result_type` | - | - | Yes | - | - |
+| Field | create |
+| --- | --- |
+| `accuracy` | - |
+| `best_accuracy` | - |
+| `count` | - |
+| `interval` | - |
+| `latitude` | - |
+| `longitude` | - |
+| `measurement` | - |
+| `result_type` | Yes |
 
 ### Operations
 
@@ -522,26 +522,26 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Repeat()->create([
-  "count" => /* `$INTEGER` */,
-  "interval" => /* `$NUMBER` */,
+  "count" => null, // int
+  "interval" => null, // float
 ]);
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -550,7 +550,7 @@ Set the entity match criteria.
 Create a new `RepeatEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -567,37 +567,37 @@ $search = $client->Search();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `type` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `string` | Yes |  |
+| `type` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Search()->list([]);
+$results = $client->Search()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -606,7 +606,7 @@ Set the entity match criteria.
 Create a new `SearchEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -623,13 +623,13 @@ $share = $client->Share();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `qr_code` | ``$STRING`` | No |  |
-| `share_link` | ``$STRING`` | Yes |  |
+| `address` | `string` | No |  |
+| `expires_at` | `string` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `string` | No |  |
+| `qr_code` | `string` | No |  |
+| `share_link` | `string` | Yes |  |
 
 ### Operations
 
@@ -639,27 +639,27 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Share()->create([
-  "latitude" => /* `$NUMBER` */,
-  "longitude" => /* `$NUMBER` */,
-  "share_link" => /* `$STRING` */,
+  "latitude" => null, // float
+  "longitude" => null, // float
+  "share_link" => null, // string
 ]);
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -668,7 +668,7 @@ Set the entity match criteria.
 Create a new `ShareEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

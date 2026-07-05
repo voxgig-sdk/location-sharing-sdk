@@ -8,7 +8,7 @@ Complete API reference for the LocationSharing Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'location-sharing_sdk'
+require_relative 'LocationSharing_sdk'
 
 client = LocationSharingSDK.new(options)
 ```
@@ -125,12 +125,12 @@ address = client.Address
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | Yes |  |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `postal_code` | ``$STRING`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `street` | ``$STRING`` | No |  |
+| `address` | `String` | Yes |  |
+| `city` | `String` | No |  |
+| `country` | `String` | No |  |
+| `postal_code` | `String` | No |  |
+| `state` | `String` | No |  |
+| `street` | `String` | No |  |
 
 ### Operations
 
@@ -139,7 +139,7 @@ address = client.Address
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Address.load({ "id" => "address_id" })
+result = client.Address.load()
 ```
 
 ### Common Methods
@@ -182,19 +182,19 @@ building_check = client.BuildingCheck
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | ``$NUMBER`` | No |  |
-| `highlighted` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `distance` | `Float` | No |  |
+| `highlighted` | `Boolean` | No |  |
+| `id` | `String` | No |  |
+| `name` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.BuildingCheck.list(nil)
+results = client.BuildingCheck.list
 ```
 
 ### Common Methods
@@ -240,7 +240,7 @@ export = client.Export
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Export.load({ "id" => "export_id" })
+result = client.Export.load()
 ```
 
 ### Common Methods
@@ -283,13 +283,13 @@ history = client.History
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `address` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `timestamp` | ``$STRING`` | Yes |  |
+| `accuracy` | `Float` | No |  |
+| `address` | `String` | No |  |
+| `id` | `String` | Yes |  |
+| `latitude` | `Float` | Yes |  |
+| `longitude` | `Float` | Yes |  |
+| `name` | `String` | No |  |
+| `timestamp` | `String` | Yes |  |
 
 ### Operations
 
@@ -299,18 +299,18 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.History.create({
-  "latitude" => # `$NUMBER`,
-  "longitude" => # `$NUMBER`,
-  "timestamp" => # `$STRING`,
+  "latitude" => 1, # Float
+  "longitude" => 1, # Float
+  "timestamp" => "example", # String
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.History.list(nil)
+results = client.History.list
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -318,7 +318,7 @@ results = client.History.list(nil)
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.History.remove({ "id" => "history_id" })
+result = client.History.remove()
 ```
 
 ### Common Methods
@@ -361,11 +361,11 @@ location = client.Location
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | Yes |  |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `timestamp` | ``$STRING`` | No |  |
+| `accuracy` | `Float` | Yes |  |
+| `address` | `String` | No |  |
+| `latitude` | `Float` | Yes |  |
+| `longitude` | `Float` | Yes |  |
+| `timestamp` | `String` | No |  |
 
 ### Operations
 
@@ -374,7 +374,7 @@ location = client.Location
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Location.load({ "id" => "location_id" })
+result = client.Location.load()
 ```
 
 ### Common Methods
@@ -417,12 +417,12 @@ marker = client.Marker
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
+| `address` | `String` | No |  |
+| `created_at` | `String` | No |  |
+| `id` | `String` | Yes |  |
+| `latitude` | `Float` | Yes |  |
+| `longitude` | `Float` | Yes |  |
+| `name` | `String` | No |  |
 
 ### Operations
 
@@ -432,17 +432,17 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Marker.create({
-  "latitude" => # `$NUMBER`,
-  "longitude" => # `$NUMBER`,
+  "latitude" => 1, # Float
+  "longitude" => 1, # Float
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Marker.list(nil)
+results = client.Marker.list
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -450,7 +450,7 @@ results = client.Marker.list(nil)
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Marker.remove({ "id" => "marker_id" })
+result = client.Marker.remove()
 ```
 
 ### Common Methods
@@ -493,27 +493,27 @@ repeat = client.Repeat
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `best_accuracy` | ``$NUMBER`` | No |  |
-| `count` | ``$INTEGER`` | Yes |  |
-| `interval` | ``$NUMBER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `measurement` | ``$ARRAY`` | No |  |
-| `result_type` | ``$STRING`` | No |  |
+| `accuracy` | `Float` | No |  |
+| `best_accuracy` | `Float` | No |  |
+| `count` | `Integer` | Yes |  |
+| `interval` | `Float` | Yes |  |
+| `latitude` | `Float` | No |  |
+| `longitude` | `Float` | No |  |
+| `measurement` | `Array` | No |  |
+| `result_type` | `String` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `accuracy` | - | - | - | - | - |
-| `best_accuracy` | - | - | - | - | - |
-| `count` | - | - | - | - | - |
-| `interval` | - | - | - | - | - |
-| `latitude` | - | - | - | - | - |
-| `longitude` | - | - | - | - | - |
-| `measurement` | - | - | - | - | - |
-| `result_type` | - | - | Yes | - | - |
+| Field | create |
+| --- | --- |
+| `accuracy` | - |
+| `best_accuracy` | - |
+| `count` | - |
+| `interval` | - |
+| `latitude` | - |
+| `longitude` | - |
+| `measurement` | - |
+| `result_type` | Yes |
 
 ### Operations
 
@@ -523,8 +523,8 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Repeat.create({
-  "count" => # `$INTEGER`,
-  "interval" => # `$NUMBER`,
+  "count" => 1, # Integer
+  "interval" => 1, # Float
 })
 ```
 
@@ -568,20 +568,20 @@ search = client.Search
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `type` | ``$STRING`` | No |  |
+| `address` | `String` | No |  |
+| `latitude` | `Float` | Yes |  |
+| `longitude` | `Float` | Yes |  |
+| `name` | `String` | Yes |  |
+| `type` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Search.list(nil)
+results = client.Search.list
 ```
 
 ### Common Methods
@@ -624,13 +624,13 @@ share = client.Share
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `qr_code` | ``$STRING`` | No |  |
-| `share_link` | ``$STRING`` | Yes |  |
+| `address` | `String` | No |  |
+| `expires_at` | `String` | No |  |
+| `latitude` | `Float` | Yes |  |
+| `longitude` | `Float` | Yes |  |
+| `name` | `String` | No |  |
+| `qr_code` | `String` | No |  |
+| `share_link` | `String` | Yes |  |
 
 ### Operations
 
@@ -640,9 +640,9 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Share.create({
-  "latitude" => # `$NUMBER`,
-  "longitude" => # `$NUMBER`,
-  "share_link" => # `$STRING`,
+  "latitude" => 1, # Float
+  "longitude" => 1, # Float
+  "share_link" => "example", # String
 })
 ```
 

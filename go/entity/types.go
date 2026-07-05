@@ -18,8 +18,7 @@ type Address struct {
 	Street *string `json:"street,omitempty"`
 }
 
-// AddressLoadMatch mirrors the address fields as an all-optional match
-// filter (Go analog of Partial<Address>).
+// AddressLoadMatch is the typed request payload for Address.LoadTyped.
 type AddressLoadMatch struct {
 	Address *string `json:"address,omitempty"`
 	City *string `json:"city,omitempty"`
@@ -37,8 +36,7 @@ type BuildingCheck struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// BuildingCheckListMatch mirrors the building_check fields as an all-optional match
-// filter (Go analog of Partial<BuildingCheck>).
+// BuildingCheckListMatch is the typed request payload for BuildingCheck.ListTyped.
 type BuildingCheckListMatch struct {
 	Distance *float64 `json:"distance,omitempty"`
 	Highlighted *bool `json:"highlighted,omitempty"`
@@ -50,8 +48,7 @@ type BuildingCheckListMatch struct {
 type Export struct {
 }
 
-// ExportLoadMatch mirrors the export fields as an all-optional match
-// filter (Go analog of Partial<Export>).
+// ExportLoadMatch is the typed request payload for Export.LoadTyped.
 type ExportLoadMatch struct {
 }
 
@@ -66,8 +63,7 @@ type History struct {
 	Timestamp string `json:"timestamp"`
 }
 
-// HistoryListMatch mirrors the history fields as an all-optional match
-// filter (Go analog of Partial<History>).
+// HistoryListMatch is the typed request payload for History.ListTyped.
 type HistoryListMatch struct {
 	Accuracy *float64 `json:"accuracy,omitempty"`
 	Address *string `json:"address,omitempty"`
@@ -78,24 +74,22 @@ type HistoryListMatch struct {
 	Timestamp *string `json:"timestamp,omitempty"`
 }
 
-// HistoryCreateData mirrors the history fields as an all-optional match
-// filter (Go analog of Partial<History>).
+// HistoryCreateData is the typed request payload for History.CreateTyped.
 type HistoryCreateData struct {
 	Accuracy *float64 `json:"accuracy,omitempty"`
 	Address *string `json:"address,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Latitude *float64 `json:"latitude,omitempty"`
-	Longitude *float64 `json:"longitude,omitempty"`
+	Id string `json:"id"`
+	Latitude float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
 	Name *string `json:"name,omitempty"`
-	Timestamp *string `json:"timestamp,omitempty"`
+	Timestamp string `json:"timestamp"`
 }
 
-// HistoryRemoveMatch mirrors the history fields as an all-optional match
-// filter (Go analog of Partial<History>).
+// HistoryRemoveMatch is the typed request payload for History.RemoveTyped.
 type HistoryRemoveMatch struct {
 	Accuracy *float64 `json:"accuracy,omitempty"`
 	Address *string `json:"address,omitempty"`
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	Latitude *float64 `json:"latitude,omitempty"`
 	Longitude *float64 `json:"longitude,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -111,8 +105,7 @@ type Location struct {
 	Timestamp *string `json:"timestamp,omitempty"`
 }
 
-// LocationLoadMatch mirrors the location fields as an all-optional match
-// filter (Go analog of Partial<Location>).
+// LocationLoadMatch is the typed request payload for Location.LoadTyped.
 type LocationLoadMatch struct {
 	Accuracy *float64 `json:"accuracy,omitempty"`
 	Address *string `json:"address,omitempty"`
@@ -131,8 +124,7 @@ type Marker struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// MarkerListMatch mirrors the marker fields as an all-optional match
-// filter (Go analog of Partial<Marker>).
+// MarkerListMatch is the typed request payload for Marker.ListTyped.
 type MarkerListMatch struct {
 	Address *string `json:"address,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -142,23 +134,21 @@ type MarkerListMatch struct {
 	Name *string `json:"name,omitempty"`
 }
 
-// MarkerCreateData mirrors the marker fields as an all-optional match
-// filter (Go analog of Partial<Marker>).
+// MarkerCreateData is the typed request payload for Marker.CreateTyped.
 type MarkerCreateData struct {
 	Address *string `json:"address,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Latitude *float64 `json:"latitude,omitempty"`
-	Longitude *float64 `json:"longitude,omitempty"`
+	Id string `json:"id"`
+	Latitude float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
 	Name *string `json:"name,omitempty"`
 }
 
-// MarkerRemoveMatch mirrors the marker fields as an all-optional match
-// filter (Go analog of Partial<Marker>).
+// MarkerRemoveMatch is the typed request payload for Marker.RemoveTyped.
 type MarkerRemoveMatch struct {
 	Address *string `json:"address,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	Latitude *float64 `json:"latitude,omitempty"`
 	Longitude *float64 `json:"longitude,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -176,13 +166,12 @@ type Repeat struct {
 	ResultType *string `json:"result_type,omitempty"`
 }
 
-// RepeatCreateData mirrors the repeat fields as an all-optional match
-// filter (Go analog of Partial<Repeat>).
+// RepeatCreateData is the typed request payload for Repeat.CreateTyped.
 type RepeatCreateData struct {
 	Accuracy *float64 `json:"accuracy,omitempty"`
 	BestAccuracy *float64 `json:"best_accuracy,omitempty"`
-	Count *int `json:"count,omitempty"`
-	Interval *float64 `json:"interval,omitempty"`
+	Count int `json:"count"`
+	Interval float64 `json:"interval"`
 	Latitude *float64 `json:"latitude,omitempty"`
 	Longitude *float64 `json:"longitude,omitempty"`
 	Measurement *[]any `json:"measurement,omitempty"`
@@ -198,8 +187,7 @@ type Search struct {
 	Type *string `json:"type,omitempty"`
 }
 
-// SearchListMatch mirrors the search fields as an all-optional match
-// filter (Go analog of Partial<Search>).
+// SearchListMatch is the typed request payload for Search.ListTyped.
 type SearchListMatch struct {
 	Address *string `json:"address,omitempty"`
 	Latitude *float64 `json:"latitude,omitempty"`
@@ -219,16 +207,15 @@ type Share struct {
 	ShareLink string `json:"share_link"`
 }
 
-// ShareCreateData mirrors the share fields as an all-optional match
-// filter (Go analog of Partial<Share>).
+// ShareCreateData is the typed request payload for Share.CreateTyped.
 type ShareCreateData struct {
 	Address *string `json:"address,omitempty"`
 	ExpiresAt *string `json:"expires_at,omitempty"`
-	Latitude *float64 `json:"latitude,omitempty"`
-	Longitude *float64 `json:"longitude,omitempty"`
+	Latitude float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
 	Name *string `json:"name,omitempty"`
 	QrCode *string `json:"qr_code,omitempty"`
-	ShareLink *string `json:"share_link,omitempty"`
+	ShareLink string `json:"share_link"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

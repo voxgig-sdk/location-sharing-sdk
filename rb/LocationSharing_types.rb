@@ -37,7 +37,7 @@ Address = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Address#load (any subset of Address fields).
+# Request payload for Address#load.
 #
 # @!attribute [rw] address
 #   @return [String, nil]
@@ -87,7 +87,7 @@ BuildingCheck = Struct.new(
   keyword_init: true
 )
 
-# Match filter for BuildingCheck#list (any subset of BuildingCheck fields).
+# Request payload for BuildingCheck#list.
 #
 # @!attribute [rw] distance
 #   @return [Float, nil]
@@ -112,7 +112,7 @@ BuildingCheckListMatch = Struct.new(
 class Export
 end
 
-# Match filter for Export#load (any subset of Export fields).
+# Request payload for Export#load.
 class ExportLoadMatch
 end
 
@@ -149,7 +149,7 @@ History = Struct.new(
   keyword_init: true
 )
 
-# Match filter for History#list (any subset of History fields).
+# Request payload for History#list.
 #
 # @!attribute [rw] accuracy
 #   @return [Float, nil]
@@ -182,7 +182,7 @@ HistoryListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for History#create (any subset of History fields).
+# Request payload for History#create.
 #
 # @!attribute [rw] accuracy
 #   @return [Float, nil]
@@ -191,19 +191,19 @@ HistoryListMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] id
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] latitude
-#   @return [Float, nil]
+#   @return [Float]
 #
 # @!attribute [rw] longitude
-#   @return [Float, nil]
+#   @return [Float]
 #
 # @!attribute [rw] name
 #   @return [String, nil]
 #
 # @!attribute [rw] timestamp
-#   @return [String, nil]
+#   @return [String]
 HistoryCreateData = Struct.new(
   :accuracy,
   :address,
@@ -215,7 +215,7 @@ HistoryCreateData = Struct.new(
   keyword_init: true
 )
 
-# Match filter for History#remove (any subset of History fields).
+# Request payload for History#remove.
 #
 # @!attribute [rw] accuracy
 #   @return [Float, nil]
@@ -224,7 +224,7 @@ HistoryCreateData = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] id
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] latitude
 #   @return [Float, nil]
@@ -273,7 +273,7 @@ Location = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Location#load (any subset of Location fields).
+# Request payload for Location#load.
 #
 # @!attribute [rw] accuracy
 #   @return [Float, nil]
@@ -327,7 +327,7 @@ Marker = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Marker#list (any subset of Marker fields).
+# Request payload for Marker#list.
 #
 # @!attribute [rw] address
 #   @return [String, nil]
@@ -356,7 +356,7 @@ MarkerListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Marker#create (any subset of Marker fields).
+# Request payload for Marker#create.
 #
 # @!attribute [rw] address
 #   @return [String, nil]
@@ -365,13 +365,13 @@ MarkerListMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] id
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] latitude
-#   @return [Float, nil]
+#   @return [Float]
 #
 # @!attribute [rw] longitude
-#   @return [Float, nil]
+#   @return [Float]
 #
 # @!attribute [rw] name
 #   @return [String, nil]
@@ -385,7 +385,7 @@ MarkerCreateData = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Marker#remove (any subset of Marker fields).
+# Request payload for Marker#remove.
 #
 # @!attribute [rw] address
 #   @return [String, nil]
@@ -394,7 +394,7 @@ MarkerCreateData = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] id
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] latitude
 #   @return [Float, nil]
@@ -451,7 +451,7 @@ Repeat = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Repeat#create (any subset of Repeat fields).
+# Request payload for Repeat#create.
 #
 # @!attribute [rw] accuracy
 #   @return [Float, nil]
@@ -460,10 +460,10 @@ Repeat = Struct.new(
 #   @return [Float, nil]
 #
 # @!attribute [rw] count
-#   @return [Integer, nil]
+#   @return [Integer]
 #
 # @!attribute [rw] interval
-#   @return [Float, nil]
+#   @return [Float]
 #
 # @!attribute [rw] latitude
 #   @return [Float, nil]
@@ -513,7 +513,7 @@ Search = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Search#list (any subset of Search fields).
+# Request payload for Search#list.
 #
 # @!attribute [rw] address
 #   @return [String, nil]
@@ -571,7 +571,7 @@ Share = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Share#create (any subset of Share fields).
+# Request payload for Share#create.
 #
 # @!attribute [rw] address
 #   @return [String, nil]
@@ -580,10 +580,10 @@ Share = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] latitude
-#   @return [Float, nil]
+#   @return [Float]
 #
 # @!attribute [rw] longitude
-#   @return [Float, nil]
+#   @return [Float]
 #
 # @!attribute [rw] name
 #   @return [String, nil]
@@ -592,7 +592,7 @@ Share = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] share_link
-#   @return [String, nil]
+#   @return [String]
 ShareCreateData = Struct.new(
   :address,
   :expires_at,

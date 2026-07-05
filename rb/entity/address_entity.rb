@@ -67,10 +67,12 @@ class AddressEntity
   
   # Load a single Address.
   #
-  # @param reqmatch [AddressLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param reqmatch [AddressLoadMatch, Hash, nil] match criteria (id/query fields);
+  #   optional — an entity with no id-like key loads with no match (nil is treated
+  #   as an empty match, so client.Address.load works with no args).
   # @param ctrl [Object, nil] optional per-call control
   # @return [Address, Hash] the loaded Address; raises LocationSharingError on failure
-  def load(reqmatch, ctrl = nil)
+  def load(reqmatch = nil, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
       "opname" => "load",

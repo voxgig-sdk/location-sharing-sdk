@@ -4,6 +4,8 @@
 
 The Ruby SDK for the LocationSharing API — an entity-oriented client using idiomatic Ruby conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Address` — with named operations (`list`/`load`/`create`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -33,11 +35,38 @@ client = LocationSharingSDK.new
 ```ruby
 begin
   # load returns the bare Address record (raises on error).
-  address = client.Address.load({ "id" => "example_id" })
+  address = client.Address.load()
   puts address
 rescue => err
   warn "load failed: #{err}"
 end
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so rescue them:
+
+```ruby
+begin
+  address = client.Address.load()
+rescue => err
+  warn "load failed: #{err}"
+end
+```
+
+`direct` does **not** raise — it returns the result hash. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```ruby
+result = client.direct({
+  "path" => "/api/resource/{id}",
+  "method" => "GET",
+  "params" => { "id" => "example_id" },
+})
+
+warn "request failed: #{result["err"] || "HTTP #{result["status"]}"}" unless result["ok"]
 ```
 
 
@@ -58,7 +87,9 @@ if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
 else
-  warn result["err"]
+  # On an HTTP error status there is no err (only a transport failure sets
+  # it), so fall back to the status code.
+  warn(result["err"] || "HTTP #{result["status"]}")
 end
 ```
 
@@ -81,16 +112,13 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = LocationSharingSDK.test({
-  "entity" => { "address" => { "test01" => { "id" => "test01" } } },
-})
+client = LocationSharingSDK.test
 
-# load returns the bare mock record (raises on error).
-address = client.Address.load({ "id" => "test01" })
+# Entity ops return the bare mock record (raises on error).
+address = client.Address.load()
 puts address
 ```
 
@@ -184,9 +212,8 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
 | `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
@@ -362,18 +389,18 @@ Create an instance: `address = client.Address`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `city` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `postal_code` | ``$STRING`` |  |
-| `state` | ``$STRING`` |  |
-| `street` | ``$STRING`` |  |
+| `address` | `String` |  |
+| `city` | `String` |  |
+| `country` | `String` |  |
+| `postal_code` | `String` |  |
+| `state` | `String` |  |
+| `street` | `String` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the bare Address record (raises on error).
-address = client.Address.load({ "id" => "address_id" })
+address = client.Address.load()
 ```
 
 
@@ -391,10 +418,10 @@ Create an instance: `building_check = client.BuildingCheck`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `distance` | ``$NUMBER`` |  |
-| `highlighted` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `distance` | `Float` |  |
+| `highlighted` | `Boolean` |  |
+| `id` | `String` |  |
+| `name` | `String` |  |
 
 #### Example: List
 
@@ -418,7 +445,7 @@ Create an instance: `export = client.Export`
 
 ```ruby
 # load returns the bare Export record (raises on error).
-export = client.Export.load({ "id" => "export_id" })
+export = client.Export.load()
 ```
 
 
@@ -438,13 +465,13 @@ Create an instance: `history = client.History`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `address` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `timestamp` | ``$STRING`` |  |
+| `accuracy` | `Float` |  |
+| `address` | `String` |  |
+| `id` | `String` |  |
+| `latitude` | `Float` |  |
+| `longitude` | `Float` |  |
+| `name` | `String` |  |
+| `timestamp` | `String` |  |
 
 #### Example: List
 
@@ -457,9 +484,9 @@ historys = client.History.list
 
 ```ruby
 history = client.History.create({
-  "latitude" => nil, # `$NUMBER`
-  "longitude" => nil, # `$NUMBER`
-  "timestamp" => nil, # `$STRING`
+  "latitude" => 1, # Float
+  "longitude" => 1, # Float
+  "timestamp" => "example", # String
 })
 ```
 
@@ -478,17 +505,17 @@ Create an instance: `location = client.Location`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `address` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `timestamp` | ``$STRING`` |  |
+| `accuracy` | `Float` |  |
+| `address` | `String` |  |
+| `latitude` | `Float` |  |
+| `longitude` | `Float` |  |
+| `timestamp` | `String` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the bare Location record (raises on error).
-location = client.Location.load({ "id" => "location_id" })
+location = client.Location.load()
 ```
 
 
@@ -508,12 +535,12 @@ Create an instance: `marker = client.Marker`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
+| `address` | `String` |  |
+| `created_at` | `String` |  |
+| `id` | `String` |  |
+| `latitude` | `Float` |  |
+| `longitude` | `Float` |  |
+| `name` | `String` |  |
 
 #### Example: List
 
@@ -526,8 +553,8 @@ markers = client.Marker.list
 
 ```ruby
 marker = client.Marker.create({
-  "latitude" => nil, # `$NUMBER`
-  "longitude" => nil, # `$NUMBER`
+  "latitude" => 1, # Float
+  "longitude" => 1, # Float
 })
 ```
 
@@ -546,21 +573,21 @@ Create an instance: `repeat = client.Repeat`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `best_accuracy` | ``$NUMBER`` |  |
-| `count` | ``$INTEGER`` |  |
-| `interval` | ``$NUMBER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `measurement` | ``$ARRAY`` |  |
-| `result_type` | ``$STRING`` |  |
+| `accuracy` | `Float` |  |
+| `best_accuracy` | `Float` |  |
+| `count` | `Integer` |  |
+| `interval` | `Float` |  |
+| `latitude` | `Float` |  |
+| `longitude` | `Float` |  |
+| `measurement` | `Array` |  |
+| `result_type` | `String` |  |
 
 #### Example: Create
 
 ```ruby
 repeat = client.Repeat.create({
-  "count" => nil, # `$INTEGER`
-  "interval" => nil, # `$NUMBER`
+  "count" => 1, # Integer
+  "interval" => 1, # Float
 })
 ```
 
@@ -579,11 +606,11 @@ Create an instance: `search = client.Search`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `type` | ``$STRING`` |  |
+| `address` | `String` |  |
+| `latitude` | `Float` |  |
+| `longitude` | `Float` |  |
+| `name` | `String` |  |
+| `type` | `String` |  |
 
 #### Example: List
 
@@ -607,31 +634,35 @@ Create an instance: `share = client.Share`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `qr_code` | ``$STRING`` |  |
-| `share_link` | ``$STRING`` |  |
+| `address` | `String` |  |
+| `expires_at` | `String` |  |
+| `latitude` | `Float` |  |
+| `longitude` | `Float` |  |
+| `name` | `String` |  |
+| `qr_code` | `String` |  |
+| `share_link` | `String` |  |
 
 #### Example: Create
 
 ```ruby
 share = client.Share.create({
-  "latitude" => nil, # `$NUMBER`
-  "longitude" => nil, # `$NUMBER`
-  "share_link" => nil, # `$STRING`
+  "latitude" => 1, # Float
+  "longitude" => 1, # Float
+  "share_link" => "example", # String
 })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -648,8 +679,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -698,9 +730,9 @@ stores the returned data and match criteria internally.
 
 ```ruby
 address = client.Address
-address.load({ "id" => "example_id" })
+address.load()
 
-# address.data_get now returns the loaded address data
+# address.data_get now returns the address data from the last load
 # address.match_get returns the last match criteria
 ```
 

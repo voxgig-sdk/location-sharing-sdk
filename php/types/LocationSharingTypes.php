@@ -23,7 +23,7 @@ class Address
     public ?string $street = null;
 }
 
-/** Match filter for Address#load (any subset of Address fields). */
+/** Request payload for Address#load. */
 class AddressLoadMatch
 {
     public ?string $address = null;
@@ -43,7 +43,7 @@ class BuildingCheck
     public ?string $name = null;
 }
 
-/** Match filter for BuildingCheck#list (any subset of BuildingCheck fields). */
+/** Request payload for BuildingCheck#list. */
 class BuildingCheckListMatch
 {
     public ?float $distance = null;
@@ -57,7 +57,7 @@ class Export
 {
 }
 
-/** Match filter for Export#load (any subset of Export fields). */
+/** Request payload for Export#load. */
 class ExportLoadMatch
 {
 }
@@ -74,7 +74,7 @@ class History
     public string $timestamp;
 }
 
-/** Match filter for History#list (any subset of History fields). */
+/** Request payload for History#list. */
 class HistoryListMatch
 {
     public ?float $accuracy = null;
@@ -86,24 +86,24 @@ class HistoryListMatch
     public ?string $timestamp = null;
 }
 
-/** Match filter for History#create (any subset of History fields). */
+/** Request payload for History#create. */
 class HistoryCreateData
 {
     public ?float $accuracy = null;
     public ?string $address = null;
-    public ?string $id = null;
-    public ?float $latitude = null;
-    public ?float $longitude = null;
+    public string $id;
+    public float $latitude;
+    public float $longitude;
     public ?string $name = null;
-    public ?string $timestamp = null;
+    public string $timestamp;
 }
 
-/** Match filter for History#remove (any subset of History fields). */
+/** Request payload for History#remove. */
 class HistoryRemoveMatch
 {
     public ?float $accuracy = null;
     public ?string $address = null;
-    public ?string $id = null;
+    public string $id;
     public ?float $latitude = null;
     public ?float $longitude = null;
     public ?string $name = null;
@@ -120,7 +120,7 @@ class Location
     public ?string $timestamp = null;
 }
 
-/** Match filter for Location#load (any subset of Location fields). */
+/** Request payload for Location#load. */
 class LocationLoadMatch
 {
     public ?float $accuracy = null;
@@ -141,7 +141,7 @@ class Marker
     public ?string $name = null;
 }
 
-/** Match filter for Marker#list (any subset of Marker fields). */
+/** Request payload for Marker#list. */
 class MarkerListMatch
 {
     public ?string $address = null;
@@ -152,23 +152,23 @@ class MarkerListMatch
     public ?string $name = null;
 }
 
-/** Match filter for Marker#create (any subset of Marker fields). */
+/** Request payload for Marker#create. */
 class MarkerCreateData
 {
     public ?string $address = null;
     public ?string $created_at = null;
-    public ?string $id = null;
-    public ?float $latitude = null;
-    public ?float $longitude = null;
+    public string $id;
+    public float $latitude;
+    public float $longitude;
     public ?string $name = null;
 }
 
-/** Match filter for Marker#remove (any subset of Marker fields). */
+/** Request payload for Marker#remove. */
 class MarkerRemoveMatch
 {
     public ?string $address = null;
     public ?string $created_at = null;
-    public ?string $id = null;
+    public string $id;
     public ?float $latitude = null;
     public ?float $longitude = null;
     public ?string $name = null;
@@ -187,13 +187,13 @@ class Repeat
     public ?string $result_type = null;
 }
 
-/** Match filter for Repeat#create (any subset of Repeat fields). */
+/** Request payload for Repeat#create. */
 class RepeatCreateData
 {
     public ?float $accuracy = null;
     public ?float $best_accuracy = null;
-    public ?int $count = null;
-    public ?float $interval = null;
+    public int $count;
+    public float $interval;
     public ?float $latitude = null;
     public ?float $longitude = null;
     public ?array $measurement = null;
@@ -210,7 +210,7 @@ class Search
     public ?string $type = null;
 }
 
-/** Match filter for Search#list (any subset of Search fields). */
+/** Request payload for Search#list. */
 class SearchListMatch
 {
     public ?string $address = null;
@@ -232,15 +232,15 @@ class Share
     public string $share_link;
 }
 
-/** Match filter for Share#create (any subset of Share fields). */
+/** Request payload for Share#create. */
 class ShareCreateData
 {
     public ?string $address = null;
     public ?string $expires_at = null;
-    public ?float $latitude = null;
-    public ?float $longitude = null;
+    public float $latitude;
+    public float $longitude;
     public ?string $name = null;
     public ?string $qr_code = null;
-    public ?string $share_link = null;
+    public string $share_link;
 }
 

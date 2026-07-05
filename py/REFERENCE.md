@@ -8,7 +8,7 @@ Complete API reference for the LocationSharing Python SDK.
 ### Constructor
 
 ```python
-from location-sharing_sdk import LocationSharingSDK
+from locationsharing_sdk import LocationSharingSDK
 
 client = LocationSharingSDK(options)
 ```
@@ -119,12 +119,12 @@ address = client.Address()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | Yes |  |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `postal_code` | ``$STRING`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `street` | ``$STRING`` | No |  |
+| `address` | `str` | Yes |  |
+| `city` | `str` | No |  |
+| `country` | `str` | No |  |
+| `postal_code` | `str` | No |  |
+| `state` | `str` | No |  |
+| `street` | `str` | No |  |
 
 ### Operations
 
@@ -133,7 +133,7 @@ address = client.Address()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Address().load({"id": "address_id"})
+result = client.Address().load()
 ```
 
 ### Common Methods
@@ -175,19 +175,19 @@ building_check = client.BuildingCheck()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | ``$NUMBER`` | No |  |
-| `highlighted` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `distance` | `float` | No |  |
+| `highlighted` | `bool` | No |  |
+| `id` | `str` | No |  |
+| `name` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.BuildingCheck().list({})
+results = client.BuildingCheck().list()
 for building_check in results:
     print(building_check)
 ```
@@ -234,7 +234,7 @@ export = client.Export()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Export().load({"id": "export_id"})
+result = client.Export().load()
 ```
 
 ### Common Methods
@@ -276,13 +276,13 @@ history = client.History()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `address` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `timestamp` | ``$STRING`` | Yes |  |
+| `accuracy` | `float` | No |  |
+| `address` | `str` | No |  |
+| `id` | `str` | Yes |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `str` | No |  |
+| `timestamp` | `str` | Yes |  |
 
 ### Operations
 
@@ -292,18 +292,18 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.History().create({
-    "latitude": ...,  # `$NUMBER`
-    "longitude": ...,  # `$NUMBER`
-    "timestamp": ...,  # `$STRING`
+    "latitude": 1,  # float
+    "longitude": 1,  # float
+    "timestamp": "example",  # str
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.History().list({})
+results = client.History().list()
 for history in results:
     print(history)
 ```
@@ -313,7 +313,7 @@ for history in results:
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.History().remove({"id": "history_id"})
+result = client.History().remove()
 ```
 
 ### Common Methods
@@ -355,11 +355,11 @@ location = client.Location()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | Yes |  |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `timestamp` | ``$STRING`` | No |  |
+| `accuracy` | `float` | Yes |  |
+| `address` | `str` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `timestamp` | `str` | No |  |
 
 ### Operations
 
@@ -368,7 +368,7 @@ location = client.Location()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Location().load({"id": "location_id"})
+result = client.Location().load()
 ```
 
 ### Common Methods
@@ -410,12 +410,12 @@ marker = client.Marker()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
+| `address` | `str` | No |  |
+| `created_at` | `str` | No |  |
+| `id` | `str` | Yes |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `str` | No |  |
 
 ### Operations
 
@@ -425,17 +425,17 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Marker().create({
-    "latitude": ...,  # `$NUMBER`
-    "longitude": ...,  # `$NUMBER`
+    "latitude": 1,  # float
+    "longitude": 1,  # float
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Marker().list({})
+results = client.Marker().list()
 for marker in results:
     print(marker)
 ```
@@ -445,7 +445,7 @@ for marker in results:
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.Marker().remove({"id": "marker_id"})
+result = client.Marker().remove()
 ```
 
 ### Common Methods
@@ -487,27 +487,27 @@ repeat = client.Repeat()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `best_accuracy` | ``$NUMBER`` | No |  |
-| `count` | ``$INTEGER`` | Yes |  |
-| `interval` | ``$NUMBER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `measurement` | ``$ARRAY`` | No |  |
-| `result_type` | ``$STRING`` | No |  |
+| `accuracy` | `float` | No |  |
+| `best_accuracy` | `float` | No |  |
+| `count` | `int` | Yes |  |
+| `interval` | `float` | Yes |  |
+| `latitude` | `float` | No |  |
+| `longitude` | `float` | No |  |
+| `measurement` | `list` | No |  |
+| `result_type` | `str` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `accuracy` | - | - | - | - | - |
-| `best_accuracy` | - | - | - | - | - |
-| `count` | - | - | - | - | - |
-| `interval` | - | - | - | - | - |
-| `latitude` | - | - | - | - | - |
-| `longitude` | - | - | - | - | - |
-| `measurement` | - | - | - | - | - |
-| `result_type` | - | - | Yes | - | - |
+| Field | create |
+| --- | --- |
+| `accuracy` | - |
+| `best_accuracy` | - |
+| `count` | - |
+| `interval` | - |
+| `latitude` | - |
+| `longitude` | - |
+| `measurement` | - |
+| `result_type` | Yes |
 
 ### Operations
 
@@ -517,8 +517,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Repeat().create({
-    "count": ...,  # `$INTEGER`
-    "interval": ...,  # `$NUMBER`
+    "count": 1,  # int
+    "interval": 1,  # float
 })
 ```
 
@@ -561,20 +561,20 @@ search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `type` | ``$STRING`` | No |  |
+| `address` | `str` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `str` | Yes |  |
+| `type` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Search().list({})
+results = client.Search().list()
 for search in results:
     print(search)
 ```
@@ -618,13 +618,13 @@ share = client.Share()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `qr_code` | ``$STRING`` | No |  |
-| `share_link` | ``$STRING`` | Yes |  |
+| `address` | `str` | No |  |
+| `expires_at` | `str` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `name` | `str` | No |  |
+| `qr_code` | `str` | No |  |
+| `share_link` | `str` | Yes |  |
 
 ### Operations
 
@@ -634,9 +634,9 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Share().create({
-    "latitude": ...,  # `$NUMBER`
-    "longitude": ...,  # `$NUMBER`
-    "share_link": ...,  # `$STRING`
+    "latitude": 1,  # float
+    "longitude": 1,  # float
+    "share_link": "example",  # str
 })
 ```
 

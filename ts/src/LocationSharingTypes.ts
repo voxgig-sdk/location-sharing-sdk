@@ -14,7 +14,14 @@ export interface Address {
   street?: string
 }
 
-export type AddressLoadMatch = Partial<Address>
+export interface AddressLoadMatch {
+  address?: string
+  city?: string
+  country?: string
+  postal_code?: string
+  state?: string
+  street?: string
+}
 
 export interface BuildingCheck {
   distance?: number
@@ -23,12 +30,18 @@ export interface BuildingCheck {
   name?: string
 }
 
-export type BuildingCheckListMatch = Partial<BuildingCheck>
+export interface BuildingCheckListMatch {
+  distance?: number
+  highlighted?: boolean
+  id?: string
+  name?: string
+}
 
 export interface Export {
 }
 
-export type ExportLoadMatch = Partial<Export>
+export interface ExportLoadMatch {
+}
 
 export interface History {
   accuracy?: number
@@ -40,11 +53,35 @@ export interface History {
   timestamp: string
 }
 
-export type HistoryListMatch = Partial<History>
+export interface HistoryListMatch {
+  accuracy?: number
+  address?: string
+  id?: string
+  latitude?: number
+  longitude?: number
+  name?: string
+  timestamp?: string
+}
 
-export type HistoryCreateData = Partial<History>
+export interface HistoryCreateData {
+  accuracy?: number
+  address?: string
+  id: string
+  latitude: number
+  longitude: number
+  name?: string
+  timestamp: string
+}
 
-export type HistoryRemoveMatch = Partial<History>
+export interface HistoryRemoveMatch {
+  accuracy?: number
+  address?: string
+  id: string
+  latitude?: number
+  longitude?: number
+  name?: string
+  timestamp?: string
+}
 
 export interface Location {
   accuracy: number
@@ -54,7 +91,13 @@ export interface Location {
   timestamp?: string
 }
 
-export type LocationLoadMatch = Partial<Location>
+export interface LocationLoadMatch {
+  accuracy?: number
+  address?: string
+  latitude?: number
+  longitude?: number
+  timestamp?: string
+}
 
 export interface Marker {
   address?: string
@@ -65,11 +108,32 @@ export interface Marker {
   name?: string
 }
 
-export type MarkerListMatch = Partial<Marker>
+export interface MarkerListMatch {
+  address?: string
+  created_at?: string
+  id?: string
+  latitude?: number
+  longitude?: number
+  name?: string
+}
 
-export type MarkerCreateData = Partial<Marker>
+export interface MarkerCreateData {
+  address?: string
+  created_at?: string
+  id: string
+  latitude: number
+  longitude: number
+  name?: string
+}
 
-export type MarkerRemoveMatch = Partial<Marker>
+export interface MarkerRemoveMatch {
+  address?: string
+  created_at?: string
+  id: string
+  latitude?: number
+  longitude?: number
+  name?: string
+}
 
 export interface Repeat {
   accuracy?: number
@@ -82,7 +146,16 @@ export interface Repeat {
   result_type?: string
 }
 
-export type RepeatCreateData = Partial<Repeat>
+export interface RepeatCreateData {
+  accuracy?: number
+  best_accuracy?: number
+  count: number
+  interval: number
+  latitude?: number
+  longitude?: number
+  measurement?: any[]
+  result_type?: string
+}
 
 export interface Search {
   address?: string
@@ -92,7 +165,13 @@ export interface Search {
   type?: string
 }
 
-export type SearchListMatch = Partial<Search>
+export interface SearchListMatch {
+  address?: string
+  latitude?: number
+  longitude?: number
+  name?: string
+  type?: string
+}
 
 export interface Share {
   address?: string
@@ -104,5 +183,13 @@ export interface Share {
   share_link: string
 }
 
-export type ShareCreateData = Partial<Share>
+export interface ShareCreateData {
+  address?: string
+  expires_at?: string
+  latitude: number
+  longitude: number
+  name?: string
+  qr_code?: string
+  share_link: string
+}
 

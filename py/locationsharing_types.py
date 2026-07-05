@@ -82,20 +82,26 @@ class HistoryListMatch(TypedDict, total=False):
     timestamp: str
 
 
-class HistoryCreateData(TypedDict, total=False):
-    accuracy: float
-    address: str
+class HistoryCreateDataRequired(TypedDict):
     id: str
     latitude: float
     longitude: float
-    name: str
     timestamp: str
 
 
-class HistoryRemoveMatch(TypedDict, total=False):
+class HistoryCreateData(HistoryCreateDataRequired, total=False):
     accuracy: float
     address: str
+    name: str
+
+
+class HistoryRemoveMatchRequired(TypedDict):
     id: str
+
+
+class HistoryRemoveMatch(HistoryRemoveMatchRequired, total=False):
+    accuracy: float
+    address: str
     latitude: float
     longitude: float
     name: str
@@ -142,19 +148,25 @@ class MarkerListMatch(TypedDict, total=False):
     name: str
 
 
-class MarkerCreateData(TypedDict, total=False):
-    address: str
-    created_at: str
+class MarkerCreateDataRequired(TypedDict):
     id: str
     latitude: float
     longitude: float
+
+
+class MarkerCreateData(MarkerCreateDataRequired, total=False):
+    address: str
+    created_at: str
     name: str
 
 
-class MarkerRemoveMatch(TypedDict, total=False):
+class MarkerRemoveMatchRequired(TypedDict):
+    id: str
+
+
+class MarkerRemoveMatch(MarkerRemoveMatchRequired, total=False):
     address: str
     created_at: str
-    id: str
     latitude: float
     longitude: float
     name: str
@@ -174,11 +186,14 @@ class Repeat(RepeatRequired, total=False):
     result_type: str
 
 
-class RepeatCreateData(TypedDict, total=False):
-    accuracy: float
-    best_accuracy: float
+class RepeatCreateDataRequired(TypedDict):
     count: int
     interval: float
+
+
+class RepeatCreateData(RepeatCreateDataRequired, total=False):
+    accuracy: float
+    best_accuracy: float
     latitude: float
     longitude: float
     measurement: list
@@ -217,11 +232,14 @@ class Share(ShareRequired, total=False):
     qr_code: str
 
 
-class ShareCreateData(TypedDict, total=False):
-    address: str
-    expires_at: str
+class ShareCreateDataRequired(TypedDict):
     latitude: float
     longitude: float
+    share_link: str
+
+
+class ShareCreateData(ShareCreateDataRequired, total=False):
+    address: str
+    expires_at: str
     name: str
     qr_code: str
-    share_link: str

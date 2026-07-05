@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the LocationSharing API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Address()` — each with a small set of operations (`list`, `load`, `create`, `remove`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -34,10 +39,39 @@ const client = new LocationSharingSDK()
 
 ```ts
 try {
-  const address = await client.Address().load({ id: 'example_id' })
+  const address = await client.Address().load()
   console.log(address)
 } catch (err) {
   console.error('load failed:', err)
+}
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const address = await client.Address().load()
+  console.log(address)
+} catch (err) {
+  console.error('load failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
+})
+
+if (result instanceof Error) {
+  throw result
 }
 ```
 
@@ -86,7 +120,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = LocationSharingSDK.test()
 
-const address = await client.Address().load({ id: 'test01' })
+const address = await client.Address().load()
 // address is a bare entity populated with mock response data
 console.log(address)
 ```
@@ -105,12 +139,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Address()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.load()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -209,10 +243,9 @@ All entities share the same interface.
 | `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
 | `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
 | `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
 | `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): LocationSharingSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -222,7 +255,7 @@ All entities share the same interface.
 Entity operations resolve to the entity data directly — there is no
 result envelope:
 
-- `load`, `create` and `update` resolve to a single entity object.
+- `load` and `create` resolve to a single entity object.
 - `list` resolves to an **array** of entity objects (iterate it directly;
   there is no `.data` and no `.ok`).
 - `remove` resolves to `void`.
@@ -409,17 +442,17 @@ Create an instance: `const address = client.Address()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `city` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `postal_code` | ``$STRING`` |  |
-| `state` | ``$STRING`` |  |
-| `street` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `city` | `string` |  |
+| `country` | `string` |  |
+| `postal_code` | `string` |  |
+| `state` | `string` |  |
+| `street` | `string` |  |
 
 #### Example: Load
 
 ```ts
-const address = await client.Address().load({ id: 'address_id' })
+const address = await client.Address().load()
 ```
 
 
@@ -437,10 +470,10 @@ Create an instance: `const building_check = client.BuildingCheck()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `distance` | ``$NUMBER`` |  |
-| `highlighted` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `distance` | `number` |  |
+| `highlighted` | `boolean` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -451,7 +484,7 @@ const building_checks = await client.BuildingCheck().list()
 
 ### Export
 
-Create an instance: `const export = client.Export()`
+Create an instance: `const export_ = client.Export()`
 
 #### Operations
 
@@ -462,7 +495,7 @@ Create an instance: `const export = client.Export()`
 #### Example: Load
 
 ```ts
-const export = await client.Export().load({ id: 'export_id' })
+const export_ = await client.Export().load()
 ```
 
 
@@ -482,13 +515,13 @@ Create an instance: `const history = client.History()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `address` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `timestamp` | ``$STRING`` |  |
+| `accuracy` | `number` |  |
+| `address` | `string` |  |
+| `id` | `string` |  |
+| `latitude` | `number` |  |
+| `longitude` | `number` |  |
+| `name` | `string` |  |
+| `timestamp` | `string` |  |
 
 #### Example: List
 
@@ -500,9 +533,9 @@ const historys = await client.History().list()
 
 ```ts
 const history = await client.History().create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  timestamp: /* `$STRING` */,
+  latitude: /* number */,
+  longitude: /* number */,
+  timestamp: /* string */,
 })
 ```
 
@@ -521,16 +554,16 @@ Create an instance: `const location = client.Location()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `address` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `timestamp` | ``$STRING`` |  |
+| `accuracy` | `number` |  |
+| `address` | `string` |  |
+| `latitude` | `number` |  |
+| `longitude` | `number` |  |
+| `timestamp` | `string` |  |
 
 #### Example: Load
 
 ```ts
-const location = await client.Location().load({ id: 'location_id' })
+const location = await client.Location().load()
 ```
 
 
@@ -550,12 +583,12 @@ Create an instance: `const marker = client.Marker()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `created_at` | `string` |  |
+| `id` | `string` |  |
+| `latitude` | `number` |  |
+| `longitude` | `number` |  |
+| `name` | `string` |  |
 
 #### Example: List
 
@@ -567,8 +600,8 @@ const markers = await client.Marker().list()
 
 ```ts
 const marker = await client.Marker().create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
+  latitude: /* number */,
+  longitude: /* number */,
 })
 ```
 
@@ -587,21 +620,21 @@ Create an instance: `const repeat = client.Repeat()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `best_accuracy` | ``$NUMBER`` |  |
-| `count` | ``$INTEGER`` |  |
-| `interval` | ``$NUMBER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `measurement` | ``$ARRAY`` |  |
-| `result_type` | ``$STRING`` |  |
+| `accuracy` | `number` |  |
+| `best_accuracy` | `number` |  |
+| `count` | `number` |  |
+| `interval` | `number` |  |
+| `latitude` | `number` |  |
+| `longitude` | `number` |  |
+| `measurement` | `any[]` |  |
+| `result_type` | `string` |  |
 
 #### Example: Create
 
 ```ts
 const repeat = await client.Repeat().create({
-  count: /* `$INTEGER` */,
-  interval: /* `$NUMBER` */,
+  count: /* number */,
+  interval: /* number */,
 })
 ```
 
@@ -620,11 +653,11 @@ Create an instance: `const search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `type` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `latitude` | `number` |  |
+| `longitude` | `number` |  |
+| `name` | `string` |  |
+| `type` | `string` |  |
 
 #### Example: List
 
@@ -647,31 +680,35 @@ Create an instance: `const share = client.Share()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `qr_code` | ``$STRING`` |  |
-| `share_link` | ``$STRING`` |  |
+| `address` | `string` |  |
+| `expires_at` | `string` |  |
+| `latitude` | `number` |  |
+| `longitude` | `number` |  |
+| `name` | `string` |  |
+| `qr_code` | `string` |  |
+| `share_link` | `string` |  |
 
 #### Example: Create
 
 ```ts
 const share = await client.Share().create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  share_link: /* `$STRING` */,
+  latitude: /* number */,
+  longitude: /* number */,
+  share_link: /* string */,
 })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -688,11 +725,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -734,10 +769,10 @@ calls on the same instance can rely on this state.
 
 ```ts
 const address = client.Address()
-await address.load({ id: "example_id" })
+await address.load()
 
-// address.data() now returns the loaded address data
-// address.match() returns { id: "example_id" }
+// address.data() now returns the address data from the last `load`
+// address.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

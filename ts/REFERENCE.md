@@ -212,12 +212,12 @@ const address = client.Address()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | Yes |  |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `postal_code` | ``$STRING`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `street` | ``$STRING`` | No |  |
+| `address` | `string` | Yes |  |
+| `city` | `string` | No |  |
+| `country` | `string` | No |  |
+| `postal_code` | `string` | No |  |
+| `state` | `string` | No |  |
+| `street` | `string` | No |  |
 
 ### Operations
 
@@ -226,7 +226,7 @@ const address = client.Address()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Address().load({ id: 'address_id' })
+const result = await client.Address().load()
 ```
 
 ### Common Methods
@@ -267,10 +267,10 @@ const building_check = client.BuildingCheck()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | ``$NUMBER`` | No |  |
-| `highlighted` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `distance` | `number` | No |  |
+| `highlighted` | `boolean` | No |  |
+| `id` | `string` | No |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -313,7 +313,7 @@ Return a copy of the entity options.
 ## ExportEntity
 
 ```ts
-const export = client.Export()
+const export_ = client.Export()
 ```
 
 ### Operations
@@ -323,7 +323,7 @@ const export = client.Export()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Export().load({ id: 'export_id' })
+const result = await client.Export().load()
 ```
 
 ### Common Methods
@@ -364,13 +364,13 @@ const history = client.History()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `address` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `timestamp` | ``$STRING`` | Yes |  |
+| `accuracy` | `number` | No |  |
+| `address` | `string` | No |  |
+| `id` | `string` | Yes |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | No |  |
+| `timestamp` | `string` | Yes |  |
 
 ### Operations
 
@@ -380,9 +380,9 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.History().create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  timestamp: /* `$STRING` */,
+  latitude: /* number */,
+  longitude: /* number */,
+  timestamp: /* string */,
 })
 ```
 
@@ -399,7 +399,7 @@ const results = await client.History().list()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.History().remove({ id: 'history_id' })
+const result = await client.History().remove()
 ```
 
 ### Common Methods
@@ -440,11 +440,11 @@ const location = client.Location()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | Yes |  |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `timestamp` | ``$STRING`` | No |  |
+| `accuracy` | `number` | Yes |  |
+| `address` | `string` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `timestamp` | `string` | No |  |
 
 ### Operations
 
@@ -453,7 +453,7 @@ const location = client.Location()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Location().load({ id: 'location_id' })
+const result = await client.Location().load()
 ```
 
 ### Common Methods
@@ -494,12 +494,12 @@ const marker = client.Marker()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `id` | `string` | Yes |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -509,8 +509,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Marker().create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
+  latitude: /* number */,
+  longitude: /* number */,
 })
 ```
 
@@ -527,7 +527,7 @@ const results = await client.Marker().list()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Marker().remove({ id: 'marker_id' })
+const result = await client.Marker().remove()
 ```
 
 ### Common Methods
@@ -568,27 +568,27 @@ const repeat = client.Repeat()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `best_accuracy` | ``$NUMBER`` | No |  |
-| `count` | ``$INTEGER`` | Yes |  |
-| `interval` | ``$NUMBER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `measurement` | ``$ARRAY`` | No |  |
-| `result_type` | ``$STRING`` | No |  |
+| `accuracy` | `number` | No |  |
+| `best_accuracy` | `number` | No |  |
+| `count` | `number` | Yes |  |
+| `interval` | `number` | Yes |  |
+| `latitude` | `number` | No |  |
+| `longitude` | `number` | No |  |
+| `measurement` | `any[]` | No |  |
+| `result_type` | `string` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `accuracy` | - | - | - | - | - |
-| `best_accuracy` | - | - | - | - | - |
-| `count` | - | - | - | - | - |
-| `interval` | - | - | - | - | - |
-| `latitude` | - | - | - | - | - |
-| `longitude` | - | - | - | - | - |
-| `measurement` | - | - | - | - | - |
-| `result_type` | - | - | Yes | - | - |
+| Field | create |
+| --- | --- |
+| `accuracy` | - |
+| `best_accuracy` | - |
+| `count` | - |
+| `interval` | - |
+| `latitude` | - |
+| `longitude` | - |
+| `measurement` | - |
+| `result_type` | Yes |
 
 ### Operations
 
@@ -598,8 +598,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Repeat().create({
-  count: /* `$INTEGER` */,
-  interval: /* `$NUMBER` */,
+  count: /* number */,
+  interval: /* number */,
 })
 ```
 
@@ -641,11 +641,11 @@ const search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `type` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | Yes |  |
+| `type` | `string` | No |  |
 
 ### Operations
 
@@ -695,13 +695,13 @@ const share = client.Share()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `qr_code` | ``$STRING`` | No |  |
-| `share_link` | ``$STRING`` | Yes |  |
+| `address` | `string` | No |  |
+| `expires_at` | `string` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | No |  |
+| `qr_code` | `string` | No |  |
+| `share_link` | `string` | Yes |  |
 
 ### Operations
 
@@ -711,9 +711,9 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Share().create({
-  latitude: /* `$NUMBER` */,
-  longitude: /* `$NUMBER` */,
-  share_link: /* `$STRING` */,
+  latitude: /* number */,
+  longitude: /* number */,
+  share_link: /* string */,
 })
 ```
 

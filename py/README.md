@@ -4,6 +4,11 @@
 
 The Python SDK for the LocationSharing API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Address()` — each
+carrying a small, uniform set of operations (`list`, `load`, `create`, `remove`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -37,10 +42,38 @@ client = LocationSharingSDK()
 
 ```python
 try:
-    address = client.Address().load({"id": "example_id"})
+    address = client.Address().load()
     print(address)
 except Exception as err:
     print(f"load failed: {err}")
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    address = client.Address().load()
+    print(address)
+except Exception as err:
+    print(f"load failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -61,7 +94,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -87,7 +123,7 @@ Create a mock client for unit testing — no server required:
 client = LocationSharingSDK.test()
 
 # Entity ops return the bare record and raise on error.
-address = client.Address().load({"id": "test01"})
+address = client.Address().load()
 # address contains the mock response record
 ```
 
@@ -183,7 +219,6 @@ All entities share the same interface.
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
 | `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
 | `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
@@ -360,17 +395,17 @@ Create an instance: `address = client.Address()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `city` | ``$STRING`` |  |
-| `country` | ``$STRING`` |  |
-| `postal_code` | ``$STRING`` |  |
-| `state` | ``$STRING`` |  |
-| `street` | ``$STRING`` |  |
+| `address` | `str` |  |
+| `city` | `str` |  |
+| `country` | `str` |  |
+| `postal_code` | `str` |  |
+| `state` | `str` |  |
+| `street` | `str` |  |
 
 #### Example: Load
 
 ```python
-address = client.Address().load({"id": "address_id"})
+address = client.Address().load()
 ```
 
 
@@ -382,21 +417,21 @@ Create an instance: `building_check = client.BuildingCheck()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `distance` | ``$NUMBER`` |  |
-| `highlighted` | ``$BOOLEAN`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
+| `distance` | `float` |  |
+| `highlighted` | `bool` |  |
+| `id` | `str` |  |
+| `name` | `str` |  |
 
 #### Example: List
 
 ```python
-building_checks = client.BuildingCheck().list({})
+building_checks = client.BuildingCheck().list()
 ```
 
 
@@ -413,7 +448,7 @@ Create an instance: `export = client.Export()`
 #### Example: Load
 
 ```python
-export = client.Export().load({"id": "export_id"})
+export = client.Export().load()
 ```
 
 
@@ -426,34 +461,34 @@ Create an instance: `history = client.History()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `remove(match)` | Remove the matching entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `address` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `timestamp` | ``$STRING`` |  |
+| `accuracy` | `float` |  |
+| `address` | `str` |  |
+| `id` | `str` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `name` | `str` |  |
+| `timestamp` | `str` |  |
 
 #### Example: List
 
 ```python
-historys = client.History().list({})
+historys = client.History().list()
 ```
 
 #### Example: Create
 
 ```python
 history = client.History().create({
-    "latitude": ...,  # `$NUMBER`
-    "longitude": ...,  # `$NUMBER`
-    "timestamp": ...,  # `$STRING`
+    "latitude": 1,  # float
+    "longitude": 1,  # float
+    "timestamp": "example",  # str
 })
 ```
 
@@ -472,16 +507,16 @@ Create an instance: `location = client.Location()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `address` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `timestamp` | ``$STRING`` |  |
+| `accuracy` | `float` |  |
+| `address` | `str` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `timestamp` | `str` |  |
 
 #### Example: Load
 
 ```python
-location = client.Location().load({"id": "location_id"})
+location = client.Location().load()
 ```
 
 
@@ -494,32 +529,32 @@ Create an instance: `marker = client.Marker()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `remove(match)` | Remove the matching entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `created_at` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
+| `address` | `str` |  |
+| `created_at` | `str` |  |
+| `id` | `str` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `name` | `str` |  |
 
 #### Example: List
 
 ```python
-markers = client.Marker().list({})
+markers = client.Marker().list()
 ```
 
 #### Example: Create
 
 ```python
 marker = client.Marker().create({
-    "latitude": ...,  # `$NUMBER`
-    "longitude": ...,  # `$NUMBER`
+    "latitude": 1,  # float
+    "longitude": 1,  # float
 })
 ```
 
@@ -538,21 +573,21 @@ Create an instance: `repeat = client.Repeat()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` |  |
-| `best_accuracy` | ``$NUMBER`` |  |
-| `count` | ``$INTEGER`` |  |
-| `interval` | ``$NUMBER`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `measurement` | ``$ARRAY`` |  |
-| `result_type` | ``$STRING`` |  |
+| `accuracy` | `float` |  |
+| `best_accuracy` | `float` |  |
+| `count` | `int` |  |
+| `interval` | `float` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `measurement` | `list` |  |
+| `result_type` | `str` |  |
 
 #### Example: Create
 
 ```python
 repeat = client.Repeat().create({
-    "count": ...,  # `$INTEGER`
-    "interval": ...,  # `$NUMBER`
+    "count": 1,  # int
+    "interval": 1,  # float
 })
 ```
 
@@ -565,22 +600,22 @@ Create an instance: `search = client.Search()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `type` | ``$STRING`` |  |
+| `address` | `str` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `name` | `str` |  |
+| `type` | `str` |  |
 
 #### Example: List
 
 ```python
-searchs = client.Search().list({})
+searchs = client.Search().list()
 ```
 
 
@@ -598,31 +633,35 @@ Create an instance: `share = client.Share()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | ``$STRING`` |  |
-| `expires_at` | ``$STRING`` |  |
-| `latitude` | ``$NUMBER`` |  |
-| `longitude` | ``$NUMBER`` |  |
-| `name` | ``$STRING`` |  |
-| `qr_code` | ``$STRING`` |  |
-| `share_link` | ``$STRING`` |  |
+| `address` | `str` |  |
+| `expires_at` | `str` |  |
+| `latitude` | `float` |  |
+| `longitude` | `float` |  |
+| `name` | `str` |  |
+| `qr_code` | `str` |  |
+| `share_link` | `str` |  |
 
 #### Example: Create
 
 ```python
 share = client.Share().create({
-    "latitude": ...,  # `$NUMBER`
-    "longitude": ...,  # `$NUMBER`
-    "share_link": ...,  # `$STRING`
+    "latitude": 1,  # float
+    "longitude": 1,  # float
+    "share_link": "example",  # str
 })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -639,8 +678,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -688,9 +728,9 @@ stores the returned data and match criteria internally.
 
 ```python
 address = client.Address()
-address.load({"id": "example_id"})
+address.load()
 
-# address.data_get() now returns the loaded address data
+# address.data_get() now returns the address data from the last load
 # address.match_get() returns the last match criteria
 ```
 

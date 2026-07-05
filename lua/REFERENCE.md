@@ -122,12 +122,12 @@ local address = client:Address(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | Yes |  |
-| `city` | ``$STRING`` | No |  |
-| `country` | ``$STRING`` | No |  |
-| `postal_code` | ``$STRING`` | No |  |
-| `state` | ``$STRING`` | No |  |
-| `street` | ``$STRING`` | No |  |
+| `address` | `string` | Yes |  |
+| `city` | `string` | No |  |
+| `country` | `string` | No |  |
+| `postal_code` | `string` | No |  |
+| `state` | `string` | No |  |
+| `street` | `string` | No |  |
 
 ### Operations
 
@@ -136,7 +136,7 @@ local address = client:Address(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Address():load({ id = "address_id" })
+local result, err = client:Address():load()
 ```
 
 ### Common Methods
@@ -179,10 +179,10 @@ local building_check = client:BuildingCheck(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | ``$NUMBER`` | No |  |
-| `highlighted` | ``$BOOLEAN`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
+| `distance` | `number` | No |  |
+| `highlighted` | `boolean` | No |  |
+| `id` | `string` | No |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -237,7 +237,7 @@ local export = client:Export(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Export():load({ id = "export_id" })
+local result, err = client:Export():load()
 ```
 
 ### Common Methods
@@ -280,13 +280,13 @@ local history = client:History(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `address` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `timestamp` | ``$STRING`` | Yes |  |
+| `accuracy` | `number` | No |  |
+| `address` | `string` | No |  |
+| `id` | `string` | Yes |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | No |  |
+| `timestamp` | `string` | Yes |  |
 
 ### Operations
 
@@ -296,9 +296,9 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:History():create({
-  latitude = --[[ `$NUMBER` ]],
-  longitude = --[[ `$NUMBER` ]],
-  timestamp = --[[ `$STRING` ]],
+  latitude = --[[ number ]],
+  longitude = --[[ number ]],
+  timestamp = --[[ string ]],
 })
 ```
 
@@ -315,7 +315,7 @@ local results, err = client:History():list()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:History():remove({ id = "history_id" })
+local result, err = client:History():remove()
 ```
 
 ### Common Methods
@@ -358,11 +358,11 @@ local location = client:Location(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | Yes |  |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `timestamp` | ``$STRING`` | No |  |
+| `accuracy` | `number` | Yes |  |
+| `address` | `string` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `timestamp` | `string` | No |  |
 
 ### Operations
 
@@ -371,7 +371,7 @@ local location = client:Location(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Location():load({ id = "location_id" })
+local result, err = client:Location():load()
 ```
 
 ### Common Methods
@@ -414,12 +414,12 @@ local marker = client:Marker(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | Yes |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `created_at` | `string` | No |  |
+| `id` | `string` | Yes |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | No |  |
 
 ### Operations
 
@@ -429,8 +429,8 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Marker():create({
-  latitude = --[[ `$NUMBER` ]],
-  longitude = --[[ `$NUMBER` ]],
+  latitude = --[[ number ]],
+  longitude = --[[ number ]],
 })
 ```
 
@@ -447,7 +447,7 @@ local results, err = client:Marker():list()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Marker():remove({ id = "marker_id" })
+local result, err = client:Marker():remove()
 ```
 
 ### Common Methods
@@ -490,27 +490,27 @@ local repeat = client:Repeat(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | ``$NUMBER`` | No |  |
-| `best_accuracy` | ``$NUMBER`` | No |  |
-| `count` | ``$INTEGER`` | Yes |  |
-| `interval` | ``$NUMBER`` | Yes |  |
-| `latitude` | ``$NUMBER`` | No |  |
-| `longitude` | ``$NUMBER`` | No |  |
-| `measurement` | ``$ARRAY`` | No |  |
-| `result_type` | ``$STRING`` | No |  |
+| `accuracy` | `number` | No |  |
+| `best_accuracy` | `number` | No |  |
+| `count` | `number` | Yes |  |
+| `interval` | `number` | Yes |  |
+| `latitude` | `number` | No |  |
+| `longitude` | `number` | No |  |
+| `measurement` | `table` | No |  |
+| `result_type` | `string` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `accuracy` | - | - | - | - | - |
-| `best_accuracy` | - | - | - | - | - |
-| `count` | - | - | - | - | - |
-| `interval` | - | - | - | - | - |
-| `latitude` | - | - | - | - | - |
-| `longitude` | - | - | - | - | - |
-| `measurement` | - | - | - | - | - |
-| `result_type` | - | - | Yes | - | - |
+| Field | create |
+| --- | --- |
+| `accuracy` | - |
+| `best_accuracy` | - |
+| `count` | - |
+| `interval` | - |
+| `latitude` | - |
+| `longitude` | - |
+| `measurement` | - |
+| `result_type` | Yes |
 
 ### Operations
 
@@ -520,8 +520,8 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Repeat():create({
-  count = --[[ `$INTEGER` ]],
-  interval = --[[ `$NUMBER` ]],
+  count = --[[ number ]],
+  interval = --[[ number ]],
 })
 ```
 
@@ -565,11 +565,11 @@ local search = client:Search(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `type` | ``$STRING`` | No |  |
+| `address` | `string` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | Yes |  |
+| `type` | `string` | No |  |
 
 ### Operations
 
@@ -621,13 +621,13 @@ local share = client:Share(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | ``$STRING`` | No |  |
-| `expires_at` | ``$STRING`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `name` | ``$STRING`` | No |  |
-| `qr_code` | ``$STRING`` | No |  |
-| `share_link` | ``$STRING`` | Yes |  |
+| `address` | `string` | No |  |
+| `expires_at` | `string` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `name` | `string` | No |  |
+| `qr_code` | `string` | No |  |
+| `share_link` | `string` | Yes |  |
 
 ### Operations
 
@@ -637,9 +637,9 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Share():create({
-  latitude = --[[ `$NUMBER` ]],
-  longitude = --[[ `$NUMBER` ]],
-  share_link = --[[ `$STRING` ]],
+  latitude = --[[ number ]],
+  longitude = --[[ number ]],
+  share_link = --[[ string ]],
 })
 ```
 
