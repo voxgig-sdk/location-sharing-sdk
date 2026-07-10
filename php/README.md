@@ -494,6 +494,7 @@ $historys = $client->History()->list();
 
 ```php
 $history = $client->History()->create([
+    "id" => null, // string
     "latitude" => null, // float
     "longitude" => null, // float
     "timestamp" => null, // string
@@ -563,6 +564,7 @@ $markers = $client->Marker()->list();
 
 ```php
 $marker = $client->Marker()->create([
+    "id" => null, // string
     "latitude" => null, // float
     "longitude" => null, // float
 ]);

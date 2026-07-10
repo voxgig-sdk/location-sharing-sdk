@@ -296,6 +296,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:History():create({
+  id = --[[ string ]],
   latitude = --[[ number ]],
   longitude = --[[ number ]],
   timestamp = --[[ string ]],
@@ -315,7 +316,7 @@ local results, err = client:History():list()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:History():remove()
+local result, err = client:History():remove({ id = "id" })
 ```
 
 ### Common Methods
@@ -429,6 +430,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Marker():create({
+  id = --[[ string ]],
   latitude = --[[ number ]],
   longitude = --[[ number ]],
 })
@@ -447,7 +449,7 @@ local results, err = client:Marker():list()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Marker():remove()
+local result, err = client:Marker():remove({ id = "id" })
 ```
 
 ### Common Methods
@@ -483,7 +485,7 @@ Return the entity name.
 ## RepeatEntity
 
 ```lua
-local repeat = client:Repeat(nil)
+local repeat_ = client:Repeat(nil)
 ```
 
 ### Fields

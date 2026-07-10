@@ -123,6 +123,7 @@ same parameters as `Direct()`.
 
 ```go
 address := client.Address(nil)
+fmt.Println(address.GetName()) // "address"
 ```
 
 ### Fields
@@ -144,6 +145,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Address(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -173,7 +178,8 @@ Return the entity name.
 ## BuildingCheckEntity
 
 ```go
-building_check := client.BuildingCheck(nil)
+buildingCheck := client.BuildingCheck(nil)
+fmt.Println(buildingCheck.GetName()) // "building_check"
 ```
 
 ### Fields
@@ -193,6 +199,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.BuildingCheck(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -223,6 +233,7 @@ Return the entity name.
 
 ```go
 export := client.Export(nil)
+fmt.Println(export.GetName()) // "export"
 ```
 
 ### Operations
@@ -233,6 +244,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Export(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -263,6 +278,7 @@ Return the entity name.
 
 ```go
 history := client.History(nil)
+fmt.Println(history.GetName()) // "history"
 ```
 
 ### Fields
@@ -279,24 +295,33 @@ history := client.History(nil)
 
 ### Operations
 
-#### `Create(reqdata, ctrl map[string]any) (any, error)`
-
-Create a new entity with the given data.
-
-```go
-result, err := client.History(nil).Create(map[string]any{
-    "latitude": /* float64 */,
-    "longitude": /* float64 */,
-    "timestamp": /* string */,
-}, nil)
-```
-
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
 List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.History(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
+
+#### `Create(reqdata, ctrl map[string]any) (any, error)`
+
+Create a new entity with the given data.
+
+```go
+result, err := client.History(nil).Create(map[string]any{
+    "id": "example_id",
+    "latitude": 1,
+    "longitude": 1,
+    "timestamp": "example_timestamp",
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 #### `Remove(reqmatch, ctrl map[string]any) (any, error)`
@@ -304,7 +329,11 @@ results, err := client.History(nil).List(nil, nil)
 Remove the entity matching the given criteria.
 
 ```go
-result, err := client.History(nil).Remove(nil, nil)
+result, err := client.History(nil).Remove(map[string]any{"id": "id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -335,6 +364,7 @@ Return the entity name.
 
 ```go
 location := client.Location(nil)
+fmt.Println(location.GetName()) // "location"
 ```
 
 ### Fields
@@ -355,6 +385,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Location(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -385,6 +419,7 @@ Return the entity name.
 
 ```go
 marker := client.Marker(nil)
+fmt.Println(marker.GetName()) // "marker"
 ```
 
 ### Fields
@@ -400,23 +435,32 @@ marker := client.Marker(nil)
 
 ### Operations
 
-#### `Create(reqdata, ctrl map[string]any) (any, error)`
-
-Create a new entity with the given data.
-
-```go
-result, err := client.Marker(nil).Create(map[string]any{
-    "latitude": /* float64 */,
-    "longitude": /* float64 */,
-}, nil)
-```
-
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
 List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Marker(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
+
+#### `Create(reqdata, ctrl map[string]any) (any, error)`
+
+Create a new entity with the given data.
+
+```go
+result, err := client.Marker(nil).Create(map[string]any{
+    "id": "example_id",
+    "latitude": 1,
+    "longitude": 1,
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 #### `Remove(reqmatch, ctrl map[string]any) (any, error)`
@@ -424,7 +468,11 @@ results, err := client.Marker(nil).List(nil, nil)
 Remove the entity matching the given criteria.
 
 ```go
-result, err := client.Marker(nil).Remove(nil, nil)
+result, err := client.Marker(nil).Remove(map[string]any{"id": "id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -455,6 +503,7 @@ Return the entity name.
 
 ```go
 repeat := client.Repeat(nil)
+fmt.Println(repeat.GetName()) // "repeat"
 ```
 
 ### Fields
@@ -491,9 +540,13 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Repeat(nil).Create(map[string]any{
-    "count": /* int */,
-    "interval": /* float64 */,
+    "count": 1,
+    "interval": 1,
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -524,6 +577,7 @@ Return the entity name.
 
 ```go
 search := client.Search(nil)
+fmt.Println(search.GetName()) // "search"
 ```
 
 ### Fields
@@ -544,6 +598,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Search(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -574,6 +632,7 @@ Return the entity name.
 
 ```go
 share := client.Share(nil)
+fmt.Println(share.GetName()) // "share"
 ```
 
 ### Fields
@@ -596,10 +655,14 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Share(nil).Create(map[string]any{
-    "latitude": /* float64 */,
-    "longitude": /* float64 */,
-    "share_link": /* string */,
+    "latitude": 1,
+    "longitude": 1,
+    "share_link": "example_share_link",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

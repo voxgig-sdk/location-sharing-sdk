@@ -533,9 +533,10 @@ const historys = await client.History().list()
 
 ```ts
 const history = await client.History().create({
-  latitude: /* number */,
-  longitude: /* number */,
-  timestamp: /* string */,
+  id: 'example_id',
+  latitude: 1,
+  longitude: 1,
+  timestamp: 'example_timestamp',
 })
 ```
 
@@ -600,8 +601,9 @@ const markers = await client.Marker().list()
 
 ```ts
 const marker = await client.Marker().create({
-  latitude: /* number */,
-  longitude: /* number */,
+  id: 'example_id',
+  latitude: 1,
+  longitude: 1,
 })
 ```
 
@@ -633,8 +635,8 @@ Create an instance: `const repeat = client.Repeat()`
 
 ```ts
 const repeat = await client.Repeat().create({
-  count: /* number */,
-  interval: /* number */,
+  count: 1,
+  interval: 1,
 })
 ```
 
@@ -692,9 +694,9 @@ Create an instance: `const share = client.Share()`
 
 ```ts
 const share = await client.Share().create({
-  latitude: /* number */,
-  longitude: /* number */,
-  share_link: /* string */,
+  latitude: 1,
+  longitude: 1,
+  share_link: 'example_share_link',
 })
 ```
 

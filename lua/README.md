@@ -472,9 +472,10 @@ local historys, err = client:History():list()
 
 ```lua
 local history, err = client:History():create({
-  latitude = nil, -- number
-  longitude = nil, -- number
-  timestamp = nil, -- string
+  id = "example_id", -- string
+  latitude = 1, -- number
+  longitude = 1, -- number
+  timestamp = "example_timestamp", -- string
 })
 ```
 
@@ -539,15 +540,16 @@ local markers, err = client:Marker():list()
 
 ```lua
 local marker, err = client:Marker():create({
-  latitude = nil, -- number
-  longitude = nil, -- number
+  id = "example_id", -- string
+  latitude = 1, -- number
+  longitude = 1, -- number
 })
 ```
 
 
 ### Repeat
 
-Create an instance: `local repeat = client:Repeat(nil)`
+Create an instance: `local repeat_ = client:Repeat(nil)`
 
 #### Operations
 
@@ -571,9 +573,9 @@ Create an instance: `local repeat = client:Repeat(nil)`
 #### Example: Create
 
 ```lua
-local repeat, err = client:Repeat():create({
-  count = nil, -- number
-  interval = nil, -- number
+local repeat_, err = client:Repeat():create({
+  count = 1, -- number
+  interval = 1, -- number
 })
 ```
 
@@ -631,9 +633,9 @@ Create an instance: `local share = client:Share(nil)`
 
 ```lua
 local share, err = client:Share():create({
-  latitude = nil, -- number
-  longitude = nil, -- number
-  share_link = nil, -- string
+  latitude = 1, -- number
+  longitude = 1, -- number
+  share_link = "example_share_link", -- string
 })
 ```
 

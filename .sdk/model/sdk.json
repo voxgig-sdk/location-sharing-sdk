@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -1256,14 +1253,17 @@
           "url": "https://mcinenews.net/LAT/"
         },
         "description": "This API enables users to search for locations and share their coordinates easily. It includes features like reverse geocoding, QR code generation for locations, and the ability to display and manage map layers.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://mcinenews.net/LAT"
           }
         ],
+        "summary": "This API enables users to search for locations and share their coordinates easily.",
         "title": "Location Sharing API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://mcinenews.net"
       },
       "option": {},
       "target": {
@@ -1316,6 +1316,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -1366,6 +1369,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

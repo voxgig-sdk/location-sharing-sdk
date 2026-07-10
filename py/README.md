@@ -486,9 +486,10 @@ historys = client.History().list()
 
 ```python
 history = client.History().create({
+    "id": "example_id",  # str
     "latitude": 1,  # float
     "longitude": 1,  # float
-    "timestamp": "example",  # str
+    "timestamp": "example_timestamp",  # str
 })
 ```
 
@@ -553,6 +554,7 @@ markers = client.Marker().list()
 
 ```python
 marker = client.Marker().create({
+    "id": "example_id",  # str
     "latitude": 1,  # float
     "longitude": 1,  # float
 })
@@ -647,7 +649,7 @@ Create an instance: `share = client.Share()`
 share = client.Share().create({
     "latitude": 1,  # float
     "longitude": 1,  # float
-    "share_link": "example",  # str
+    "share_link": "example_share_link",  # str
 })
 ```
 

@@ -298,6 +298,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->History()->create([
+  "id" => null, // string
   "latitude" => null, // float
   "longitude" => null, // float
   "timestamp" => null, // string
@@ -317,7 +318,7 @@ $results = $client->History()->list();
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->History()->remove();
+$result = $client->History()->remove(["id" => "id"]);
 ```
 
 ### Common Methods
@@ -431,6 +432,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Marker()->create([
+  "id" => null, // string
   "latitude" => null, // float
   "longitude" => null, // float
 ]);
@@ -449,7 +451,7 @@ $results = $client->Marker()->list();
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Marker()->remove();
+$result = $client->Marker()->remove(["id" => "id"]);
 ```
 
 ### Common Methods

@@ -434,7 +434,7 @@ fmt.Println(address) // the loaded record
 
 ### BuildingCheck
 
-Create an instance: `building_check := client.BuildingCheck(nil)`
+Create an instance: `buildingCheck := client.BuildingCheck(nil)`
 
 #### Operations
 
@@ -454,11 +454,11 @@ Create an instance: `building_check := client.BuildingCheck(nil)`
 #### Example: List
 
 ```go
-building_checks, err := client.BuildingCheck(nil).List(nil, nil)
+buildingChecks, err := client.BuildingCheck(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(building_checks) // the array of records
+fmt.Println(buildingChecks) // the array of records
 ```
 
 
@@ -491,8 +491,8 @@ Create an instance: `history := client.History(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Remove(match, ctrl)` | Remove the matching entity. |
 
 #### Fields
@@ -521,10 +521,15 @@ fmt.Println(historys) // the array of records
 
 ```go
 result, err := client.History(nil).Create(map[string]any{
-    "latitude": /* float64 */,
-    "longitude": /* float64 */,
-    "timestamp": /* string */,
+    "id": "example_id",
+    "latitude": 1,
+    "longitude": 1,
+    "timestamp": "example_timestamp",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -567,8 +572,8 @@ Create an instance: `marker := client.Marker(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Remove(match, ctrl)` | Remove the matching entity. |
 
 #### Fields
@@ -596,9 +601,14 @@ fmt.Println(markers) // the array of records
 
 ```go
 result, err := client.Marker(nil).Create(map[string]any{
-    "latitude": /* float64 */,
-    "longitude": /* float64 */,
+    "id": "example_id",
+    "latitude": 1,
+    "longitude": 1,
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -629,9 +639,13 @@ Create an instance: `repeat := client.Repeat(nil)`
 
 ```go
 result, err := client.Repeat(nil).Create(map[string]any{
-    "count": /* int */,
-    "interval": /* float64 */,
+    "count": 1,
+    "interval": 1,
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -692,10 +706,14 @@ Create an instance: `share := client.Share(nil)`
 
 ```go
 result, err := client.Share(nil).Create(map[string]any{
-    "latitude": /* float64 */,
-    "longitude": /* float64 */,
-    "share_link": /* string */,
+    "latitude": 1,
+    "longitude": 1,
+    "share_link": "example_share_link",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

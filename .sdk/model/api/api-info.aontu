@@ -15,9 +15,9 @@ main: {
           url: "https://mcinenews.net/LAT"
         }
       ]
+      summary: "This API enables users to search for locations and share their coordinates easily."
       title: "Location Sharing API"
       version: "1.0.0"
+      website: "https://mcinenews.net"
     }
   }
-}
-

@@ -299,9 +299,10 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.History.create({
+  "id" => "example_id", # String
   "latitude" => 1, # Float
   "longitude" => 1, # Float
-  "timestamp" => "example", # String
+  "timestamp" => "example_timestamp", # String
 })
 ```
 
@@ -318,7 +319,7 @@ results = client.History.list
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.History.remove()
+result = client.History.remove({ "id" => "id" })
 ```
 
 ### Common Methods
@@ -432,6 +433,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Marker.create({
+  "id" => "example_id", # String
   "latitude" => 1, # Float
   "longitude" => 1, # Float
 })
@@ -450,7 +452,7 @@ results = client.Marker.list
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Marker.remove()
+result = client.Marker.remove({ "id" => "id" })
 ```
 
 ### Common Methods
@@ -642,7 +644,7 @@ Create a new entity with the given data. Raises on error.
 result = client.Share.create({
   "latitude" => 1, # Float
   "longitude" => 1, # Float
-  "share_link" => "example", # String
+  "share_link" => "example_share_link", # String
 })
 ```
 

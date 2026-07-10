@@ -292,9 +292,10 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.History().create({
+    "id": "example_id",  # str
     "latitude": 1,  # float
     "longitude": 1,  # float
-    "timestamp": "example",  # str
+    "timestamp": "example_timestamp",  # str
 })
 ```
 
@@ -313,7 +314,7 @@ for history in results:
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.History().remove()
+result = client.History().remove({"id": "id"})
 ```
 
 ### Common Methods
@@ -425,6 +426,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Marker().create({
+    "id": "example_id",  # str
     "latitude": 1,  # float
     "longitude": 1,  # float
 })
@@ -445,7 +447,7 @@ for marker in results:
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.Marker().remove()
+result = client.Marker().remove({"id": "id"})
 ```
 
 ### Common Methods
@@ -636,7 +638,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 result = client.Share().create({
     "latitude": 1,  # float
     "longitude": 1,  # float
-    "share_link": "example",  # str
+    "share_link": "example_share_link",  # str
 })
 ```
 

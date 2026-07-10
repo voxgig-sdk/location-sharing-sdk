@@ -380,9 +380,10 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.History().create({
-  latitude: /* number */,
-  longitude: /* number */,
-  timestamp: /* string */,
+  id: 'example_id',
+  latitude: 1,
+  longitude: 1,
+  timestamp: 'example_timestamp',
 })
 ```
 
@@ -399,7 +400,7 @@ const results = await client.History().list()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.History().remove()
+const result = await client.History().remove({ id: 'id' })
 ```
 
 ### Common Methods
@@ -509,8 +510,9 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Marker().create({
-  latitude: /* number */,
-  longitude: /* number */,
+  id: 'example_id',
+  latitude: 1,
+  longitude: 1,
 })
 ```
 
@@ -527,7 +529,7 @@ const results = await client.Marker().list()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Marker().remove()
+const result = await client.Marker().remove({ id: 'id' })
 ```
 
 ### Common Methods
@@ -598,8 +600,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Repeat().create({
-  count: /* number */,
-  interval: /* number */,
+  count: 1,
+  interval: 1,
 })
 ```
 
@@ -711,9 +713,9 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Share().create({
-  latitude: /* number */,
-  longitude: /* number */,
-  share_link: /* string */,
+  latitude: 1,
+  longitude: 1,
+  share_link: 'example_share_link',
 })
 ```
 

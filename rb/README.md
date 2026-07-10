@@ -484,9 +484,10 @@ historys = client.History.list
 
 ```ruby
 history = client.History.create({
+  "id" => "example_id", # String
   "latitude" => 1, # Float
   "longitude" => 1, # Float
-  "timestamp" => "example", # String
+  "timestamp" => "example_timestamp", # String
 })
 ```
 
@@ -553,6 +554,7 @@ markers = client.Marker.list
 
 ```ruby
 marker = client.Marker.create({
+  "id" => "example_id", # String
   "latitude" => 1, # Float
   "longitude" => 1, # Float
 })
@@ -648,7 +650,7 @@ Create an instance: `share = client.Share`
 share = client.Share.create({
   "latitude" => 1, # Float
   "longitude" => 1, # Float
-  "share_link" => "example", # String
+  "share_link" => "example_share_link", # String
 })
 ```
 
