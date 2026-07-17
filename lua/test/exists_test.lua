@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- LocationSharing SDK exists test
 
 local sdk = require("location-sharing_sdk")
 
