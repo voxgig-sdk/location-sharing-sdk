@@ -3,35 +3,35 @@
     "repeat": {
       "REPEAT00": {
         "accuracy": 80,
-        "best_accuracy": 81,
+        "bestAccuracy": 81,
         "count": "s52",
         "interval": 83,
         "latitude": 84,
         "longitude": 85,
-        "measurement": [],
-        "result_type": "s57",
+        "measurements": [],
+        "resultType": "s57",
         "id": "REPEAT00"
       },
       "REPEAT01": {
         "accuracy": 160,
-        "best_accuracy": 161,
+        "bestAccuracy": 161,
         "count": "sa2",
         "interval": 163,
         "latitude": 164,
         "longitude": 165,
-        "measurement": [],
-        "result_type": "sa7",
+        "measurements": [],
+        "resultType": "sa7",
         "id": "REPEAT01"
       },
       "REPEAT02": {
         "accuracy": 240,
-        "best_accuracy": 241,
+        "bestAccuracy": 241,
         "count": "sf2",
         "interval": 243,
         "latitude": 244,
         "longitude": 245,
-        "measurement": [],
-        "result_type": "sf7",
+        "measurements": [],
+        "resultType": "sf7",
         "id": "REPEAT02"
       }
     }
@@ -40,13 +40,13 @@
     "repeat": {
       "repeat_ref01": {
         "accuracy": 320,
-        "best_accuracy": 321,
+        "bestAccuracy": 321,
         "count": "s142",
         "interval": 323,
         "latitude": 324,
         "longitude": 325,
-        "measurement": [],
-        "result_type": "s147"
+        "measurements": [],
+        "resultType": "s147"
       }
     }
   }

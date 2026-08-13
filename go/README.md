@@ -66,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-address, err := client.Address(nil).Load(nil, nil)
+location, err := client.Location(nil).Load(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = address
+_ = location
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -135,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-address, err := client.Address(nil).Load(
+location, err := client.Location(nil).Load(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(address) // the returned mock data
+fmt.Println(location) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -273,7 +273,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"address"` |  |
 | `"city"` |  |
 | `"country"` |  |
-| `"postal_code"` |  |
+| `"postalCode"` |  |
 | `"state"` |  |
 | `"street"` |  |
 
@@ -338,7 +338,7 @@ API path: `/location`
 | Field | Description |
 | --- | --- |
 | `"address"` |  |
-| `"created_at"` |  |
+| `"createdAt"` |  |
 | `"id"` |  |
 | `"latitude"` |  |
 | `"longitude"` |  |
@@ -353,13 +353,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `"accuracy"` |  |
-| `"best_accuracy"` |  |
+| `"bestAccuracy"` |  |
 | `"count"` |  |
 | `"interval"` |  |
 | `"latitude"` |  |
 | `"longitude"` |  |
-| `"measurement"` |  |
-| `"result_type"` |  |
+| `"measurements"` |  |
+| `"resultType"` |  |
 
 Operations: Create.
 
@@ -384,12 +384,12 @@ API path: `/search`
 | Field | Description |
 | --- | --- |
 | `"address"` |  |
-| `"expires_at"` |  |
+| `"expiresAt"` |  |
 | `"latitude"` |  |
 | `"longitude"` |  |
 | `"name"` |  |
-| `"qr_code"` |  |
-| `"share_link"` |  |
+| `"qrCode"` |  |
+| `"shareLink"` |  |
 
 Operations: Create.
 
@@ -417,7 +417,7 @@ Create an instance: `address := client.Address(nil)`
 | `address` | `string` |  |
 | `city` | `string` |  |
 | `country` | `string` |  |
-| `postal_code` | `string` |  |
+| `postalCode` | `string` |  |
 | `state` | `string` |  |
 | `street` | `string` |  |
 
@@ -581,7 +581,7 @@ Create an instance: `marker := client.Marker(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `id` | `string` |  |
 | `latitude` | `float64` |  |
 | `longitude` | `float64` |  |
@@ -627,13 +627,13 @@ Create an instance: `repeat := client.Repeat(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `float64` |  |
-| `best_accuracy` | `float64` |  |
+| `bestAccuracy` | `float64` |  |
 | `count` | `int` |  |
 | `interval` | `float64` |  |
 | `latitude` | `float64` |  |
 | `longitude` | `float64` |  |
-| `measurement` | `[]any` |  |
-| `result_type` | `string` |  |
+| `measurements` | `[]any` |  |
+| `resultType` | `string` |  |
 
 #### Example: Create
 
@@ -695,12 +695,12 @@ Create an instance: `share := client.Share(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `expires_at` | `string` |  |
+| `expiresAt` | `string` |  |
 | `latitude` | `float64` |  |
 | `longitude` | `float64` |  |
 | `name` | `string` |  |
-| `qr_code` | `string` |  |
-| `share_link` | `string` |  |
+| `qrCode` | `string` |  |
+| `shareLink` | `string` |  |
 
 #### Example: Create
 
@@ -708,7 +708,7 @@ Create an instance: `share := client.Share(nil)`
 result, err := client.Share(nil).Create(map[string]any{
     "latitude": 1,
     "longitude": 1,
-    "share_link": "example_share_link",
+    "shareLink": "example_shareLink",
 }, nil)
 if err != nil {
     panic(err)
@@ -790,11 +790,11 @@ Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-address := client.Address(nil)
-address.Load(nil, nil)
+location := client.Location(nil)
+location.Load(nil, nil)
 
-// address.Data() now returns the address data from the last load
-// address.Match() returns the last match criteria
+// location.Data() now returns the location data from the last load
+// location.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

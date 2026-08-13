@@ -37,7 +37,7 @@ class BuildingCheckEntity extends LocationSharingEntityBase<BuildingCheck> {
 
 
 
-  async list(this: any, reqmatch?: BuildingCheckListMatch, ctrl?: Control): Promise<BuildingCheck[]> {
+  async list(this: any, reqmatch?: BuildingCheckListMatch, ctrl?: Control): Promise<BuildingCheckEntity[]> {
 
     const utility = this._utility
 

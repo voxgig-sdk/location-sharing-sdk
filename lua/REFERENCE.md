@@ -125,7 +125,7 @@ local address = client:Address(nil)
 | `address` | `string` | Yes |  |
 | `city` | `string` | No |  |
 | `country` | `string` | No |  |
-| `postal_code` | `string` | No |  |
+| `postalCode` | `string` | No |  |
 | `state` | `string` | No |  |
 | `street` | `string` | No |  |
 
@@ -416,7 +416,7 @@ local marker = client:Marker(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `id` | `string` | Yes |  |
 | `latitude` | `number` | Yes |  |
 | `longitude` | `number` | Yes |  |
@@ -493,26 +493,26 @@ local repeat_ = client:Repeat(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `number` | No |  |
-| `best_accuracy` | `number` | No |  |
+| `bestAccuracy` | `number` | No |  |
 | `count` | `number` | Yes |  |
 | `interval` | `number` | Yes |  |
 | `latitude` | `number` | No |  |
 | `longitude` | `number` | No |  |
-| `measurement` | `table` | No |  |
-| `result_type` | `string` | No |  |
+| `measurements` | `table` | No |  |
+| `resultType` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | create |
 | --- | --- |
 | `accuracy` | - |
-| `best_accuracy` | - |
+| `bestAccuracy` | - |
 | `count` | - |
 | `interval` | - |
 | `latitude` | - |
 | `longitude` | - |
-| `measurement` | - |
-| `result_type` | Yes |
+| `measurements` | - |
+| `resultType` | Yes |
 
 ### Operations
 
@@ -624,12 +624,12 @@ local share = client:Share(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `expires_at` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `latitude` | `number` | Yes |  |
 | `longitude` | `number` | Yes |  |
 | `name` | `string` | No |  |
-| `qr_code` | `string` | No |  |
-| `share_link` | `string` | Yes |  |
+| `qrCode` | `string` | No |  |
+| `shareLink` | `string` | Yes |  |
 
 ### Operations
 
@@ -641,7 +641,7 @@ Create a new entity with the given data.
 local result, err = client:Share():create({
   latitude = --[[ number ]],
   longitude = --[[ number ]],
-  share_link = --[[ string ]],
+  shareLink = --[[ string ]],
 })
 ```
 

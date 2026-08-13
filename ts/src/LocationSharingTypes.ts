@@ -9,7 +9,7 @@ export interface Address {
   address: string
   city?: string
   country?: string
-  postal_code?: string
+  postalCode?: string
   state?: string
   street?: string
 }
@@ -18,7 +18,7 @@ export interface AddressLoadMatch {
   address?: string
   city?: string
   country?: string
-  postal_code?: string
+  postalCode?: string
   state?: string
   street?: string
 }
@@ -41,6 +41,12 @@ export interface Export {
 }
 
 export interface ExportLoadMatch {
+
+  // Selects a custom action instead of the plain load:
+  //   'csv' | 'geojson' | 'kml'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 
 export interface History {
@@ -101,7 +107,7 @@ export interface LocationLoadMatch {
 
 export interface Marker {
   address?: string
-  created_at?: string
+  createdAt?: string
   id: string
   latitude: number
   longitude: number
@@ -110,7 +116,7 @@ export interface Marker {
 
 export interface MarkerListMatch {
   address?: string
-  created_at?: string
+  createdAt?: string
   id?: string
   latitude?: number
   longitude?: number
@@ -119,7 +125,7 @@ export interface MarkerListMatch {
 
 export interface MarkerCreateData {
   address?: string
-  created_at?: string
+  createdAt?: string
   id: string
   latitude: number
   longitude: number
@@ -128,7 +134,7 @@ export interface MarkerCreateData {
 
 export interface MarkerRemoveMatch {
   address?: string
-  created_at?: string
+  createdAt?: string
   id: string
   latitude?: number
   longitude?: number
@@ -137,24 +143,24 @@ export interface MarkerRemoveMatch {
 
 export interface Repeat {
   accuracy?: number
-  best_accuracy?: number
+  bestAccuracy?: number
   count: number
   interval: number
   latitude?: number
   longitude?: number
-  measurement?: any[]
-  result_type?: string
+  measurements?: any[]
+  resultType?: string
 }
 
 export interface RepeatCreateData {
   accuracy?: number
-  best_accuracy?: number
+  bestAccuracy?: number
   count: number
   interval: number
   latitude?: number
   longitude?: number
-  measurement?: any[]
-  result_type?: string
+  measurements?: any[]
+  resultType?: string
 }
 
 export interface Search {
@@ -175,21 +181,21 @@ export interface SearchListMatch {
 
 export interface Share {
   address?: string
-  expires_at?: string
+  expiresAt?: string
   latitude: number
   longitude: number
   name?: string
-  qr_code?: string
-  share_link: string
+  qrCode?: string
+  shareLink: string
 }
 
 export interface ShareCreateData {
   address?: string
-  expires_at?: string
+  expiresAt?: string
   latitude: number
   longitude: number
   name?: string
-  qr_code?: string
-  share_link: string
+  qrCode?: string
+  shareLink: string
 }
 

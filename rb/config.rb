@@ -56,7 +56,7 @@ module LocationSharingConfig
             },
             {
               "active" => true,
-              "name" => "postal_code",
+              "name" => "postalCode",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 3,
@@ -104,6 +104,7 @@ module LocationSharingConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/geocode/reverse",
                   "parts" => [
@@ -207,6 +208,7 @@ module LocationSharingConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/buildings/check",
                   "parts" => [
@@ -223,7 +225,7 @@ module LocationSharingConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.buildings`",
                   },
                   "index$" => 0,
                 },
@@ -246,6 +248,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/export/csv",
                   "parts" => [
@@ -264,6 +267,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/export/geojson",
                   "parts" => [
@@ -282,6 +286,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/export/kml",
                   "parts" => [
@@ -366,6 +371,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/history",
                   "parts" => [
@@ -388,6 +394,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/history",
                   "parts" => [
@@ -410,6 +417,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/history",
                   "parts" => [
@@ -477,6 +485,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/location",
                   "parts" => [
@@ -508,7 +517,7 @@ module LocationSharingConfig
             },
             {
               "active" => true,
-              "name" => "created_at",
+              "name" => "createdAt",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 1,
@@ -551,6 +560,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/markers",
                   "parts" => [
@@ -573,6 +583,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/markers",
                   "parts" => [
@@ -595,6 +606,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/markers",
                   "parts" => [
@@ -626,7 +638,7 @@ module LocationSharingConfig
             },
             {
               "active" => true,
-              "name" => "best_accuracy",
+              "name" => "bestAccuracy",
               "req" => false,
               "type" => "`$NUMBER`",
               "index$" => 1,
@@ -661,14 +673,14 @@ module LocationSharingConfig
             },
             {
               "active" => true,
-              "name" => "measurement",
+              "name" => "measurements",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 6,
             },
             {
               "active" => true,
-              "name" => "result_type",
+              "name" => "resultType",
               "op" => {
                 "create" => {
                   "req" => true,
@@ -689,6 +701,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/measurement/repeat",
                   "parts" => [
@@ -768,6 +781,7 @@ module LocationSharingConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/search",
                   "parts" => [
@@ -803,7 +817,7 @@ module LocationSharingConfig
             },
             {
               "active" => true,
-              "name" => "expires_at",
+              "name" => "expiresAt",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 1,
@@ -831,14 +845,14 @@ module LocationSharingConfig
             },
             {
               "active" => true,
-              "name" => "qr_code",
+              "name" => "qrCode",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 5,
             },
             {
               "active" => true,
-              "name" => "share_link",
+              "name" => "shareLink",
               "req" => true,
               "type" => "`$STRING`",
               "index$" => 6,
@@ -853,6 +867,7 @@ module LocationSharingConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/share",
                   "parts" => [

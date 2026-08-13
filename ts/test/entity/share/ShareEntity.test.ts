@@ -26,8 +26,8 @@ import {
 describe('ShareEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LOCATIONSHARING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LOCATIONSHARING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LOCATION_SHARING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LOCATION_SHARING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LocationSharingSDK.test()
@@ -62,7 +62,7 @@ describe('ShareEntity', async () => {
     const share_ref01_ent = client.Share()
     let share_ref01_data = setup.data.new.share['share_ref01']
 
-    share_ref01_data = await share_ref01_ent.create(share_ref01_data)
+    share_ref01_data = (await share_ref01_ent.create(share_ref01_data)).data()
     assert(null != share_ref01_data)
 
 

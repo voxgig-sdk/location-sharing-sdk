@@ -122,7 +122,7 @@ address = client.Address()
 | `address` | `str` | Yes |  |
 | `city` | `str` | No |  |
 | `country` | `str` | No |  |
-| `postal_code` | `str` | No |  |
+| `postalCode` | `str` | No |  |
 | `state` | `str` | No |  |
 | `street` | `str` | No |  |
 
@@ -412,7 +412,7 @@ marker = client.Marker()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `str` | No |  |
-| `created_at` | `str` | No |  |
+| `createdAt` | `str` | No |  |
 | `id` | `str` | Yes |  |
 | `latitude` | `float` | Yes |  |
 | `longitude` | `float` | Yes |  |
@@ -490,26 +490,26 @@ repeat = client.Repeat()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `float` | No |  |
-| `best_accuracy` | `float` | No |  |
+| `bestAccuracy` | `float` | No |  |
 | `count` | `int` | Yes |  |
 | `interval` | `float` | Yes |  |
 | `latitude` | `float` | No |  |
 | `longitude` | `float` | No |  |
-| `measurement` | `list` | No |  |
-| `result_type` | `str` | No |  |
+| `measurements` | `list` | No |  |
+| `resultType` | `str` | No |  |
 
 ### Field Usage by Operation
 
 | Field | create |
 | --- | --- |
 | `accuracy` | - |
-| `best_accuracy` | - |
+| `bestAccuracy` | - |
 | `count` | - |
 | `interval` | - |
 | `latitude` | - |
 | `longitude` | - |
-| `measurement` | - |
-| `result_type` | Yes |
+| `measurements` | - |
+| `resultType` | Yes |
 
 ### Operations
 
@@ -621,12 +621,12 @@ share = client.Share()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `str` | No |  |
-| `expires_at` | `str` | No |  |
+| `expiresAt` | `str` | No |  |
 | `latitude` | `float` | Yes |  |
 | `longitude` | `float` | Yes |  |
 | `name` | `str` | No |  |
-| `qr_code` | `str` | No |  |
-| `share_link` | `str` | Yes |  |
+| `qrCode` | `str` | No |  |
+| `shareLink` | `str` | Yes |  |
 
 ### Operations
 
@@ -638,7 +638,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 result = client.Share().create({
     "latitude": 1,  # float
     "longitude": 1,  # float
-    "share_link": "example_share_link",  # str
+    "shareLink": "example_shareLink",  # str
 })
 ```
 

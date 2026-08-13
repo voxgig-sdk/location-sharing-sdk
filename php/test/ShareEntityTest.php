@@ -33,7 +33,7 @@ class ShareEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set LOCATIONSHARING_TEST_SHARE_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set LOCATION_SHARING_TEST_SHARE_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -44,7 +44,7 @@ class ShareEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.share"), "share_ref01"));
 
         $share_ref01_data_result = $share_ref01_ent->create($share_ref01_data, null);
-        $share_ref01_data = Helpers::to_map($share_ref01_data_result);
+        $share_ref01_data = Helpers::to_map(is_object($share_ref01_data_result) && method_exists($share_ref01_data_result, 'data_get') ? $share_ref01_data_result->data_get() : $share_ref01_data_result);
         $this->assertNotNull($share_ref01_data);
 
     }
@@ -72,22 +72,22 @@ function share_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("LOCATIONSHARING_TEST_SHARE_ENTID");
+    $entid_env_raw = getenv("LOCATION_SHARING_TEST_SHARE_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "LOCATIONSHARING_TEST_SHARE_ENTID" => $idmap,
-        "LOCATIONSHARING_TEST_LIVE" => "FALSE",
-        "LOCATIONSHARING_TEST_EXPLAIN" => "FALSE",
+        "LOCATION_SHARING_TEST_SHARE_ENTID" => $idmap,
+        "LOCATION_SHARING_TEST_LIVE" => "FALSE",
+        "LOCATION_SHARING_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["LOCATIONSHARING_TEST_SHARE_ENTID"]);
+        $env["LOCATION_SHARING_TEST_SHARE_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["LOCATIONSHARING_TEST_LIVE"] === "TRUE") {
+    if ($env["LOCATION_SHARING_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -96,13 +96,13 @@ function share_basic_setup($extra)
         $client = new LocationSharingSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["LOCATIONSHARING_TEST_LIVE"] === "TRUE";
+    $live = $env["LOCATION_SHARING_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["LOCATIONSHARING_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["LOCATION_SHARING_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

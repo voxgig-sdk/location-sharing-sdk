@@ -34,7 +34,7 @@ client = LocationSharingSDK.new
 
 ```ruby
 begin
-  # load returns the bare Address record (raises on error).
+  # load returns the ENTITY — call data_get for the Address record (raises on error).
   address = client.Address.load()
   puts address
 rescue => err
@@ -49,7 +49,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  address = client.Address.load()
+  location = client.Location.load()
 rescue => err
   warn "load failed: #{err}"
 end
@@ -117,9 +117,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = LocationSharingSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-address = client.Address.load()
-puts address
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+location = client.Location.load()
+puts location
 ```
 
 ### Use a custom fetch function
@@ -248,7 +249,7 @@ returns a result `Hash` with these keys:
 | `address` |  |
 | `city` |  |
 | `country` |  |
-| `postal_code` |  |
+| `postalCode` |  |
 | `state` |  |
 | `street` |  |
 
@@ -313,7 +314,7 @@ API path: `/location`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `latitude` |  |
 | `longitude` |  |
@@ -328,13 +329,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `accuracy` |  |
-| `best_accuracy` |  |
+| `bestAccuracy` |  |
 | `count` |  |
 | `interval` |  |
 | `latitude` |  |
 | `longitude` |  |
-| `measurement` |  |
-| `result_type` |  |
+| `measurements` |  |
+| `resultType` |  |
 
 Operations: Create.
 
@@ -359,12 +360,12 @@ API path: `/search`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `latitude` |  |
 | `longitude` |  |
 | `name` |  |
-| `qr_code` |  |
-| `share_link` |  |
+| `qrCode` |  |
+| `shareLink` |  |
 
 Operations: Create.
 
@@ -392,14 +393,14 @@ Create an instance: `address = client.Address`
 | `address` | `String` |  |
 | `city` | `String` |  |
 | `country` | `String` |  |
-| `postal_code` | `String` |  |
+| `postalCode` | `String` |  |
 | `state` | `String` |  |
 | `street` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Address record (raises on error).
+# load returns the ENTITY — call data_get for the Address record (raises on error).
 address = client.Address.load()
 ```
 
@@ -444,7 +445,7 @@ Create an instance: `export = client.Export`
 #### Example: Load
 
 ```ruby
-# load returns the bare Export record (raises on error).
+# load returns the ENTITY — call data_get for the Export record (raises on error).
 export = client.Export.load()
 ```
 
@@ -515,7 +516,7 @@ Create an instance: `location = client.Location`
 #### Example: Load
 
 ```ruby
-# load returns the bare Location record (raises on error).
+# load returns the ENTITY — call data_get for the Location record (raises on error).
 location = client.Location.load()
 ```
 
@@ -537,7 +538,7 @@ Create an instance: `marker = client.Marker`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `String` |  |
-| `created_at` | `String` |  |
+| `createdAt` | `String` |  |
 | `id` | `String` |  |
 | `latitude` | `Float` |  |
 | `longitude` | `Float` |  |
@@ -576,13 +577,13 @@ Create an instance: `repeat = client.Repeat`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `Float` |  |
-| `best_accuracy` | `Float` |  |
+| `bestAccuracy` | `Float` |  |
 | `count` | `Integer` |  |
 | `interval` | `Float` |  |
 | `latitude` | `Float` |  |
 | `longitude` | `Float` |  |
-| `measurement` | `Array` |  |
-| `result_type` | `String` |  |
+| `measurements` | `Array` |  |
+| `resultType` | `String` |  |
 
 #### Example: Create
 
@@ -637,12 +638,12 @@ Create an instance: `share = client.Share`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `String` |  |
-| `expires_at` | `String` |  |
+| `expiresAt` | `String` |  |
 | `latitude` | `Float` |  |
 | `longitude` | `Float` |  |
 | `name` | `String` |  |
-| `qr_code` | `String` |  |
-| `share_link` | `String` |  |
+| `qrCode` | `String` |  |
+| `shareLink` | `String` |  |
 
 #### Example: Create
 
@@ -650,7 +651,7 @@ Create an instance: `share = client.Share`
 share = client.Share.create({
   "latitude" => 1, # Float
   "longitude" => 1, # Float
-  "share_link" => "example_share_link", # String
+  "shareLink" => "example_shareLink", # String
 })
 ```
 
@@ -731,11 +732,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-address = client.Address
-address.load()
+location = client.Location
+location.load()
 
-# address.data_get now returns the address data from the last load
-# address.match_get returns the last match criteria
+# location.data_get now returns the location data from the last load
+# location.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

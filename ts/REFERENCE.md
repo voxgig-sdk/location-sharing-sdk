@@ -215,7 +215,7 @@ const address = client.Address()
 | `address` | `string` | Yes |  |
 | `city` | `string` | No |  |
 | `country` | `string` | No |  |
-| `postal_code` | `string` | No |  |
+| `postalCode` | `string` | No |  |
 | `state` | `string` | No |  |
 | `street` | `string` | No |  |
 
@@ -314,6 +314,28 @@ Return a copy of the entity options.
 
 ```ts
 const export_ = client.Export()
+```
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `csv` | `/export/csv` | `client.Export().load({ $action: 'csv', ... })` |
+| `geojson` | `/export/geojson` | `client.Export().load({ $action: 'geojson', ... })` |
+| `kml` | `/export/kml` | `client.Export().load({ $action: 'kml', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Export record — check the API definition for its shape.
+
+```ts
+const result = await client.Export().load({
+  $action: 'csv',
+  /* ...the action's own arguments */
+})
 ```
 
 ### Operations
@@ -496,7 +518,7 @@ const marker = client.Marker()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `id` | `string` | Yes |  |
 | `latitude` | `number` | Yes |  |
 | `longitude` | `number` | Yes |  |
@@ -571,26 +593,26 @@ const repeat = client.Repeat()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `number` | No |  |
-| `best_accuracy` | `number` | No |  |
+| `bestAccuracy` | `number` | No |  |
 | `count` | `number` | Yes |  |
 | `interval` | `number` | Yes |  |
 | `latitude` | `number` | No |  |
 | `longitude` | `number` | No |  |
-| `measurement` | `any[]` | No |  |
-| `result_type` | `string` | No |  |
+| `measurements` | `any[]` | No |  |
+| `resultType` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | create |
 | --- | --- |
 | `accuracy` | - |
-| `best_accuracy` | - |
+| `bestAccuracy` | - |
 | `count` | - |
 | `interval` | - |
 | `latitude` | - |
 | `longitude` | - |
-| `measurement` | - |
-| `result_type` | Yes |
+| `measurements` | - |
+| `resultType` | Yes |
 
 ### Operations
 
@@ -698,12 +720,12 @@ const share = client.Share()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `expires_at` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `latitude` | `number` | Yes |  |
 | `longitude` | `number` | Yes |  |
 | `name` | `string` | No |  |
-| `qr_code` | `string` | No |  |
-| `share_link` | `string` | Yes |  |
+| `qrCode` | `string` | No |  |
+| `shareLink` | `string` | Yes |  |
 
 ### Operations
 
@@ -715,7 +737,7 @@ Create a new entity with the given data.
 const result = await client.Share().create({
   latitude: 1,
   longitude: 1,
-  share_link: 'example_share_link',
+  shareLink: 'example_shareLink',
 })
 ```
 

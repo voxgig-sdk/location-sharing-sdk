@@ -19,7 +19,7 @@
 # @!attribute [rw] country
 #   @return [String, nil]
 #
-# @!attribute [rw] postal_code
+# @!attribute [rw] postalCode
 #   @return [String, nil]
 #
 # @!attribute [rw] state
@@ -31,7 +31,7 @@ Address = Struct.new(
   :address,
   :city,
   :country,
-  :postal_code,
+  :postalCode,
   :state,
   :street,
   keyword_init: true
@@ -48,7 +48,7 @@ Address = Struct.new(
 # @!attribute [rw] country
 #   @return [String, nil]
 #
-# @!attribute [rw] postal_code
+# @!attribute [rw] postalCode
 #   @return [String, nil]
 #
 # @!attribute [rw] state
@@ -60,7 +60,7 @@ AddressLoadMatch = Struct.new(
   :address,
   :city,
   :country,
-  :postal_code,
+  :postalCode,
   :state,
   :street,
   keyword_init: true
@@ -303,7 +303,7 @@ LocationLoadMatch = Struct.new(
 # @!attribute [rw] address
 #   @return [String, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] id
@@ -319,7 +319,7 @@ LocationLoadMatch = Struct.new(
 #   @return [String, nil]
 Marker = Struct.new(
   :address,
-  :created_at,
+  :createdAt,
   :id,
   :latitude,
   :longitude,
@@ -332,7 +332,7 @@ Marker = Struct.new(
 # @!attribute [rw] address
 #   @return [String, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] id
@@ -348,7 +348,7 @@ Marker = Struct.new(
 #   @return [String, nil]
 MarkerListMatch = Struct.new(
   :address,
-  :created_at,
+  :createdAt,
   :id,
   :latitude,
   :longitude,
@@ -361,7 +361,7 @@ MarkerListMatch = Struct.new(
 # @!attribute [rw] address
 #   @return [String, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] id
@@ -377,7 +377,7 @@ MarkerListMatch = Struct.new(
 #   @return [String, nil]
 MarkerCreateData = Struct.new(
   :address,
-  :created_at,
+  :createdAt,
   :id,
   :latitude,
   :longitude,
@@ -390,7 +390,7 @@ MarkerCreateData = Struct.new(
 # @!attribute [rw] address
 #   @return [String, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] id
@@ -406,7 +406,7 @@ MarkerCreateData = Struct.new(
 #   @return [String, nil]
 MarkerRemoveMatch = Struct.new(
   :address,
-  :created_at,
+  :createdAt,
   :id,
   :latitude,
   :longitude,
@@ -419,7 +419,7 @@ MarkerRemoveMatch = Struct.new(
 # @!attribute [rw] accuracy
 #   @return [Float, nil]
 #
-# @!attribute [rw] best_accuracy
+# @!attribute [rw] bestAccuracy
 #   @return [Float, nil]
 #
 # @!attribute [rw] count
@@ -434,20 +434,20 @@ MarkerRemoveMatch = Struct.new(
 # @!attribute [rw] longitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] measurement
+# @!attribute [rw] measurements
 #   @return [Array, nil]
 #
-# @!attribute [rw] result_type
+# @!attribute [rw] resultType
 #   @return [String, nil]
 Repeat = Struct.new(
   :accuracy,
-  :best_accuracy,
+  :bestAccuracy,
   :count,
   :interval,
   :latitude,
   :longitude,
-  :measurement,
-  :result_type,
+  :measurements,
+  :resultType,
   keyword_init: true
 )
 
@@ -456,7 +456,7 @@ Repeat = Struct.new(
 # @!attribute [rw] accuracy
 #   @return [Float, nil]
 #
-# @!attribute [rw] best_accuracy
+# @!attribute [rw] bestAccuracy
 #   @return [Float, nil]
 #
 # @!attribute [rw] count
@@ -471,20 +471,20 @@ Repeat = Struct.new(
 # @!attribute [rw] longitude
 #   @return [Float, nil]
 #
-# @!attribute [rw] measurement
+# @!attribute [rw] measurements
 #   @return [Array, nil]
 #
-# @!attribute [rw] result_type
+# @!attribute [rw] resultType
 #   @return [String, nil]
 RepeatCreateData = Struct.new(
   :accuracy,
-  :best_accuracy,
+  :bestAccuracy,
   :count,
   :interval,
   :latitude,
   :longitude,
-  :measurement,
-  :result_type,
+  :measurements,
+  :resultType,
   keyword_init: true
 )
 
@@ -543,7 +543,7 @@ SearchListMatch = Struct.new(
 # @!attribute [rw] address
 #   @return [String, nil]
 #
-# @!attribute [rw] expires_at
+# @!attribute [rw] expiresAt
 #   @return [String, nil]
 #
 # @!attribute [rw] latitude
@@ -555,19 +555,19 @@ SearchListMatch = Struct.new(
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] qr_code
+# @!attribute [rw] qrCode
 #   @return [String, nil]
 #
-# @!attribute [rw] share_link
+# @!attribute [rw] shareLink
 #   @return [String]
 Share = Struct.new(
   :address,
-  :expires_at,
+  :expiresAt,
   :latitude,
   :longitude,
   :name,
-  :qr_code,
-  :share_link,
+  :qrCode,
+  :shareLink,
   keyword_init: true
 )
 
@@ -576,7 +576,7 @@ Share = Struct.new(
 # @!attribute [rw] address
 #   @return [String, nil]
 #
-# @!attribute [rw] expires_at
+# @!attribute [rw] expiresAt
 #   @return [String, nil]
 #
 # @!attribute [rw] latitude
@@ -588,19 +588,19 @@ Share = Struct.new(
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] qr_code
+# @!attribute [rw] qrCode
 #   @return [String, nil]
 #
-# @!attribute [rw] share_link
+# @!attribute [rw] shareLink
 #   @return [String]
 ShareCreateData = Struct.new(
   :address,
-  :expires_at,
+  :expiresAt,
   :latitude,
   :longitude,
   :name,
-  :qr_code,
-  :share_link,
+  :qrCode,
+  :shareLink,
   keyword_init: true
 )
 

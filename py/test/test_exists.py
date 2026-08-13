@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# LocationSharing SDK exists test
 
 import pytest
 from locationsharing_sdk import LocationSharingSDK

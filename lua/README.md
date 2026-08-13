@@ -48,7 +48,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local address, err = client:Address():load()
+local location, err = client:Location():load()
 if err then error(err) end
 ```
 
@@ -106,7 +106,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Address():load()
+local result, err = client:Location():load()
 -- result is the returned data; err is set on failure
 ```
 
@@ -240,7 +240,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `address` |  |
 | `city` |  |
 | `country` |  |
-| `postal_code` |  |
+| `postalCode` |  |
 | `state` |  |
 | `street` |  |
 
@@ -305,7 +305,7 @@ API path: `/location`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `latitude` |  |
 | `longitude` |  |
@@ -320,13 +320,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `accuracy` |  |
-| `best_accuracy` |  |
+| `bestAccuracy` |  |
 | `count` |  |
 | `interval` |  |
 | `latitude` |  |
 | `longitude` |  |
-| `measurement` |  |
-| `result_type` |  |
+| `measurements` |  |
+| `resultType` |  |
 
 Operations: Create.
 
@@ -351,12 +351,12 @@ API path: `/search`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `latitude` |  |
 | `longitude` |  |
 | `name` |  |
-| `qr_code` |  |
-| `share_link` |  |
+| `qrCode` |  |
+| `shareLink` |  |
 
 Operations: Create.
 
@@ -384,7 +384,7 @@ Create an instance: `local address = client:Address(nil)`
 | `address` | `string` |  |
 | `city` | `string` |  |
 | `country` | `string` |  |
-| `postal_code` | `string` |  |
+| `postalCode` | `string` |  |
 | `state` | `string` |  |
 | `street` | `string` |  |
 
@@ -524,7 +524,7 @@ Create an instance: `local marker = client:Marker(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `id` | `string` |  |
 | `latitude` | `number` |  |
 | `longitude` | `number` |  |
@@ -562,13 +562,13 @@ Create an instance: `local repeat_ = client:Repeat(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `number` |  |
-| `best_accuracy` | `number` |  |
+| `bestAccuracy` | `number` |  |
 | `count` | `number` |  |
 | `interval` | `number` |  |
 | `latitude` | `number` |  |
 | `longitude` | `number` |  |
-| `measurement` | `table` |  |
-| `result_type` | `string` |  |
+| `measurements` | `table` |  |
+| `resultType` | `string` |  |
 
 #### Example: Create
 
@@ -622,12 +622,12 @@ Create an instance: `local share = client:Share(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `expires_at` | `string` |  |
+| `expiresAt` | `string` |  |
 | `latitude` | `number` |  |
 | `longitude` | `number` |  |
 | `name` | `string` |  |
-| `qr_code` | `string` |  |
-| `share_link` | `string` |  |
+| `qrCode` | `string` |  |
+| `shareLink` | `string` |  |
 
 #### Example: Create
 
@@ -635,7 +635,7 @@ Create an instance: `local share = client:Share(nil)`
 local share, err = client:Share():create({
   latitude = 1, -- number
   longitude = 1, -- number
-  share_link = "example_share_link", -- string
+  shareLink = "example_shareLink", -- string
 })
 ```
 
@@ -716,11 +716,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local address = client:Address()
-address:load()
+local location = client:Location()
+location:load()
 
--- address:data_get() now returns the address data from the last load
--- address:match_get() returns the last match criteria
+-- location:data_get() now returns the location data from the last load
+-- location:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

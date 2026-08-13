@@ -61,11 +61,11 @@ function building_check_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["LOCATIONSHARING_TEST_BUILDING_CHECK_ENTID"] = {},
-    ["LOCATIONSHARING_TEST_LIVE"] = "FALSE",
+    ["LOCATION_SHARING_TEST_BUILDING_CHECK_ENTID"] = {},
+    ["LOCATION_SHARING_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
+  local live = env["LOCATION_SHARING_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

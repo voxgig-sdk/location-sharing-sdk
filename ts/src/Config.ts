@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'LocationSharing',
   }
 
 
@@ -101,7 +101,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "postal_code",
+          "name": "postalCode",
           "req": false,
           "type": "`$STRING`",
           "index$": 3
@@ -149,6 +149,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/geocode/reverse",
               "parts": [
@@ -252,6 +253,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/buildings/check",
               "parts": [
@@ -268,7 +270,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.buildings`"
               },
               "index$": 0
             }
@@ -291,6 +293,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/export/csv",
               "parts": [
@@ -309,6 +312,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/export/geojson",
               "parts": [
@@ -327,6 +331,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/export/kml",
               "parts": [
@@ -411,6 +416,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/history",
               "parts": [
@@ -433,6 +439,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/history",
               "parts": [
@@ -455,6 +462,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "DELETE",
               "orig": "/history",
               "parts": [
@@ -522,6 +530,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/location",
               "parts": [
@@ -553,7 +562,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "created_at",
+          "name": "createdAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
@@ -596,6 +605,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/markers",
               "parts": [
@@ -618,6 +628,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/markers",
               "parts": [
@@ -640,6 +651,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "DELETE",
               "orig": "/markers",
               "parts": [
@@ -671,7 +683,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "best_accuracy",
+          "name": "bestAccuracy",
           "req": false,
           "type": "`$NUMBER`",
           "index$": 1
@@ -706,14 +718,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "measurement",
+          "name": "measurements",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 6
         },
         {
           "active": true,
-          "name": "result_type",
+          "name": "resultType",
           "op": {
             "create": {
               "req": true,
@@ -734,6 +746,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/measurement/repeat",
               "parts": [
@@ -813,6 +826,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/search",
               "parts": [
@@ -848,7 +862,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "expires_at",
+          "name": "expiresAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
@@ -876,14 +890,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "qr_code",
+          "name": "qrCode",
           "req": false,
           "type": "`$STRING`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "share_link",
+          "name": "shareLink",
           "req": true,
           "type": "`$STRING`",
           "index$": 6
@@ -898,6 +912,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/share",
               "parts": [

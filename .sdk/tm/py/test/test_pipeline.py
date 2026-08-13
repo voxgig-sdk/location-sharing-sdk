@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import LocationSharingSDK
-from core.error import LocationSharingError
-from core.result import LocationSharingResult
-from core.response import LocationSharingResponse
-from core.spec import LocationSharingSpec
-from feature.base_feature import LocationSharingBaseFeature
+from projectname_sdk.core.error import LocationSharingError
+from projectname_sdk.core.result import LocationSharingResult
+from projectname_sdk.core.response import LocationSharingResponse
+from projectname_sdk.core.spec import LocationSharingSpec
+from projectname_sdk.feature.base_feature import LocationSharingBaseFeature
 
 
 def _client():

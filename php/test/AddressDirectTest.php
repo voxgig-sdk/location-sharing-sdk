@@ -65,11 +65,11 @@ function address_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "LOCATIONSHARING_TEST_ADDRESS_ENTID" => [],
-        "LOCATIONSHARING_TEST_LIVE" => "FALSE",
+        "LOCATION_SHARING_TEST_ADDRESS_ENTID" => [],
+        "LOCATION_SHARING_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["LOCATIONSHARING_TEST_LIVE"] === "TRUE";
+    $live = $env["LOCATION_SHARING_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

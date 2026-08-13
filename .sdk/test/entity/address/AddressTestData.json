@@ -5,7 +5,7 @@
         "address": "s3c",
         "city": "s3d",
         "country": "s3e",
-        "postal_code": "s3f",
+        "postalCode": "s3f",
         "state": "s40",
         "street": "s41",
         "id": "ADDRESS00"
@@ -14,7 +14,7 @@
         "address": "s78",
         "city": "s79",
         "country": "s7a",
-        "postal_code": "s7b",
+        "postalCode": "s7b",
         "state": "s7c",
         "street": "s7d",
         "id": "ADDRESS01"
@@ -23,7 +23,7 @@
         "address": "sb4",
         "city": "sb5",
         "country": "sb6",
-        "postal_code": "sb7",
+        "postalCode": "sb7",
         "state": "sb8",
         "street": "sb9",
         "id": "ADDRESS02"
@@ -36,7 +36,7 @@
         "address": "sf0",
         "city": "sf1",
         "country": "sf2",
-        "postal_code": "sf3",
+        "postalCode": "sf3",
         "state": "sf4",
         "street": "sf5"
       }

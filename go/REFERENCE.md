@@ -133,7 +133,7 @@ fmt.Println(address.GetName()) // "address"
 | `address` | `string` | Yes |  |
 | `city` | `string` | No |  |
 | `country` | `string` | No |  |
-| `postal_code` | `string` | No |  |
+| `postalCode` | `string` | No |  |
 | `state` | `string` | No |  |
 | `street` | `string` | No |  |
 
@@ -427,7 +427,7 @@ fmt.Println(marker.GetName()) // "marker"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `id` | `string` | Yes |  |
 | `latitude` | `float64` | Yes |  |
 | `longitude` | `float64` | Yes |  |
@@ -511,26 +511,26 @@ fmt.Println(repeat.GetName()) // "repeat"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `float64` | No |  |
-| `best_accuracy` | `float64` | No |  |
+| `bestAccuracy` | `float64` | No |  |
 | `count` | `int` | Yes |  |
 | `interval` | `float64` | Yes |  |
 | `latitude` | `float64` | No |  |
 | `longitude` | `float64` | No |  |
-| `measurement` | `[]any` | No |  |
-| `result_type` | `string` | No |  |
+| `measurements` | `[]any` | No |  |
+| `resultType` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | create |
 | --- | --- |
 | `accuracy` | - |
-| `best_accuracy` | - |
+| `bestAccuracy` | - |
 | `count` | - |
 | `interval` | - |
 | `latitude` | - |
 | `longitude` | - |
-| `measurement` | - |
-| `result_type` | Yes |
+| `measurements` | - |
+| `resultType` | Yes |
 
 ### Operations
 
@@ -640,12 +640,12 @@ fmt.Println(share.GetName()) // "share"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `expires_at` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `latitude` | `float64` | Yes |  |
 | `longitude` | `float64` | Yes |  |
 | `name` | `string` | No |  |
-| `qr_code` | `string` | No |  |
-| `share_link` | `string` | Yes |  |
+| `qrCode` | `string` | No |  |
+| `shareLink` | `string` | Yes |  |
 
 ### Operations
 
@@ -657,7 +657,7 @@ Create a new entity with the given data.
 result, err := client.Share(nil).Create(map[string]any{
     "latitude": 1,
     "longitude": 1,
-    "share_link": "example_share_link",
+    "shareLink": "example_shareLink",
 }, nil)
 if err != nil {
     panic(err)

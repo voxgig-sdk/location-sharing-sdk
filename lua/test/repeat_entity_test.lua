@@ -29,7 +29,7 @@ describe("RepeatEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set LOCATIONSHARING_TEST_REPEAT_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set LOCATION_SHARING_TEST_REPEAT_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -41,7 +41,7 @@ describe("RepeatEntity", function()
 
     local repeat_ref01_data_result, err = repeat_ref01_ent:create(repeat_ref01_data, nil)
     assert.is_nil(err)
-    repeat_ref01_data = helpers.to_map(repeat_ref01_data_result)
+    repeat_ref01_data = helpers.to_map(type(repeat_ref01_data_result) == 'table' and repeat_ref01_data_result.data_get and repeat_ref01_data_result:data_get() or repeat_ref01_data_result)
     assert.is_not_nil(repeat_ref01_data)
 
   end)
@@ -79,22 +79,22 @@ function repeat_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("LOCATIONSHARING_TEST_REPEAT_ENTID")
+  local entid_env_raw = os.getenv("LOCATION_SHARING_TEST_REPEAT_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["LOCATIONSHARING_TEST_REPEAT_ENTID"] = idmap,
-    ["LOCATIONSHARING_TEST_LIVE"] = "FALSE",
-    ["LOCATIONSHARING_TEST_EXPLAIN"] = "FALSE",
+    ["LOCATION_SHARING_TEST_REPEAT_ENTID"] = idmap,
+    ["LOCATION_SHARING_TEST_LIVE"] = "FALSE",
+    ["LOCATION_SHARING_TEST_EXPLAIN"] = "FALSE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["LOCATIONSHARING_TEST_REPEAT_ENTID"])
+    env["LOCATION_SHARING_TEST_REPEAT_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["LOCATIONSHARING_TEST_LIVE"] == "TRUE" then
+  if env["LOCATION_SHARING_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
       },
@@ -103,13 +103,13 @@ function repeat_basic_setup(extra)
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
+  local live = env["LOCATION_SHARING_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["LOCATIONSHARING_TEST_EXPLAIN"] == "TRUE",
+    explain = env["LOCATION_SHARING_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

@@ -10,7 +10,7 @@
 ---@field address string
 ---@field city? string
 ---@field country? string
----@field postal_code? string
+---@field postalCode? string
 ---@field state? string
 ---@field street? string
 
@@ -18,7 +18,7 @@
 ---@field address? string
 ---@field city? string
 ---@field country? string
----@field postal_code? string
+---@field postalCode? string
 ---@field state? string
 ---@field street? string
 
@@ -90,7 +90,7 @@
 
 ---@class Marker
 ---@field address? string
----@field created_at? string
+---@field createdAt? string
 ---@field id string
 ---@field latitude number
 ---@field longitude number
@@ -98,7 +98,7 @@
 
 ---@class MarkerListMatch
 ---@field address? string
----@field created_at? string
+---@field createdAt? string
 ---@field id? string
 ---@field latitude? number
 ---@field longitude? number
@@ -106,7 +106,7 @@
 
 ---@class MarkerCreateData
 ---@field address? string
----@field created_at? string
+---@field createdAt? string
 ---@field id string
 ---@field latitude number
 ---@field longitude number
@@ -114,7 +114,7 @@
 
 ---@class MarkerRemoveMatch
 ---@field address? string
----@field created_at? string
+---@field createdAt? string
 ---@field id string
 ---@field latitude? number
 ---@field longitude? number
@@ -122,23 +122,23 @@
 
 ---@class Repeat
 ---@field accuracy? number
----@field best_accuracy? number
+---@field bestAccuracy? number
 ---@field count number
 ---@field interval number
 ---@field latitude? number
 ---@field longitude? number
----@field measurement? table
----@field result_type? string
+---@field measurements? table
+---@field resultType? string
 
 ---@class RepeatCreateData
 ---@field accuracy? number
----@field best_accuracy? number
+---@field bestAccuracy? number
 ---@field count number
 ---@field interval number
 ---@field latitude? number
 ---@field longitude? number
----@field measurement? table
----@field result_type? string
+---@field measurements? table
+---@field resultType? string
 
 ---@class Search
 ---@field address? string
@@ -156,21 +156,21 @@
 
 ---@class Share
 ---@field address? string
----@field expires_at? string
+---@field expiresAt? string
 ---@field latitude number
 ---@field longitude number
 ---@field name? string
----@field qr_code? string
----@field share_link string
+---@field qrCode? string
+---@field shareLink string
 
 ---@class ShareCreateData
 ---@field address? string
----@field expires_at? string
+---@field expiresAt? string
 ---@field latitude number
 ---@field longitude number
 ---@field name? string
----@field qr_code? string
----@field share_link string
+---@field qrCode? string
+---@field shareLink string
 
 local M = {}
 

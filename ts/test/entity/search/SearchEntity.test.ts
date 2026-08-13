@@ -26,8 +26,8 @@ import {
 describe('SearchEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LOCATIONSHARING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LOCATIONSHARING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LOCATION_SHARING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LOCATION_SHARING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LocationSharingSDK.test()
@@ -63,7 +63,7 @@ describe('SearchEntity', async () => {
     const search_ref01_ent = client.Search()
     const search_ref01_match: any = {}
 
-    const search_ref01_list = await search_ref01_ent.list(search_ref01_match)
+    const search_ref01_list = (await search_ref01_ent.list(search_ref01_match)).map((e: any) => e.data())
 
 
   })

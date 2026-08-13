@@ -26,8 +26,8 @@ import {
 describe('HistoryEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LOCATIONSHARING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LOCATIONSHARING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LOCATION_SHARING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LOCATION_SHARING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LocationSharingSDK.test()
@@ -62,14 +62,14 @@ describe('HistoryEntity', async () => {
     const history_ref01_ent = client.History()
     let history_ref01_data = setup.data.new.history['history_ref01']
 
-    history_ref01_data = await history_ref01_ent.create(history_ref01_data)
+    history_ref01_data = (await history_ref01_ent.create(history_ref01_data)).data()
     assert(null != history_ref01_data.id)
 
 
     // LIST
     const history_ref01_match: any = {}
 
-    const history_ref01_list = await history_ref01_ent.list(history_ref01_match)
+    const history_ref01_list = (await history_ref01_ent.list(history_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(history_ref01_list, { id: history_ref01_data.id })))
 
@@ -82,7 +82,7 @@ describe('HistoryEntity', async () => {
     // LIST
     const history_ref01_match_rt0: any = {}
 
-    const history_ref01_list_rt0 = await history_ref01_ent.list(history_ref01_match_rt0)
+    const history_ref01_list_rt0 = (await history_ref01_ent.list(history_ref01_match_rt0)).map((e: any) => e.data())
 
     assert(isempty(select(history_ref01_list_rt0, { id: history_ref01_data.id })))
 

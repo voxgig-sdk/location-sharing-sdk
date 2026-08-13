@@ -26,8 +26,8 @@ import {
 describe('MarkerEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LOCATIONSHARING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LOCATIONSHARING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LOCATION_SHARING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LOCATION_SHARING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LocationSharingSDK.test()
@@ -62,14 +62,14 @@ describe('MarkerEntity', async () => {
     const marker_ref01_ent = client.Marker()
     let marker_ref01_data = setup.data.new.marker['marker_ref01']
 
-    marker_ref01_data = await marker_ref01_ent.create(marker_ref01_data)
+    marker_ref01_data = (await marker_ref01_ent.create(marker_ref01_data)).data()
     assert(null != marker_ref01_data.id)
 
 
     // LIST
     const marker_ref01_match: any = {}
 
-    const marker_ref01_list = await marker_ref01_ent.list(marker_ref01_match)
+    const marker_ref01_list = (await marker_ref01_ent.list(marker_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(marker_ref01_list, { id: marker_ref01_data.id })))
 
@@ -82,7 +82,7 @@ describe('MarkerEntity', async () => {
     // LIST
     const marker_ref01_match_rt0: any = {}
 
-    const marker_ref01_list_rt0 = await marker_ref01_ent.list(marker_ref01_match_rt0)
+    const marker_ref01_list_rt0 = (await marker_ref01_ent.list(marker_ref01_match_rt0)).map((e: any) => e.data())
 
     assert(isempty(select(marker_ref01_list_rt0, { id: marker_ref01_data.id })))
 

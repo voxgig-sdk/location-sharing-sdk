@@ -23,8 +23,8 @@ module LocationSharingTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("LOCATIONSHARING_TEST_LIVE")
-    override = getenv("LOCATIONSHARING_TEST_OVERRIDE")
+    live = getenv("LOCATION_SHARING_TEST_LIVE")
+    override = getenv("LOCATION_SHARING_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module LocationSharingTestRunner
       end
     end
 
-    explain = getenv("LOCATIONSHARING_TEST_EXPLAIN")
-    m["LOCATIONSHARING_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("LOCATION_SHARING_TEST_EXPLAIN")
+    m["LOCATION_SHARING_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

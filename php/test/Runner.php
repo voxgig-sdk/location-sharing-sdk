@@ -43,8 +43,8 @@ class LocationSharingTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('LOCATIONSHARING_TEST_LIVE');
-        $override = self::getenv('LOCATIONSHARING_TEST_OVERRIDE');
+        $live = self::getenv('LOCATION_SHARING_TEST_LIVE');
+        $override = self::getenv('LOCATION_SHARING_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class LocationSharingTestRunner
             }
         }
 
-        $explain = self::getenv('LOCATIONSHARING_TEST_EXPLAIN');
+        $explain = self::getenv('LOCATION_SHARING_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['LOCATIONSHARING_TEST_EXPLAIN'] = $explain;
+            $m['LOCATION_SHARING_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

@@ -38,7 +38,7 @@ client = LocationSharingSDK()
 
 ### 3. Load an address
 
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -55,8 +55,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    address = client.Address().load()
-    print(address)
+    location = client.Location().load()
+    print(location)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -122,9 +122,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = LocationSharingSDK.test()
 
-# Entity ops return the bare record and raise on error.
-address = client.Address().load()
-# address contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+location = client.Location().load()
+# location contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -229,7 +230,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -254,7 +255,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | `address` |  |
 | `city` |  |
 | `country` |  |
-| `postal_code` |  |
+| `postalCode` |  |
 | `state` |  |
 | `street` |  |
 
@@ -319,7 +320,7 @@ API path: `/location`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `latitude` |  |
 | `longitude` |  |
@@ -334,13 +335,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `accuracy` |  |
-| `best_accuracy` |  |
+| `bestAccuracy` |  |
 | `count` |  |
 | `interval` |  |
 | `latitude` |  |
 | `longitude` |  |
-| `measurement` |  |
-| `result_type` |  |
+| `measurements` |  |
+| `resultType` |  |
 
 Operations: Create.
 
@@ -365,12 +366,12 @@ API path: `/search`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `latitude` |  |
 | `longitude` |  |
 | `name` |  |
-| `qr_code` |  |
-| `share_link` |  |
+| `qrCode` |  |
+| `shareLink` |  |
 
 Operations: Create.
 
@@ -398,7 +399,7 @@ Create an instance: `address = client.Address()`
 | `address` | `str` |  |
 | `city` | `str` |  |
 | `country` | `str` |  |
-| `postal_code` | `str` |  |
+| `postalCode` | `str` |  |
 | `state` | `str` |  |
 | `street` | `str` |  |
 
@@ -538,7 +539,7 @@ Create an instance: `marker = client.Marker()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `str` |  |
-| `created_at` | `str` |  |
+| `createdAt` | `str` |  |
 | `id` | `str` |  |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
@@ -576,13 +577,13 @@ Create an instance: `repeat = client.Repeat()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `float` |  |
-| `best_accuracy` | `float` |  |
+| `bestAccuracy` | `float` |  |
 | `count` | `int` |  |
 | `interval` | `float` |  |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
-| `measurement` | `list` |  |
-| `result_type` | `str` |  |
+| `measurements` | `list` |  |
+| `resultType` | `str` |  |
 
 #### Example: Create
 
@@ -636,12 +637,12 @@ Create an instance: `share = client.Share()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `str` |  |
-| `expires_at` | `str` |  |
+| `expiresAt` | `str` |  |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
 | `name` | `str` |  |
-| `qr_code` | `str` |  |
-| `share_link` | `str` |  |
+| `qrCode` | `str` |  |
+| `shareLink` | `str` |  |
 
 #### Example: Create
 
@@ -649,7 +650,7 @@ Create an instance: `share = client.Share()`
 share = client.Share().create({
     "latitude": 1,  # float
     "longitude": 1,  # float
-    "share_link": "example_share_link",  # str
+    "shareLink": "example_shareLink",  # str
 })
 ```
 
@@ -729,11 +730,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-address = client.Address()
-address.load()
+location = client.Location()
+location.load()
 
-# address.data_get() now returns the address data from the last load
-# address.match_get() returns the last match criteria
+# location.data_get() now returns the location data from the last load
+# location.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

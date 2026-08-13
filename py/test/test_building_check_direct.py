@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from locationsharing_sdk.utility.voxgig_struct import voxgig_struct as vs
 from locationsharing_sdk import LocationSharingSDK
-from core import helpers
+from locationsharing_sdk.core import helpers
 from test import runner
 
 
@@ -58,11 +58,11 @@ def _building_check_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "LOCATIONSHARING_TEST_BUILDING_CHECK_ENTID": {},
-        "LOCATIONSHARING_TEST_LIVE": "FALSE",
+        "LOCATION_SHARING_TEST_BUILDING_CHECK_ENTID": {},
+        "LOCATION_SHARING_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("LOCATIONSHARING_TEST_LIVE") == "TRUE"
+    live = env.get("LOCATION_SHARING_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

@@ -127,7 +127,7 @@ $address = $client->Address();
 | `address` | `string` | Yes |  |
 | `city` | `string` | No |  |
 | `country` | `string` | No |  |
-| `postal_code` | `string` | No |  |
+| `postalCode` | `string` | No |  |
 | `state` | `string` | No |  |
 | `street` | `string` | No |  |
 
@@ -418,7 +418,7 @@ $marker = $client->Marker();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `id` | `string` | Yes |  |
 | `latitude` | `float` | Yes |  |
 | `longitude` | `float` | Yes |  |
@@ -495,26 +495,26 @@ $repeat = $client->Repeat();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `float` | No |  |
-| `best_accuracy` | `float` | No |  |
+| `bestAccuracy` | `float` | No |  |
 | `count` | `int` | Yes |  |
 | `interval` | `float` | Yes |  |
 | `latitude` | `float` | No |  |
 | `longitude` | `float` | No |  |
-| `measurement` | `array` | No |  |
-| `result_type` | `string` | No |  |
+| `measurements` | `array` | No |  |
+| `resultType` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | create |
 | --- | --- |
 | `accuracy` | - |
-| `best_accuracy` | - |
+| `bestAccuracy` | - |
 | `count` | - |
 | `interval` | - |
 | `latitude` | - |
 | `longitude` | - |
-| `measurement` | - |
-| `result_type` | Yes |
+| `measurements` | - |
+| `resultType` | Yes |
 
 ### Operations
 
@@ -626,12 +626,12 @@ $share = $client->Share();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
-| `expires_at` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
 | `latitude` | `float` | Yes |  |
 | `longitude` | `float` | Yes |  |
 | `name` | `string` | No |  |
-| `qr_code` | `string` | No |  |
-| `share_link` | `string` | Yes |  |
+| `qrCode` | `string` | No |  |
+| `shareLink` | `string` | Yes |  |
 
 ### Operations
 
@@ -643,7 +643,7 @@ Create a new entity with the given data. Throws on error.
 $result = $client->Share()->create([
   "latitude" => null, // float
   "longitude" => null, // float
-  "share_link" => null, // string
+  "shareLink" => null, // string
 ]);
 ```
 

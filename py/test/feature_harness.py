@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import LocationSharingControl
-from core.error import LocationSharingError
-from core.result import LocationSharingResult
-from core.spec import LocationSharingSpec
+from locationsharing_sdk.config import make_config
+from locationsharing_sdk.features import _make_feature
+from locationsharing_sdk.core.control import LocationSharingControl
+from locationsharing_sdk.core.error import LocationSharingError
+from locationsharing_sdk.core.result import LocationSharingResult
+from locationsharing_sdk.core.spec import LocationSharingSpec
 
 
 # True when this SDK was generated with the named feature.

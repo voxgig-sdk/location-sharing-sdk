@@ -26,8 +26,8 @@ import {
 describe('RepeatEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LOCATIONSHARING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LOCATIONSHARING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LOCATION_SHARING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LOCATION_SHARING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LocationSharingSDK.test()
@@ -62,7 +62,7 @@ describe('RepeatEntity', async () => {
     const repeat_ref01_ent = client.Repeat()
     let repeat_ref01_data = setup.data.new.repeat['repeat_ref01']
 
-    repeat_ref01_data = await repeat_ref01_ent.create(repeat_ref01_data)
+    repeat_ref01_data = (await repeat_ref01_ent.create(repeat_ref01_data)).data()
     assert(null != repeat_ref01_data)
 
 

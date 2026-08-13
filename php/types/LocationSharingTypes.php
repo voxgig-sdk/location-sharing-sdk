@@ -18,7 +18,7 @@ class Address
     public string $address;
     public ?string $city = null;
     public ?string $country = null;
-    public ?string $postal_code = null;
+    public ?string $postalCode = null;
     public ?string $state = null;
     public ?string $street = null;
 }
@@ -29,7 +29,7 @@ class AddressLoadMatch
     public ?string $address = null;
     public ?string $city = null;
     public ?string $country = null;
-    public ?string $postal_code = null;
+    public ?string $postalCode = null;
     public ?string $state = null;
     public ?string $street = null;
 }
@@ -134,7 +134,7 @@ class LocationLoadMatch
 class Marker
 {
     public ?string $address = null;
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public string $id;
     public float $latitude;
     public float $longitude;
@@ -145,7 +145,7 @@ class Marker
 class MarkerListMatch
 {
     public ?string $address = null;
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $id = null;
     public ?float $latitude = null;
     public ?float $longitude = null;
@@ -156,7 +156,7 @@ class MarkerListMatch
 class MarkerCreateData
 {
     public ?string $address = null;
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public string $id;
     public float $latitude;
     public float $longitude;
@@ -167,7 +167,7 @@ class MarkerCreateData
 class MarkerRemoveMatch
 {
     public ?string $address = null;
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public string $id;
     public ?float $latitude = null;
     public ?float $longitude = null;
@@ -178,26 +178,26 @@ class MarkerRemoveMatch
 class Repeat
 {
     public ?float $accuracy = null;
-    public ?float $best_accuracy = null;
+    public ?float $bestAccuracy = null;
     public int $count;
     public float $interval;
     public ?float $latitude = null;
     public ?float $longitude = null;
-    public ?array $measurement = null;
-    public ?string $result_type = null;
+    public ?array $measurements = null;
+    public ?string $resultType = null;
 }
 
 /** Request payload for Repeat#create. */
 class RepeatCreateData
 {
     public ?float $accuracy = null;
-    public ?float $best_accuracy = null;
+    public ?float $bestAccuracy = null;
     public int $count;
     public float $interval;
     public ?float $latitude = null;
     public ?float $longitude = null;
-    public ?array $measurement = null;
-    public ?string $result_type = null;
+    public ?array $measurements = null;
+    public ?string $resultType = null;
 }
 
 /** Search entity data model. */
@@ -224,23 +224,23 @@ class SearchListMatch
 class Share
 {
     public ?string $address = null;
-    public ?string $expires_at = null;
+    public ?string $expiresAt = null;
     public float $latitude;
     public float $longitude;
     public ?string $name = null;
-    public ?string $qr_code = null;
-    public string $share_link;
+    public ?string $qrCode = null;
+    public string $shareLink;
 }
 
 /** Request payload for Share#create. */
 class ShareCreateData
 {
     public ?string $address = null;
-    public ?string $expires_at = null;
+    public ?string $expiresAt = null;
     public float $latitude;
     public float $longitude;
     public ?string $name = null;
-    public ?string $qr_code = null;
-    public string $share_link;
+    public ?string $qrCode = null;
+    public string $shareLink;
 }
 

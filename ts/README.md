@@ -53,8 +53,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const address = await client.Address().load()
-  console.log(address)
+  const location = await client.Location().load()
+  console.log(location)
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -120,9 +120,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = LocationSharingSDK.test()
 
-const address = await client.Address().load()
-// address is a bare entity populated with mock response data
-console.log(address)
+const location = await client.Location().load()
+// location is the entity, populated with mock response data
+// — call location.data() for the record itself
+console.log(location)
 ```
 
 You can also use the instance method:
@@ -137,7 +138,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Address()
+const entity = client.Location()
 
 // First call runs the operation and stores its result
 await entity.load()
@@ -301,7 +302,7 @@ The `prepare()` method returns:
 | `address` |  |
 | `city` |  |
 | `country` |  |
-| `postal_code` |  |
+| `postalCode` |  |
 | `state` |  |
 | `street` |  |
 
@@ -366,7 +367,7 @@ API path: `/location`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `latitude` |  |
 | `longitude` |  |
@@ -381,13 +382,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `accuracy` |  |
-| `best_accuracy` |  |
+| `bestAccuracy` |  |
 | `count` |  |
 | `interval` |  |
 | `latitude` |  |
 | `longitude` |  |
-| `measurement` |  |
-| `result_type` |  |
+| `measurements` |  |
+| `resultType` |  |
 
 Operations: create.
 
@@ -412,12 +413,12 @@ API path: `/search`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `latitude` |  |
 | `longitude` |  |
 | `name` |  |
-| `qr_code` |  |
-| `share_link` |  |
+| `qrCode` |  |
+| `shareLink` |  |
 
 Operations: create.
 
@@ -445,7 +446,7 @@ Create an instance: `const address = client.Address()`
 | `address` | `string` |  |
 | `city` | `string` |  |
 | `country` | `string` |  |
-| `postal_code` | `string` |  |
+| `postalCode` | `string` |  |
 | `state` | `string` |  |
 | `street` | `string` |  |
 
@@ -585,7 +586,7 @@ Create an instance: `const marker = client.Marker()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `id` | `string` |  |
 | `latitude` | `number` |  |
 | `longitude` | `number` |  |
@@ -623,13 +624,13 @@ Create an instance: `const repeat = client.Repeat()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `number` |  |
-| `best_accuracy` | `number` |  |
+| `bestAccuracy` | `number` |  |
 | `count` | `number` |  |
 | `interval` | `number` |  |
 | `latitude` | `number` |  |
 | `longitude` | `number` |  |
-| `measurement` | `any[]` |  |
-| `result_type` | `string` |  |
+| `measurements` | `any[]` |  |
+| `resultType` | `string` |  |
 
 #### Example: Create
 
@@ -683,12 +684,12 @@ Create an instance: `const share = client.Share()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `expires_at` | `string` |  |
+| `expiresAt` | `string` |  |
 | `latitude` | `number` |  |
 | `longitude` | `number` |  |
 | `name` | `string` |  |
-| `qr_code` | `string` |  |
-| `share_link` | `string` |  |
+| `qrCode` | `string` |  |
+| `shareLink` | `string` |  |
 
 #### Example: Create
 
@@ -696,7 +697,7 @@ Create an instance: `const share = client.Share()`
 const share = await client.Share().create({
   latitude: 1,
   longitude: 1,
-  share_link: 'example_share_link',
+  shareLink: 'example_shareLink',
 })
 ```
 
@@ -770,11 +771,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const address = client.Address()
-await address.load()
+const location = client.Location()
+await location.load()
 
-// address.data() now returns the address data from the last `load`
-// address.match() returns the last match criteria
+// location.data() now returns the location data from the last `load`
+// location.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

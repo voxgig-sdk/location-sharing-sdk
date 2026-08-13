@@ -26,8 +26,8 @@ import {
 describe('LocationEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LOCATIONSHARING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LOCATIONSHARING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LOCATION_SHARING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LOCATION_SHARING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LocationSharingSDK.test()
@@ -62,7 +62,7 @@ describe('LocationEntity', async () => {
     // LOAD
     const location_ref01_ent = client.Location()
     const location_ref01_match_dt0: any = {}
-    const location_ref01_data_dt0 = await location_ref01_ent.load(location_ref01_match_dt0)
+    const location_ref01_data_dt0 = (await location_ref01_ent.load(location_ref01_match_dt0)).data()
     assert(null != location_ref01_data_dt0)
 
 

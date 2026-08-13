@@ -14,6 +14,7 @@ guide: {
   entity: building_check: {
     path: "/buildings/check": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.buildings`")|top
     }
   }
 

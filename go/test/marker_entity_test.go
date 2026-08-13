@@ -92,7 +92,7 @@ func TestMarkerEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set LOCATIONSHARING_TEST_MARKER_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set LOCATION_SHARING_TEST_MARKER_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -106,7 +106,7 @@ func TestMarkerEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		markerRef01Data = core.ToMapAny(markerRef01DataResult)
+		markerRef01Data = core.ToMapAny(entityData(markerRef01DataResult))
 		if markerRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -197,21 +197,21 @@ func markerBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("LOCATIONSHARING_TEST_MARKER_ENTID")
+	entidEnvRaw := os.Getenv("LOCATION_SHARING_TEST_MARKER_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"LOCATIONSHARING_TEST_MARKER_ENTID": idmap,
-		"LOCATIONSHARING_TEST_LIVE":      "FALSE",
-		"LOCATIONSHARING_TEST_EXPLAIN":   "FALSE",
+		"LOCATION_SHARING_TEST_MARKER_ENTID": idmap,
+		"LOCATION_SHARING_TEST_LIVE":      "FALSE",
+		"LOCATION_SHARING_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["LOCATIONSHARING_TEST_MARKER_ENTID"])
+	idmapResolved := core.ToMapAny(env["LOCATION_SHARING_TEST_MARKER_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["LOCATIONSHARING_TEST_LIVE"] == "TRUE" {
+	if env["LOCATION_SHARING_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
 			},
@@ -220,13 +220,13 @@ func markerBasicSetup(extra map[string]any) *entityTestSetup {
 		client = sdk.NewLocationSharingSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["LOCATIONSHARING_TEST_LIVE"] == "TRUE"
+	live := env["LOCATION_SHARING_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["LOCATIONSHARING_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["LOCATION_SHARING_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

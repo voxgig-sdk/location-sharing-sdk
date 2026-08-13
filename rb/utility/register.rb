@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ LocationSharingUtility.registrar = ->(u) {
   u.prepare_params = LocationSharingUtilities::PrepareParams
   u.prepare_path = LocationSharingUtilities::PreparePath
   u.prepare_query = LocationSharingUtilities::PrepareQuery
+  u.graphql_body = LocationSharingUtilities::GraphqlBody
+  u.graphql_errors = LocationSharingUtilities::GraphqlErrors
   u.result_basic = LocationSharingUtilities::ResultBasic
   u.result_body = LocationSharingUtilities::ResultBody
   u.result_headers = LocationSharingUtilities::ResultHeaders

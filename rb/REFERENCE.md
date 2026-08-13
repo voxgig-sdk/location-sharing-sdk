@@ -128,7 +128,7 @@ address = client.Address
 | `address` | `String` | Yes |  |
 | `city` | `String` | No |  |
 | `country` | `String` | No |  |
-| `postal_code` | `String` | No |  |
+| `postalCode` | `String` | No |  |
 | `state` | `String` | No |  |
 | `street` | `String` | No |  |
 
@@ -419,7 +419,7 @@ marker = client.Marker
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `String` | No |  |
-| `created_at` | `String` | No |  |
+| `createdAt` | `String` | No |  |
 | `id` | `String` | Yes |  |
 | `latitude` | `Float` | Yes |  |
 | `longitude` | `Float` | Yes |  |
@@ -496,26 +496,26 @@ repeat = client.Repeat
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `Float` | No |  |
-| `best_accuracy` | `Float` | No |  |
+| `bestAccuracy` | `Float` | No |  |
 | `count` | `Integer` | Yes |  |
 | `interval` | `Float` | Yes |  |
 | `latitude` | `Float` | No |  |
 | `longitude` | `Float` | No |  |
-| `measurement` | `Array` | No |  |
-| `result_type` | `String` | No |  |
+| `measurements` | `Array` | No |  |
+| `resultType` | `String` | No |  |
 
 ### Field Usage by Operation
 
 | Field | create |
 | --- | --- |
 | `accuracy` | - |
-| `best_accuracy` | - |
+| `bestAccuracy` | - |
 | `count` | - |
 | `interval` | - |
 | `latitude` | - |
 | `longitude` | - |
-| `measurement` | - |
-| `result_type` | Yes |
+| `measurements` | - |
+| `resultType` | Yes |
 
 ### Operations
 
@@ -627,12 +627,12 @@ share = client.Share
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `address` | `String` | No |  |
-| `expires_at` | `String` | No |  |
+| `expiresAt` | `String` | No |  |
 | `latitude` | `Float` | Yes |  |
 | `longitude` | `Float` | Yes |  |
 | `name` | `String` | No |  |
-| `qr_code` | `String` | No |  |
-| `share_link` | `String` | Yes |  |
+| `qrCode` | `String` | No |  |
+| `shareLink` | `String` | Yes |  |
 
 ### Operations
 
@@ -644,7 +644,7 @@ Create a new entity with the given data. Raises on error.
 result = client.Share.create({
   "latitude" => 1, # Float
   "longitude" => 1, # Float
-  "share_link" => "example_share_link", # String
+  "shareLink" => "example_shareLink", # String
 })
 ```
 

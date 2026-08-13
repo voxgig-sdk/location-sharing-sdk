@@ -11,7 +11,7 @@ main: kit: entity: share: {
       type: "`$STRING`"
     }
     {
-      name: "expires_at"
+      name: "expiresAt"
       req: false
       type: "`$STRING`"
     }
@@ -31,12 +31,12 @@ main: kit: entity: share: {
       type: "`$STRING`"
     }
     {
-      name: "qr_code"
+      name: "qrCode"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "share_link"
+      name: "shareLink"
       req: true
       type: "`$STRING`"
     }

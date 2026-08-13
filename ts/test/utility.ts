@@ -62,8 +62,8 @@ function makeCtrl(explain: boolean) {
 // Overrides configuration values with environment variables if available
 function envOverride(m: Record<string, any>) {
   if (
-    'TRUE' === process.env.LOCATIONSHARING_TEST_LIVE ||
-    'TRUE' === process.env.LOCATIONSHARING_TEST_OVERRIDE
+    'TRUE' === process.env.LOCATION_SHARING_TEST_LIVE ||
+    'TRUE' === process.env.LOCATION_SHARING_TEST_OVERRIDE
   ) {
     Object.entries(m).map(n => {
       let envval = process.env[n[0]]
@@ -74,7 +74,7 @@ function envOverride(m: Record<string, any>) {
     })
   }
 
-  m.LOCATIONSHARING_TEST_EXPLAIN = process.env.LOCATIONSHARING_TEST_EXPLAIN || m.LOCATIONSHARING_TEST_EXPLAIN
+  m.LOCATION_SHARING_TEST_EXPLAIN = process.env.LOCATION_SHARING_TEST_EXPLAIN || m.LOCATION_SHARING_TEST_EXPLAIN
 
   return m
 }

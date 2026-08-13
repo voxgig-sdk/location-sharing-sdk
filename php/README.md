@@ -35,7 +35,7 @@ $client = new LocationSharingSDK();
 
 ```php
 try {
-    // load() returns the bare Address record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Address record (throws on error).
     $address = $client->Address()->load();
     print_r($address);
 } catch (\Throwable $err) {
@@ -51,7 +51,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $address = $client->Address()->load();
+    $location = $client->Location()->load();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -123,9 +123,10 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = LocationSharingSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$address = $client->Address()->load();
-print_r($address);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$location = $client->Location()->load();
+print_r($location);
 ```
 
 ### Use a custom fetch function
@@ -233,7 +234,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -258,7 +259,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | `address` |  |
 | `city` |  |
 | `country` |  |
-| `postal_code` |  |
+| `postalCode` |  |
 | `state` |  |
 | `street` |  |
 
@@ -323,7 +324,7 @@ API path: `/location`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `created_at` |  |
+| `createdAt` |  |
 | `id` |  |
 | `latitude` |  |
 | `longitude` |  |
@@ -338,13 +339,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `accuracy` |  |
-| `best_accuracy` |  |
+| `bestAccuracy` |  |
 | `count` |  |
 | `interval` |  |
 | `latitude` |  |
 | `longitude` |  |
-| `measurement` |  |
-| `result_type` |  |
+| `measurements` |  |
+| `resultType` |  |
 
 Operations: Create.
 
@@ -369,12 +370,12 @@ API path: `/search`
 | Field | Description |
 | --- | --- |
 | `address` |  |
-| `expires_at` |  |
+| `expiresAt` |  |
 | `latitude` |  |
 | `longitude` |  |
 | `name` |  |
-| `qr_code` |  |
-| `share_link` |  |
+| `qrCode` |  |
+| `shareLink` |  |
 
 Operations: Create.
 
@@ -402,14 +403,14 @@ Create an instance: `$address = $client->Address();`
 | `address` | `string` |  |
 | `city` | `string` |  |
 | `country` | `string` |  |
-| `postal_code` | `string` |  |
+| `postalCode` | `string` |  |
 | `state` | `string` |  |
 | `street` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Address record (throws on error).
+// load() returns the ENTITY — call data_get() for the Address record (throws on error).
 $address = $client->Address()->load();
 ```
 
@@ -454,7 +455,7 @@ Create an instance: `$export = $client->Export();`
 #### Example: Load
 
 ```php
-// load() returns the bare Export record (throws on error).
+// load() returns the ENTITY — call data_get() for the Export record (throws on error).
 $export = $client->Export()->load();
 ```
 
@@ -525,7 +526,7 @@ Create an instance: `$location = $client->Location();`
 #### Example: Load
 
 ```php
-// load() returns the bare Location record (throws on error).
+// load() returns the ENTITY — call data_get() for the Location record (throws on error).
 $location = $client->Location()->load();
 ```
 
@@ -547,7 +548,7 @@ Create an instance: `$marker = $client->Marker();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `id` | `string` |  |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
@@ -586,13 +587,13 @@ Create an instance: `$repeat = $client->Repeat();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `float` |  |
-| `best_accuracy` | `float` |  |
+| `bestAccuracy` | `float` |  |
 | `count` | `int` |  |
 | `interval` | `float` |  |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
-| `measurement` | `array` |  |
-| `result_type` | `string` |  |
+| `measurements` | `array` |  |
+| `resultType` | `string` |  |
 
 #### Example: Create
 
@@ -647,12 +648,12 @@ Create an instance: `$share = $client->Share();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `address` | `string` |  |
-| `expires_at` | `string` |  |
+| `expiresAt` | `string` |  |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
 | `name` | `string` |  |
-| `qr_code` | `string` |  |
-| `share_link` | `string` |  |
+| `qrCode` | `string` |  |
+| `shareLink` | `string` |  |
 
 #### Example: Create
 
@@ -660,7 +661,7 @@ Create an instance: `$share = $client->Share();`
 $share = $client->Share()->create([
     "latitude" => null, // float
     "longitude" => null, // float
-    "share_link" => null, // string
+    "shareLink" => null, // string
 ]);
 ```
 
@@ -741,11 +742,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$address = $client->Address();
-$address->load();
+$location = $client->Location();
+$location->load();
 
-// $address->data_get() now returns the address data from the last load
-// $address->match_get() returns the last match criteria
+// $location->data_get() now returns the location data from the last load
+// $location->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

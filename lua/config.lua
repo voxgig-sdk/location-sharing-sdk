@@ -55,7 +55,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "postal_code",
+            ["name"] = "postalCode",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 3,
@@ -103,6 +103,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/geocode/reverse",
                 ["parts"] = {
@@ -206,6 +207,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/buildings/check",
                 ["parts"] = {
@@ -222,7 +224,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.buildings`",
                 },
                 ["index$"] = 0,
               },
@@ -245,6 +247,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/export/csv",
                 ["parts"] = {
@@ -263,6 +266,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/export/geojson",
                 ["parts"] = {
@@ -281,6 +285,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/export/kml",
                 ["parts"] = {
@@ -365,6 +370,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/history",
                 ["parts"] = {
@@ -387,6 +393,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/history",
                 ["parts"] = {
@@ -409,6 +416,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/history",
                 ["parts"] = {
@@ -476,6 +484,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/location",
                 ["parts"] = {
@@ -507,7 +516,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "created_at",
+            ["name"] = "createdAt",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 1,
@@ -550,6 +559,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/markers",
                 ["parts"] = {
@@ -572,6 +582,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/markers",
                 ["parts"] = {
@@ -594,6 +605,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/markers",
                 ["parts"] = {
@@ -625,7 +637,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "best_accuracy",
+            ["name"] = "bestAccuracy",
             ["req"] = false,
             ["type"] = "`$NUMBER`",
             ["index$"] = 1,
@@ -660,14 +672,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "measurement",
+            ["name"] = "measurements",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 6,
           },
           {
             ["active"] = true,
-            ["name"] = "result_type",
+            ["name"] = "resultType",
             ["op"] = {
               ["create"] = {
                 ["req"] = true,
@@ -688,6 +700,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/measurement/repeat",
                 ["parts"] = {
@@ -767,6 +780,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/search",
                 ["parts"] = {
@@ -802,7 +816,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "expires_at",
+            ["name"] = "expiresAt",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 1,
@@ -830,14 +844,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "qr_code",
+            ["name"] = "qrCode",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 5,
           },
           {
             ["active"] = true,
-            ["name"] = "share_link",
+            ["name"] = "shareLink",
             ["req"] = true,
             ["type"] = "`$STRING`",
             ["index$"] = 6,
@@ -852,6 +866,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/share",
                 ["parts"] = {

@@ -21,7 +21,7 @@ main: kit: entity: address: {
       type: "`$STRING`"
     }
     {
-      name: "postal_code"
+      name: "postalCode"
       req: false
       type: "`$STRING`"
     }
