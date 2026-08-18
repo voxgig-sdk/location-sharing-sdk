@@ -23,8 +23,8 @@ class LocationSharingSDK:
         utility = LocationSharingUtility()
         self._utility = utility
 
-        from locationsharing_sdk.config import make_config
-        config = make_config()
+        from locationsharing_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,

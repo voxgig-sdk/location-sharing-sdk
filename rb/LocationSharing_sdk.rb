@@ -28,7 +28,7 @@ class LocationSharingSDK
     utility = LocationSharingUtility.new
     @_utility = utility
 
-    config = LocationSharingConfig.make_config
+    config = LocationSharingConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

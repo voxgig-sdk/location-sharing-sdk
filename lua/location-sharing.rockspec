@@ -23,6 +23,7 @@ build = {
   modules = {
     ["location-sharing_sdk"] = "location-sharing_sdk.lua",
     ["config"] = "config.lua",
+    ["config_shared"] = "config_shared.lua",
     ["features"] = "features.lua",
   }
 }

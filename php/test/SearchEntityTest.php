@@ -40,7 +40,7 @@ class SearchEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = LocationSharingConfig::make_config();
+        $cfg = LocationSharingConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = LocationSharingSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];

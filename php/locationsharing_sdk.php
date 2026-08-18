@@ -40,7 +40,7 @@ class LocationSharingSDK
         $utility = new LocationSharingUtility();
         $this->_utility = $utility;
 
-        $config = LocationSharingConfig::make_config();
+        $config = LocationSharingConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,
