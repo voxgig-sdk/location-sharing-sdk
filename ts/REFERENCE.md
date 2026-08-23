@@ -212,12 +212,12 @@ const address = client.Address()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | Yes |  |
-| `city` | `string` | No |  |
-| `country` | `string` | No |  |
-| `postalCode` | `string` | No |  |
-| `state` | `string` | No |  |
-| `street` | `string` | No |  |
+| `address` | `string` | Yes | Full formatted address |
+| `city` | `string` | No | City name |
+| `country` | `string` | No | Country name |
+| `postalCode` | `string` | No | Postal or ZIP code |
+| `state` | `string` | No | State or province |
+| `street` | `string` | No | Street name |
 
 ### Operations
 
@@ -267,7 +267,7 @@ const building_check = client.BuildingCheck()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | `number` | No |  |
+| `distance` | `number` | No | Distance to building edge in meters |
 | `highlighted` | `boolean` | No |  |
 | `id` | `string` | No |  |
 | `name` | `string` | No |  |
@@ -463,11 +463,11 @@ const location = client.Location()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | `number` | Yes |  |
-| `address` | `string` | No |  |
-| `latitude` | `number` | Yes |  |
-| `longitude` | `number` | Yes |  |
-| `timestamp` | `string` | No |  |
+| `accuracy` | `number` | Yes | Accuracy in meters |
+| `address` | `string` | No | Human-readable address |
+| `latitude` | `number` | Yes | Latitude coordinate |
+| `longitude` | `number` | Yes | Longitude coordinate |
+| `timestamp` | `string` | No | Timestamp of the location fix |
 
 ### Operations
 
@@ -519,10 +519,10 @@ const marker = client.Marker()
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
 | `createdAt` | `string` | No |  |
-| `id` | `string` | Yes |  |
+| `id` | `string` | Yes | Unique marker identifier |
 | `latitude` | `number` | Yes |  |
 | `longitude` | `number` | Yes |  |
-| `name` | `string` | No |  |
+| `name` | `string` | No | Name or label for the marker |
 
 ### Operations
 
@@ -593,13 +593,13 @@ const repeat = client.Repeat()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `number` | No |  |
-| `bestAccuracy` | `number` | No |  |
-| `count` | `number` | Yes |  |
-| `interval` | `number` | Yes |  |
+| `bestAccuracy` | `number` | No | Best (lowest) accuracy value from all measurements |
+| `count` | `number` | Yes | Number of measurements to take (recommended 8-15) |
+| `interval` | `number` | Yes | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` | `number` | No |  |
 | `longitude` | `number` | No |  |
 | `measurements` | `any[]` | No |  |
-| `resultType` | `string` | No |  |
+| `resultType` | `string` | No | Type of result to return |
 
 ### Field Usage by Operation
 
@@ -665,11 +665,11 @@ const search = client.Search()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
+| `address` | `string` | No | Full address |
 | `latitude` | `number` | Yes |  |
 | `longitude` | `number` | Yes |  |
-| `name` | `string` | Yes |  |
-| `type` | `string` | No |  |
+| `name` | `string` | Yes | Name of the location |
+| `type` | `string` | No | Type of location (e.g., building, park, street) |
 
 ### Operations
 
@@ -719,13 +719,13 @@ const share = client.Share()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
-| `expiresAt` | `string` | No |  |
+| `address` | `string` | No | Address of the location |
+| `expiresAt` | `string` | No | Expiration time of the share link |
 | `latitude` | `number` | Yes |  |
 | `longitude` | `number` | Yes |  |
-| `name` | `string` | No |  |
-| `qrCode` | `string` | No |  |
-| `shareLink` | `string` | Yes |  |
+| `name` | `string` | No | Optional name for the location |
+| `qrCode` | `string` | No | URL to QR code image |
+| `shareLink` | `string` | Yes | Shareable URL for the location |
 
 ### Operations
 

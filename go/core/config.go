@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "LocationSharing",
+			"slug": "location-sharing",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -42,26 +45,32 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "address",
 						"req": true,
+						"short": "Full formatted address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "city",
+						"short": "City name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "country",
+						"short": "Country name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "postalCode",
+						"short": "Postal or ZIP code",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "state",
+						"short": "State or province",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "street",
+						"short": "Street name",
 						"type": "`$STRING`",
 					},
 				},
@@ -119,6 +128,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "distance",
+						"short": "Distance to building edge in meters",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
@@ -373,24 +383,29 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "accuracy",
 						"req": true,
+						"short": "Accuracy in meters",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "address",
+						"short": "Human-readable address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "latitude",
 						"req": true,
+						"short": "Latitude coordinate",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "longitude",
 						"req": true,
+						"short": "Longitude coordinate",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "timestamp",
+						"short": "Timestamp of the location fix",
 						"type": "`$STRING`",
 					},
 				},
@@ -434,6 +449,7 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "id",
 						"req": true,
+						"short": "Unique marker identifier",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -448,6 +464,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "name",
+						"short": "Name or label for the marker",
 						"type": "`$STRING`",
 					},
 				},
@@ -526,16 +543,19 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "bestAccuracy",
+						"short": "Best (lowest) accuracy value from all measurements",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "count",
 						"req": true,
+						"short": "Number of measurements to take (recommended 8-15)",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "interval",
 						"req": true,
+						"short": "Interval between measurements in seconds (recommended 0.8-2.0)",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
@@ -558,6 +578,7 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "Type of result to return",
 						"type": "`$STRING`",
 					},
 				},
@@ -593,6 +614,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "address",
+						"short": "Full address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -608,10 +630,12 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "name",
 						"req": true,
+						"short": "Name of the location",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "type",
+						"short": "Type of location (e.g., building, park, street)",
 						"type": "`$STRING`",
 					},
 				},
@@ -660,10 +684,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "address",
+						"short": "Address of the location",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "expiresAt",
+						"short": "Expiration time of the share link",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -678,15 +704,18 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "name",
+						"short": "Optional name for the location",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "qrCode",
+						"short": "URL to QR code image",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "shareLink",
 						"req": true,
+						"short": "Shareable URL for the location",
 						"type": "`$STRING`",
 					},
 				},

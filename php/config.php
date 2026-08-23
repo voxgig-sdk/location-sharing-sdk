@@ -33,6 +33,9 @@ class LocationSharingConfig
         return [
             "main" => [
                 "name" => "LocationSharing",
+                "slug" => "location-sharing",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -64,26 +67,32 @@ class LocationSharingConfig
             [
               'name' => 'address',
               'req' => true,
+              'short' => 'Full formatted address',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'city',
+              'short' => 'City name',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'country',
+              'short' => 'Country name',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'postalCode',
+              'short' => 'Postal or ZIP code',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'state',
+              'short' => 'State or province',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'street',
+              'short' => 'Street name',
               'type' => '`$STRING`',
             ],
           ],
@@ -141,6 +150,7 @@ class LocationSharingConfig
           'fields' => [
             [
               'name' => 'distance',
+              'short' => 'Distance to building edge in meters',
               'type' => '`$NUMBER`',
             ],
             [
@@ -395,24 +405,29 @@ class LocationSharingConfig
             [
               'name' => 'accuracy',
               'req' => true,
+              'short' => 'Accuracy in meters',
               'type' => '`$NUMBER`',
             ],
             [
               'name' => 'address',
+              'short' => 'Human-readable address',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'latitude',
               'req' => true,
+              'short' => 'Latitude coordinate',
               'type' => '`$NUMBER`',
             ],
             [
               'name' => 'longitude',
               'req' => true,
+              'short' => 'Longitude coordinate',
               'type' => '`$NUMBER`',
             ],
             [
               'name' => 'timestamp',
+              'short' => 'Timestamp of the location fix',
               'type' => '`$STRING`',
             ],
           ],
@@ -456,6 +471,7 @@ class LocationSharingConfig
             [
               'name' => 'id',
               'req' => true,
+              'short' => 'Unique marker identifier',
               'type' => '`$STRING`',
             ],
             [
@@ -470,6 +486,7 @@ class LocationSharingConfig
             ],
             [
               'name' => 'name',
+              'short' => 'Name or label for the marker',
               'type' => '`$STRING`',
             ],
           ],
@@ -548,16 +565,19 @@ class LocationSharingConfig
             ],
             [
               'name' => 'bestAccuracy',
+              'short' => 'Best (lowest) accuracy value from all measurements',
               'type' => '`$NUMBER`',
             ],
             [
               'name' => 'count',
               'req' => true,
+              'short' => 'Number of measurements to take (recommended 8-15)',
               'type' => '`$INTEGER`',
             ],
             [
               'name' => 'interval',
               'req' => true,
+              'short' => 'Interval between measurements in seconds (recommended 0.8-2.0)',
               'type' => '`$NUMBER`',
             ],
             [
@@ -580,6 +600,7 @@ class LocationSharingConfig
                   'type' => '`$STRING`',
                 ],
               ],
+              'short' => 'Type of result to return',
               'type' => '`$STRING`',
             ],
           ],
@@ -615,6 +636,7 @@ class LocationSharingConfig
           'fields' => [
             [
               'name' => 'address',
+              'short' => 'Full address',
               'type' => '`$STRING`',
             ],
             [
@@ -630,10 +652,12 @@ class LocationSharingConfig
             [
               'name' => 'name',
               'req' => true,
+              'short' => 'Name of the location',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'type',
+              'short' => 'Type of location (e.g., building, park, street)',
               'type' => '`$STRING`',
             ],
           ],
@@ -682,10 +706,12 @@ class LocationSharingConfig
           'fields' => [
             [
               'name' => 'address',
+              'short' => 'Address of the location',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'expiresAt',
+              'short' => 'Expiration time of the share link',
               'type' => '`$STRING`',
             ],
             [
@@ -700,15 +726,18 @@ class LocationSharingConfig
             ],
             [
               'name' => 'name',
+              'short' => 'Optional name for the location',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'qrCode',
+              'short' => 'URL to QR code image',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'shareLink',
               'req' => true,
+              'short' => 'Shareable URL for the location',
               'type' => '`$STRING`',
             ],
           ],

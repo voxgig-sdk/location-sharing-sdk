@@ -1,0 +1,62 @@
+# Entity: location
+
+main: kit: entity: location: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "accuracy"
+      req: true
+      short: "Accuracy in meters"
+      type: "`$NUMBER`"
+    }
+    {
+      name: "address"
+      req: false
+      short: "Human-readable address"
+      type: "`$STRING`"
+    }
+    {
+      name: "latitude"
+      req: true
+      short: "Latitude coordinate"
+      type: "`$NUMBER`"
+    }
+    {
+      name: "longitude"
+      req: true
+      short: "Longitude coordinate"
+      type: "`$NUMBER`"
+    }
+    {
+      name: "timestamp"
+      req: false
+      short: "Timestamp of the location fix"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "location"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          method: "GET"
+          orig: "/location"
+          parts: [
+            "location"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -252,12 +252,12 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `city` |  |
-| `country` |  |
-| `postalCode` |  |
-| `state` |  |
-| `street` |  |
+| `address` | Full formatted address |
+| `city` | City name |
+| `country` | Country name |
+| `postalCode` | Postal or ZIP code |
+| `state` | State or province |
+| `street` | Street name |
 
 Operations: Load.
 
@@ -267,7 +267,7 @@ API path: `/geocode/reverse`
 
 | Field | Description |
 | --- | --- |
-| `distance` |  |
+| `distance` | Distance to building edge in meters |
 | `highlighted` |  |
 | `id` |  |
 | `name` |  |
@@ -305,11 +305,11 @@ API path: `/history`
 
 | Field | Description |
 | --- | --- |
-| `accuracy` |  |
-| `address` |  |
-| `latitude` |  |
-| `longitude` |  |
-| `timestamp` |  |
+| `accuracy` | Accuracy in meters |
+| `address` | Human-readable address |
+| `latitude` | Latitude coordinate |
+| `longitude` | Longitude coordinate |
+| `timestamp` | Timestamp of the location fix |
 
 Operations: Load.
 
@@ -321,10 +321,10 @@ API path: `/location`
 | --- | --- |
 | `address` |  |
 | `createdAt` |  |
-| `id` |  |
+| `id` | Unique marker identifier |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
+| `name` | Name or label for the marker |
 
 Operations: Create, List, Remove.
 
@@ -335,13 +335,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `accuracy` |  |
-| `bestAccuracy` |  |
-| `count` |  |
-| `interval` |  |
+| `bestAccuracy` | Best (lowest) accuracy value from all measurements |
+| `count` | Number of measurements to take (recommended 8-15) |
+| `interval` | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` |  |
 | `longitude` |  |
 | `measurements` |  |
-| `resultType` |  |
+| `resultType` | Type of result to return |
 
 Operations: Create.
 
@@ -351,11 +351,11 @@ API path: `/measurement/repeat`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
+| `address` | Full address |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
-| `type` |  |
+| `name` | Name of the location |
+| `type` | Type of location (e.g., building, park, street) |
 
 Operations: List.
 
@@ -365,13 +365,13 @@ API path: `/search`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `expiresAt` |  |
+| `address` | Address of the location |
+| `expiresAt` | Expiration time of the share link |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
-| `qrCode` |  |
-| `shareLink` |  |
+| `name` | Optional name for the location |
+| `qrCode` | URL to QR code image |
+| `shareLink` | Shareable URL for the location |
 
 Operations: Create.
 
@@ -396,12 +396,12 @@ Create an instance: `address = client.Address()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `str` |  |
-| `city` | `str` |  |
-| `country` | `str` |  |
-| `postalCode` | `str` |  |
-| `state` | `str` |  |
-| `street` | `str` |  |
+| `address` | `str` | Full formatted address |
+| `city` | `str` | City name |
+| `country` | `str` | Country name |
+| `postalCode` | `str` | Postal or ZIP code |
+| `state` | `str` | State or province |
+| `street` | `str` | Street name |
 
 #### Example: Load
 
@@ -424,7 +424,7 @@ Create an instance: `building_check = client.BuildingCheck()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `distance` | `float` |  |
+| `distance` | `float` | Distance to building edge in meters |
 | `highlighted` | `bool` |  |
 | `id` | `str` |  |
 | `name` | `str` |  |
@@ -509,11 +509,11 @@ Create an instance: `location = client.Location()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | `float` |  |
-| `address` | `str` |  |
-| `latitude` | `float` |  |
-| `longitude` | `float` |  |
-| `timestamp` | `str` |  |
+| `accuracy` | `float` | Accuracy in meters |
+| `address` | `str` | Human-readable address |
+| `latitude` | `float` | Latitude coordinate |
+| `longitude` | `float` | Longitude coordinate |
+| `timestamp` | `str` | Timestamp of the location fix |
 
 #### Example: Load
 
@@ -540,10 +540,10 @@ Create an instance: `marker = client.Marker()`
 | --- | --- | --- |
 | `address` | `str` |  |
 | `createdAt` | `str` |  |
-| `id` | `str` |  |
+| `id` | `str` | Unique marker identifier |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
-| `name` | `str` |  |
+| `name` | `str` | Name or label for the marker |
 
 #### Example: List
 
@@ -577,13 +577,13 @@ Create an instance: `repeat = client.Repeat()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `float` |  |
-| `bestAccuracy` | `float` |  |
-| `count` | `int` |  |
-| `interval` | `float` |  |
+| `bestAccuracy` | `float` | Best (lowest) accuracy value from all measurements |
+| `count` | `int` | Number of measurements to take (recommended 8-15) |
+| `interval` | `float` | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
 | `measurements` | `list` |  |
-| `resultType` | `str` |  |
+| `resultType` | `str` | Type of result to return |
 
 #### Example: Create
 
@@ -609,11 +609,11 @@ Create an instance: `search = client.Search()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `str` |  |
+| `address` | `str` | Full address |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
-| `name` | `str` |  |
-| `type` | `str` |  |
+| `name` | `str` | Name of the location |
+| `type` | `str` | Type of location (e.g., building, park, street) |
 
 #### Example: List
 
@@ -636,13 +636,13 @@ Create an instance: `share = client.Share()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `str` |  |
-| `expiresAt` | `str` |  |
+| `address` | `str` | Address of the location |
+| `expiresAt` | `str` | Expiration time of the share link |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
-| `name` | `str` |  |
-| `qrCode` | `str` |  |
-| `shareLink` | `str` |  |
+| `name` | `str` | Optional name for the location |
+| `qrCode` | `str` | URL to QR code image |
+| `shareLink` | `str` | Shareable URL for the location |
 
 #### Example: Create
 

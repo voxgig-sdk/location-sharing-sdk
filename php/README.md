@@ -256,12 +256,12 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `city` |  |
-| `country` |  |
-| `postalCode` |  |
-| `state` |  |
-| `street` |  |
+| `address` | Full formatted address |
+| `city` | City name |
+| `country` | Country name |
+| `postalCode` | Postal or ZIP code |
+| `state` | State or province |
+| `street` | Street name |
 
 Operations: Load.
 
@@ -271,7 +271,7 @@ API path: `/geocode/reverse`
 
 | Field | Description |
 | --- | --- |
-| `distance` |  |
+| `distance` | Distance to building edge in meters |
 | `highlighted` |  |
 | `id` |  |
 | `name` |  |
@@ -309,11 +309,11 @@ API path: `/history`
 
 | Field | Description |
 | --- | --- |
-| `accuracy` |  |
-| `address` |  |
-| `latitude` |  |
-| `longitude` |  |
-| `timestamp` |  |
+| `accuracy` | Accuracy in meters |
+| `address` | Human-readable address |
+| `latitude` | Latitude coordinate |
+| `longitude` | Longitude coordinate |
+| `timestamp` | Timestamp of the location fix |
 
 Operations: Load.
 
@@ -325,10 +325,10 @@ API path: `/location`
 | --- | --- |
 | `address` |  |
 | `createdAt` |  |
-| `id` |  |
+| `id` | Unique marker identifier |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
+| `name` | Name or label for the marker |
 
 Operations: Create, List, Remove.
 
@@ -339,13 +339,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `accuracy` |  |
-| `bestAccuracy` |  |
-| `count` |  |
-| `interval` |  |
+| `bestAccuracy` | Best (lowest) accuracy value from all measurements |
+| `count` | Number of measurements to take (recommended 8-15) |
+| `interval` | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` |  |
 | `longitude` |  |
 | `measurements` |  |
-| `resultType` |  |
+| `resultType` | Type of result to return |
 
 Operations: Create.
 
@@ -355,11 +355,11 @@ API path: `/measurement/repeat`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
+| `address` | Full address |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
-| `type` |  |
+| `name` | Name of the location |
+| `type` | Type of location (e.g., building, park, street) |
 
 Operations: List.
 
@@ -369,13 +369,13 @@ API path: `/search`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `expiresAt` |  |
+| `address` | Address of the location |
+| `expiresAt` | Expiration time of the share link |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
-| `qrCode` |  |
-| `shareLink` |  |
+| `name` | Optional name for the location |
+| `qrCode` | URL to QR code image |
+| `shareLink` | Shareable URL for the location |
 
 Operations: Create.
 
@@ -400,12 +400,12 @@ Create an instance: `$address = $client->Address();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `city` | `string` |  |
-| `country` | `string` |  |
-| `postalCode` | `string` |  |
-| `state` | `string` |  |
-| `street` | `string` |  |
+| `address` | `string` | Full formatted address |
+| `city` | `string` | City name |
+| `country` | `string` | Country name |
+| `postalCode` | `string` | Postal or ZIP code |
+| `state` | `string` | State or province |
+| `street` | `string` | Street name |
 
 #### Example: Load
 
@@ -429,7 +429,7 @@ Create an instance: `$building_check = $client->BuildingCheck();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `distance` | `float` |  |
+| `distance` | `float` | Distance to building edge in meters |
 | `highlighted` | `bool` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -517,11 +517,11 @@ Create an instance: `$location = $client->Location();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | `float` |  |
-| `address` | `string` |  |
-| `latitude` | `float` |  |
-| `longitude` | `float` |  |
-| `timestamp` | `string` |  |
+| `accuracy` | `float` | Accuracy in meters |
+| `address` | `string` | Human-readable address |
+| `latitude` | `float` | Latitude coordinate |
+| `longitude` | `float` | Longitude coordinate |
+| `timestamp` | `string` | Timestamp of the location fix |
 
 #### Example: Load
 
@@ -549,10 +549,10 @@ Create an instance: `$marker = $client->Marker();`
 | --- | --- | --- |
 | `address` | `string` |  |
 | `createdAt` | `string` |  |
-| `id` | `string` |  |
+| `id` | `string` | Unique marker identifier |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
-| `name` | `string` |  |
+| `name` | `string` | Name or label for the marker |
 
 #### Example: List
 
@@ -587,13 +587,13 @@ Create an instance: `$repeat = $client->Repeat();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `float` |  |
-| `bestAccuracy` | `float` |  |
-| `count` | `int` |  |
-| `interval` | `float` |  |
+| `bestAccuracy` | `float` | Best (lowest) accuracy value from all measurements |
+| `count` | `int` | Number of measurements to take (recommended 8-15) |
+| `interval` | `float` | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
 | `measurements` | `array` |  |
-| `resultType` | `string` |  |
+| `resultType` | `string` | Type of result to return |
 
 #### Example: Create
 
@@ -619,11 +619,11 @@ Create an instance: `$search = $client->Search();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
+| `address` | `string` | Full address |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
-| `name` | `string` |  |
-| `type` | `string` |  |
+| `name` | `string` | Name of the location |
+| `type` | `string` | Type of location (e.g., building, park, street) |
 
 #### Example: List
 
@@ -647,13 +647,13 @@ Create an instance: `$share = $client->Share();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `expiresAt` | `string` |  |
+| `address` | `string` | Address of the location |
+| `expiresAt` | `string` | Expiration time of the share link |
 | `latitude` | `float` |  |
 | `longitude` | `float` |  |
-| `name` | `string` |  |
-| `qrCode` | `string` |  |
-| `shareLink` | `string` |  |
+| `name` | `string` | Optional name for the location |
+| `qrCode` | `string` | URL to QR code image |
+| `shareLink` | `string` | Shareable URL for the location |
 
 #### Example: Create
 

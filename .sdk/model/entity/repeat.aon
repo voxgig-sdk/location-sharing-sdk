@@ -1,0 +1,83 @@
+# Entity: repeat
+
+main: kit: entity: repeat: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "accuracy"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "bestAccuracy"
+      req: false
+      short: "Best (lowest) accuracy value from all measurements"
+      type: "`$NUMBER`"
+    }
+    {
+      name: "count"
+      req: true
+      short: "Number of measurements to take (recommended 8-15)"
+      type: "`$INTEGER`"
+    }
+    {
+      name: "interval"
+      req: true
+      short: "Interval between measurements in seconds (recommended 0.8-2.0)"
+      type: "`$NUMBER`"
+    }
+    {
+      name: "latitude"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "longitude"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "measurements"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "resultType"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
+      req: false
+      short: "Type of result to return"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "repeat"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/measurement/repeat"
+          parts: [
+            "measurement"
+            "repeat"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -125,12 +125,12 @@ address = client.Address
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `String` | Yes |  |
-| `city` | `String` | No |  |
-| `country` | `String` | No |  |
-| `postalCode` | `String` | No |  |
-| `state` | `String` | No |  |
-| `street` | `String` | No |  |
+| `address` | `String` | Yes | Full formatted address |
+| `city` | `String` | No | City name |
+| `country` | `String` | No | Country name |
+| `postalCode` | `String` | No | Postal or ZIP code |
+| `state` | `String` | No | State or province |
+| `street` | `String` | No | Street name |
 
 ### Operations
 
@@ -182,7 +182,7 @@ building_check = client.BuildingCheck
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | `Float` | No |  |
+| `distance` | `Float` | No | Distance to building edge in meters |
 | `highlighted` | `Boolean` | No |  |
 | `id` | `String` | No |  |
 | `name` | `String` | No |  |
@@ -362,11 +362,11 @@ location = client.Location
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | `Float` | Yes |  |
-| `address` | `String` | No |  |
-| `latitude` | `Float` | Yes |  |
-| `longitude` | `Float` | Yes |  |
-| `timestamp` | `String` | No |  |
+| `accuracy` | `Float` | Yes | Accuracy in meters |
+| `address` | `String` | No | Human-readable address |
+| `latitude` | `Float` | Yes | Latitude coordinate |
+| `longitude` | `Float` | Yes | Longitude coordinate |
+| `timestamp` | `String` | No | Timestamp of the location fix |
 
 ### Operations
 
@@ -420,10 +420,10 @@ marker = client.Marker
 | --- | --- | --- | --- |
 | `address` | `String` | No |  |
 | `createdAt` | `String` | No |  |
-| `id` | `String` | Yes |  |
+| `id` | `String` | Yes | Unique marker identifier |
 | `latitude` | `Float` | Yes |  |
 | `longitude` | `Float` | Yes |  |
-| `name` | `String` | No |  |
+| `name` | `String` | No | Name or label for the marker |
 
 ### Operations
 
@@ -496,13 +496,13 @@ repeat = client.Repeat
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `Float` | No |  |
-| `bestAccuracy` | `Float` | No |  |
-| `count` | `Integer` | Yes |  |
-| `interval` | `Float` | Yes |  |
+| `bestAccuracy` | `Float` | No | Best (lowest) accuracy value from all measurements |
+| `count` | `Integer` | Yes | Number of measurements to take (recommended 8-15) |
+| `interval` | `Float` | Yes | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` | `Float` | No |  |
 | `longitude` | `Float` | No |  |
 | `measurements` | `Array` | No |  |
-| `resultType` | `String` | No |  |
+| `resultType` | `String` | No | Type of result to return |
 
 ### Field Usage by Operation
 
@@ -570,11 +570,11 @@ search = client.Search
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `String` | No |  |
+| `address` | `String` | No | Full address |
 | `latitude` | `Float` | Yes |  |
 | `longitude` | `Float` | Yes |  |
-| `name` | `String` | Yes |  |
-| `type` | `String` | No |  |
+| `name` | `String` | Yes | Name of the location |
+| `type` | `String` | No | Type of location (e.g., building, park, street) |
 
 ### Operations
 
@@ -626,13 +626,13 @@ share = client.Share
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `String` | No |  |
-| `expiresAt` | `String` | No |  |
+| `address` | `String` | No | Address of the location |
+| `expiresAt` | `String` | No | Expiration time of the share link |
 | `latitude` | `Float` | Yes |  |
 | `longitude` | `Float` | Yes |  |
-| `name` | `String` | No |  |
-| `qrCode` | `String` | No |  |
-| `shareLink` | `String` | Yes |  |
+| `name` | `String` | No | Optional name for the location |
+| `qrCode` | `String` | No | URL to QR code image |
+| `shareLink` | `String` | Yes | Shareable URL for the location |
 
 ### Operations
 

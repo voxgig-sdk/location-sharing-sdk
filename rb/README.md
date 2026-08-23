@@ -246,12 +246,12 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `city` |  |
-| `country` |  |
-| `postalCode` |  |
-| `state` |  |
-| `street` |  |
+| `address` | Full formatted address |
+| `city` | City name |
+| `country` | Country name |
+| `postalCode` | Postal or ZIP code |
+| `state` | State or province |
+| `street` | Street name |
 
 Operations: Load.
 
@@ -261,7 +261,7 @@ API path: `/geocode/reverse`
 
 | Field | Description |
 | --- | --- |
-| `distance` |  |
+| `distance` | Distance to building edge in meters |
 | `highlighted` |  |
 | `id` |  |
 | `name` |  |
@@ -299,11 +299,11 @@ API path: `/history`
 
 | Field | Description |
 | --- | --- |
-| `accuracy` |  |
-| `address` |  |
-| `latitude` |  |
-| `longitude` |  |
-| `timestamp` |  |
+| `accuracy` | Accuracy in meters |
+| `address` | Human-readable address |
+| `latitude` | Latitude coordinate |
+| `longitude` | Longitude coordinate |
+| `timestamp` | Timestamp of the location fix |
 
 Operations: Load.
 
@@ -315,10 +315,10 @@ API path: `/location`
 | --- | --- |
 | `address` |  |
 | `createdAt` |  |
-| `id` |  |
+| `id` | Unique marker identifier |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
+| `name` | Name or label for the marker |
 
 Operations: Create, List, Remove.
 
@@ -329,13 +329,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `accuracy` |  |
-| `bestAccuracy` |  |
-| `count` |  |
-| `interval` |  |
+| `bestAccuracy` | Best (lowest) accuracy value from all measurements |
+| `count` | Number of measurements to take (recommended 8-15) |
+| `interval` | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` |  |
 | `longitude` |  |
 | `measurements` |  |
-| `resultType` |  |
+| `resultType` | Type of result to return |
 
 Operations: Create.
 
@@ -345,11 +345,11 @@ API path: `/measurement/repeat`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
+| `address` | Full address |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
-| `type` |  |
+| `name` | Name of the location |
+| `type` | Type of location (e.g., building, park, street) |
 
 Operations: List.
 
@@ -359,13 +359,13 @@ API path: `/search`
 
 | Field | Description |
 | --- | --- |
-| `address` |  |
-| `expiresAt` |  |
+| `address` | Address of the location |
+| `expiresAt` | Expiration time of the share link |
 | `latitude` |  |
 | `longitude` |  |
-| `name` |  |
-| `qrCode` |  |
-| `shareLink` |  |
+| `name` | Optional name for the location |
+| `qrCode` | URL to QR code image |
+| `shareLink` | Shareable URL for the location |
 
 Operations: Create.
 
@@ -390,12 +390,12 @@ Create an instance: `address = client.Address`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `String` |  |
-| `city` | `String` |  |
-| `country` | `String` |  |
-| `postalCode` | `String` |  |
-| `state` | `String` |  |
-| `street` | `String` |  |
+| `address` | `String` | Full formatted address |
+| `city` | `String` | City name |
+| `country` | `String` | Country name |
+| `postalCode` | `String` | Postal or ZIP code |
+| `state` | `String` | State or province |
+| `street` | `String` | Street name |
 
 #### Example: Load
 
@@ -419,7 +419,7 @@ Create an instance: `building_check = client.BuildingCheck`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `distance` | `Float` |  |
+| `distance` | `Float` | Distance to building edge in meters |
 | `highlighted` | `Boolean` |  |
 | `id` | `String` |  |
 | `name` | `String` |  |
@@ -507,11 +507,11 @@ Create an instance: `location = client.Location`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | `Float` |  |
-| `address` | `String` |  |
-| `latitude` | `Float` |  |
-| `longitude` | `Float` |  |
-| `timestamp` | `String` |  |
+| `accuracy` | `Float` | Accuracy in meters |
+| `address` | `String` | Human-readable address |
+| `latitude` | `Float` | Latitude coordinate |
+| `longitude` | `Float` | Longitude coordinate |
+| `timestamp` | `String` | Timestamp of the location fix |
 
 #### Example: Load
 
@@ -539,10 +539,10 @@ Create an instance: `marker = client.Marker`
 | --- | --- | --- |
 | `address` | `String` |  |
 | `createdAt` | `String` |  |
-| `id` | `String` |  |
+| `id` | `String` | Unique marker identifier |
 | `latitude` | `Float` |  |
 | `longitude` | `Float` |  |
-| `name` | `String` |  |
+| `name` | `String` | Name or label for the marker |
 
 #### Example: List
 
@@ -577,13 +577,13 @@ Create an instance: `repeat = client.Repeat`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `Float` |  |
-| `bestAccuracy` | `Float` |  |
-| `count` | `Integer` |  |
-| `interval` | `Float` |  |
+| `bestAccuracy` | `Float` | Best (lowest) accuracy value from all measurements |
+| `count` | `Integer` | Number of measurements to take (recommended 8-15) |
+| `interval` | `Float` | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` | `Float` |  |
 | `longitude` | `Float` |  |
 | `measurements` | `Array` |  |
-| `resultType` | `String` |  |
+| `resultType` | `String` | Type of result to return |
 
 #### Example: Create
 
@@ -609,11 +609,11 @@ Create an instance: `search = client.Search`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `String` |  |
+| `address` | `String` | Full address |
 | `latitude` | `Float` |  |
 | `longitude` | `Float` |  |
-| `name` | `String` |  |
-| `type` | `String` |  |
+| `name` | `String` | Name of the location |
+| `type` | `String` | Type of location (e.g., building, park, street) |
 
 #### Example: List
 
@@ -637,13 +637,13 @@ Create an instance: `share = client.Share`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `String` |  |
-| `expiresAt` | `String` |  |
+| `address` | `String` | Address of the location |
+| `expiresAt` | `String` | Expiration time of the share link |
 | `latitude` | `Float` |  |
 | `longitude` | `Float` |  |
-| `name` | `String` |  |
-| `qrCode` | `String` |  |
-| `shareLink` | `String` |  |
+| `name` | `String` | Optional name for the location |
+| `qrCode` | `String` | URL to QR code image |
+| `shareLink` | `String` | Shareable URL for the location |
 
 #### Example: Create
 

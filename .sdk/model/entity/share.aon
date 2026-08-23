@@ -1,0 +1,72 @@
+# Entity: share
+
+main: kit: entity: share: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "address"
+      req: false
+      short: "Address of the location"
+      type: "`$STRING`"
+    }
+    {
+      name: "expiresAt"
+      req: false
+      short: "Expiration time of the share link"
+      type: "`$STRING`"
+    }
+    {
+      name: "latitude"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "longitude"
+      req: true
+      type: "`$NUMBER`"
+    }
+    {
+      name: "name"
+      req: false
+      short: "Optional name for the location"
+      type: "`$STRING`"
+    }
+    {
+      name: "qrCode"
+      req: false
+      short: "URL to QR code image"
+      type: "`$STRING`"
+    }
+    {
+      name: "shareLink"
+      req: true
+      short: "Shareable URL for the location"
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "share"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/share"
+          parts: [
+            "share"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

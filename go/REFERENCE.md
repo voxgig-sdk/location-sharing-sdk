@@ -130,12 +130,12 @@ fmt.Println(address.GetName()) // "address"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | Yes |  |
-| `city` | `string` | No |  |
-| `country` | `string` | No |  |
-| `postalCode` | `string` | No |  |
-| `state` | `string` | No |  |
-| `street` | `string` | No |  |
+| `address` | `string` | Yes | Full formatted address |
+| `city` | `string` | No | City name |
+| `country` | `string` | No | Country name |
+| `postalCode` | `string` | No | Postal or ZIP code |
+| `state` | `string` | No | State or province |
+| `street` | `string` | No | Street name |
 
 ### Operations
 
@@ -186,7 +186,7 @@ fmt.Println(buildingCheck.GetName()) // "building_check"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | `float64` | No |  |
+| `distance` | `float64` | No | Distance to building edge in meters |
 | `highlighted` | `bool` | No |  |
 | `id` | `string` | No |  |
 | `name` | `string` | No |  |
@@ -371,11 +371,11 @@ fmt.Println(location.GetName()) // "location"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | `float64` | Yes |  |
-| `address` | `string` | No |  |
-| `latitude` | `float64` | Yes |  |
-| `longitude` | `float64` | Yes |  |
-| `timestamp` | `string` | No |  |
+| `accuracy` | `float64` | Yes | Accuracy in meters |
+| `address` | `string` | No | Human-readable address |
+| `latitude` | `float64` | Yes | Latitude coordinate |
+| `longitude` | `float64` | Yes | Longitude coordinate |
+| `timestamp` | `string` | No | Timestamp of the location fix |
 
 ### Operations
 
@@ -428,10 +428,10 @@ fmt.Println(marker.GetName()) // "marker"
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
 | `createdAt` | `string` | No |  |
-| `id` | `string` | Yes |  |
+| `id` | `string` | Yes | Unique marker identifier |
 | `latitude` | `float64` | Yes |  |
 | `longitude` | `float64` | Yes |  |
-| `name` | `string` | No |  |
+| `name` | `string` | No | Name or label for the marker |
 
 ### Operations
 
@@ -511,13 +511,13 @@ fmt.Println(repeat.GetName()) // "repeat"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `float64` | No |  |
-| `bestAccuracy` | `float64` | No |  |
-| `count` | `int` | Yes |  |
-| `interval` | `float64` | Yes |  |
+| `bestAccuracy` | `float64` | No | Best (lowest) accuracy value from all measurements |
+| `count` | `int` | Yes | Number of measurements to take (recommended 8-15) |
+| `interval` | `float64` | Yes | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` | `float64` | No |  |
 | `longitude` | `float64` | No |  |
 | `measurements` | `[]any` | No |  |
-| `resultType` | `string` | No |  |
+| `resultType` | `string` | No | Type of result to return |
 
 ### Field Usage by Operation
 
@@ -584,11 +584,11 @@ fmt.Println(search.GetName()) // "search"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
+| `address` | `string` | No | Full address |
 | `latitude` | `float64` | Yes |  |
 | `longitude` | `float64` | Yes |  |
-| `name` | `string` | Yes |  |
-| `type` | `string` | No |  |
+| `name` | `string` | Yes | Name of the location |
+| `type` | `string` | No | Type of location (e.g., building, park, street) |
 
 ### Operations
 
@@ -639,13 +639,13 @@ fmt.Println(share.GetName()) // "share"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
-| `expiresAt` | `string` | No |  |
+| `address` | `string` | No | Address of the location |
+| `expiresAt` | `string` | No | Expiration time of the share link |
 | `latitude` | `float64` | Yes |  |
 | `longitude` | `float64` | Yes |  |
-| `name` | `string` | No |  |
-| `qrCode` | `string` | No |  |
-| `shareLink` | `string` | Yes |  |
+| `name` | `string` | No | Optional name for the location |
+| `qrCode` | `string` | No | URL to QR code image |
+| `shareLink` | `string` | Yes | Shareable URL for the location |
 
 ### Operations
 

@@ -4,12 +4,22 @@ from locationsharing_sdk.feature.base_feature import LocationSharingBaseFeature
 from locationsharing_sdk.feature.test_feature import LocationSharingTestFeature
 
 
+_FEATURES = {
+    "base": lambda: LocationSharingBaseFeature(),
+    "test": lambda: LocationSharingTestFeature(),
+}
+
+
 def _make_feature(name):
-    features = {
-        "base": lambda: LocationSharingBaseFeature(),
-        "test": lambda: LocationSharingTestFeature(),
-    }
-    factory = features.get(name)
+    factory = _FEATURES.get(name)
     if factory is not None:
         return factory()
-    return features["base"]()
+    return _FEATURES["base"]()
+
+
+# True when this SDK was generated with the named feature class - the
+# constructor's tolerance for extend-carried features reads this (an
+# active name with no generated class must not become a BaseFeature
+# stray when an extend instance carries it).
+def _has_feature(name):
+    return name in _FEATURES

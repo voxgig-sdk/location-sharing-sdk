@@ -36,36 +36,42 @@
               "active": true,
               "name": "address",
               "req": true,
+              "short": "Full formatted address",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "city",
               "req": false,
+              "short": "City name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "country",
               "req": false,
+              "short": "Country name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "postalCode",
               "req": false,
+              "short": "Postal or ZIP code",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "state",
               "req": false,
+              "short": "State or province",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "street",
               "req": false,
+              "short": "Street name",
               "type": "`$STRING`"
             }
           ],
@@ -132,6 +138,7 @@
               "active": true,
               "name": "distance",
               "req": false,
+              "short": "Distance to building edge in meters",
               "type": "`$NUMBER`"
             },
             {
@@ -436,30 +443,35 @@
               "active": true,
               "name": "accuracy",
               "req": true,
+              "short": "Accuracy in meters",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "address",
               "req": false,
+              "short": "Human-readable address",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "latitude",
               "req": true,
+              "short": "Latitude coordinate",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "longitude",
               "req": true,
+              "short": "Longitude coordinate",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "timestamp",
               "req": false,
+              "short": "Timestamp of the location fix",
               "type": "`$STRING`"
             }
           ],
@@ -513,6 +525,7 @@
               "active": true,
               "name": "id",
               "req": true,
+              "short": "Unique marker identifier",
               "type": "`$STRING`"
             },
             {
@@ -531,6 +544,7 @@
               "active": true,
               "name": "name",
               "req": false,
+              "short": "Name or label for the marker",
               "type": "`$STRING`"
             }
           ],
@@ -624,18 +638,21 @@
               "active": true,
               "name": "bestAccuracy",
               "req": false,
+              "short": "Best (lowest) accuracy value from all measurements",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "count",
               "req": true,
+              "short": "Number of measurements to take (recommended 8-15)",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "interval",
               "req": true,
+              "short": "Interval between measurements in seconds (recommended 0.8-2.0)",
               "type": "`$NUMBER`"
             },
             {
@@ -666,6 +683,7 @@
                 }
               },
               "req": false,
+              "short": "Type of result to return",
               "type": "`$STRING`"
             }
           ],
@@ -708,6 +726,7 @@
               "active": true,
               "name": "address",
               "req": false,
+              "short": "Full address",
               "type": "`$STRING`"
             },
             {
@@ -726,12 +745,14 @@
               "active": true,
               "name": "name",
               "req": true,
+              "short": "Name of the location",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "type",
               "req": false,
+              "short": "Type of location (e.g., building, park, street)",
               "type": "`$STRING`"
             }
           ],
@@ -788,12 +809,14 @@
               "active": true,
               "name": "address",
               "req": false,
+              "short": "Address of the location",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "expiresAt",
               "req": false,
+              "short": "Expiration time of the share link",
               "type": "`$STRING`"
             },
             {
@@ -812,18 +835,21 @@
               "active": true,
               "name": "name",
               "req": false,
+              "short": "Optional name for the location",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "qrCode",
               "req": false,
+              "short": "URL to QR code image",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "shareLink",
               "req": true,
+              "short": "Shareable URL for the location",
               "type": "`$STRING`"
             }
           ],

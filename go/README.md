@@ -6,7 +6,7 @@ The Golang SDK for the LocationSharing API — an entity-oriented client using s
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Address(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -270,12 +270,12 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"address"` |  |
-| `"city"` |  |
-| `"country"` |  |
-| `"postalCode"` |  |
-| `"state"` |  |
-| `"street"` |  |
+| `"address"` | Full formatted address |
+| `"city"` | City name |
+| `"country"` | Country name |
+| `"postalCode"` | Postal or ZIP code |
+| `"state"` | State or province |
+| `"street"` | Street name |
 
 Operations: Load.
 
@@ -285,7 +285,7 @@ API path: `/geocode/reverse`
 
 | Field | Description |
 | --- | --- |
-| `"distance"` |  |
+| `"distance"` | Distance to building edge in meters |
 | `"highlighted"` |  |
 | `"id"` |  |
 | `"name"` |  |
@@ -323,11 +323,11 @@ API path: `/history`
 
 | Field | Description |
 | --- | --- |
-| `"accuracy"` |  |
-| `"address"` |  |
-| `"latitude"` |  |
-| `"longitude"` |  |
-| `"timestamp"` |  |
+| `"accuracy"` | Accuracy in meters |
+| `"address"` | Human-readable address |
+| `"latitude"` | Latitude coordinate |
+| `"longitude"` | Longitude coordinate |
+| `"timestamp"` | Timestamp of the location fix |
 
 Operations: Load.
 
@@ -339,10 +339,10 @@ API path: `/location`
 | --- | --- |
 | `"address"` |  |
 | `"createdAt"` |  |
-| `"id"` |  |
+| `"id"` | Unique marker identifier |
 | `"latitude"` |  |
 | `"longitude"` |  |
-| `"name"` |  |
+| `"name"` | Name or label for the marker |
 
 Operations: Create, List, Remove.
 
@@ -353,13 +353,13 @@ API path: `/markers`
 | Field | Description |
 | --- | --- |
 | `"accuracy"` |  |
-| `"bestAccuracy"` |  |
-| `"count"` |  |
-| `"interval"` |  |
+| `"bestAccuracy"` | Best (lowest) accuracy value from all measurements |
+| `"count"` | Number of measurements to take (recommended 8-15) |
+| `"interval"` | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `"latitude"` |  |
 | `"longitude"` |  |
 | `"measurements"` |  |
-| `"resultType"` |  |
+| `"resultType"` | Type of result to return |
 
 Operations: Create.
 
@@ -369,11 +369,11 @@ API path: `/measurement/repeat`
 
 | Field | Description |
 | --- | --- |
-| `"address"` |  |
+| `"address"` | Full address |
 | `"latitude"` |  |
 | `"longitude"` |  |
-| `"name"` |  |
-| `"type"` |  |
+| `"name"` | Name of the location |
+| `"type"` | Type of location (e.g., building, park, street) |
 
 Operations: List.
 
@@ -383,13 +383,13 @@ API path: `/search`
 
 | Field | Description |
 | --- | --- |
-| `"address"` |  |
-| `"expiresAt"` |  |
+| `"address"` | Address of the location |
+| `"expiresAt"` | Expiration time of the share link |
 | `"latitude"` |  |
 | `"longitude"` |  |
-| `"name"` |  |
-| `"qrCode"` |  |
-| `"shareLink"` |  |
+| `"name"` | Optional name for the location |
+| `"qrCode"` | URL to QR code image |
+| `"shareLink"` | Shareable URL for the location |
 
 Operations: Create.
 
@@ -414,12 +414,12 @@ Create an instance: `address := client.Address(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `city` | `string` |  |
-| `country` | `string` |  |
-| `postalCode` | `string` |  |
-| `state` | `string` |  |
-| `street` | `string` |  |
+| `address` | `string` | Full formatted address |
+| `city` | `string` | City name |
+| `country` | `string` | Country name |
+| `postalCode` | `string` | Postal or ZIP code |
+| `state` | `string` | State or province |
+| `street` | `string` | Street name |
 
 #### Example: Load
 
@@ -446,7 +446,7 @@ Create an instance: `buildingCheck := client.BuildingCheck(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `distance` | `float64` |  |
+| `distance` | `float64` | Distance to building edge in meters |
 | `highlighted` | `bool` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
@@ -547,11 +547,11 @@ Create an instance: `location := client.Location(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `accuracy` | `float64` |  |
-| `address` | `string` |  |
-| `latitude` | `float64` |  |
-| `longitude` | `float64` |  |
-| `timestamp` | `string` |  |
+| `accuracy` | `float64` | Accuracy in meters |
+| `address` | `string` | Human-readable address |
+| `latitude` | `float64` | Latitude coordinate |
+| `longitude` | `float64` | Longitude coordinate |
+| `timestamp` | `string` | Timestamp of the location fix |
 
 #### Example: Load
 
@@ -582,10 +582,10 @@ Create an instance: `marker := client.Marker(nil)`
 | --- | --- | --- |
 | `address` | `string` |  |
 | `createdAt` | `string` |  |
-| `id` | `string` |  |
+| `id` | `string` | Unique marker identifier |
 | `latitude` | `float64` |  |
 | `longitude` | `float64` |  |
-| `name` | `string` |  |
+| `name` | `string` | Name or label for the marker |
 
 #### Example: List
 
@@ -627,13 +627,13 @@ Create an instance: `repeat := client.Repeat(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `accuracy` | `float64` |  |
-| `bestAccuracy` | `float64` |  |
-| `count` | `int` |  |
-| `interval` | `float64` |  |
+| `bestAccuracy` | `float64` | Best (lowest) accuracy value from all measurements |
+| `count` | `int` | Number of measurements to take (recommended 8-15) |
+| `interval` | `float64` | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` | `float64` |  |
 | `longitude` | `float64` |  |
 | `measurements` | `[]any` |  |
-| `resultType` | `string` |  |
+| `resultType` | `string` | Type of result to return |
 
 #### Example: Create
 
@@ -663,11 +663,11 @@ Create an instance: `search := client.Search(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
+| `address` | `string` | Full address |
 | `latitude` | `float64` |  |
 | `longitude` | `float64` |  |
-| `name` | `string` |  |
-| `type` | `string` |  |
+| `name` | `string` | Name of the location |
+| `type` | `string` | Type of location (e.g., building, park, street) |
 
 #### Example: List
 
@@ -694,13 +694,13 @@ Create an instance: `share := client.Share(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `address` | `string` |  |
-| `expiresAt` | `string` |  |
+| `address` | `string` | Address of the location |
+| `expiresAt` | `string` | Expiration time of the share link |
 | `latitude` | `float64` |  |
 | `longitude` | `float64` |  |
-| `name` | `string` |  |
-| `qrCode` | `string` |  |
-| `shareLink` | `string` |  |
+| `name` | `string` | Optional name for the location |
+| `qrCode` | `string` | URL to QR code image |
+| `shareLink` | `string` | Shareable URL for the location |
 
 #### Example: Create
 

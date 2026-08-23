@@ -124,12 +124,12 @@ $address = $client->Address();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | Yes |  |
-| `city` | `string` | No |  |
-| `country` | `string` | No |  |
-| `postalCode` | `string` | No |  |
-| `state` | `string` | No |  |
-| `street` | `string` | No |  |
+| `address` | `string` | Yes | Full formatted address |
+| `city` | `string` | No | City name |
+| `country` | `string` | No | Country name |
+| `postalCode` | `string` | No | Postal or ZIP code |
+| `state` | `string` | No | State or province |
+| `street` | `string` | No | Street name |
 
 ### Operations
 
@@ -181,7 +181,7 @@ $building_check = $client->BuildingCheck();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `distance` | `float` | No |  |
+| `distance` | `float` | No | Distance to building edge in meters |
 | `highlighted` | `bool` | No |  |
 | `id` | `string` | No |  |
 | `name` | `string` | No |  |
@@ -361,11 +361,11 @@ $location = $client->Location();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `accuracy` | `float` | Yes |  |
-| `address` | `string` | No |  |
-| `latitude` | `float` | Yes |  |
-| `longitude` | `float` | Yes |  |
-| `timestamp` | `string` | No |  |
+| `accuracy` | `float` | Yes | Accuracy in meters |
+| `address` | `string` | No | Human-readable address |
+| `latitude` | `float` | Yes | Latitude coordinate |
+| `longitude` | `float` | Yes | Longitude coordinate |
+| `timestamp` | `string` | No | Timestamp of the location fix |
 
 ### Operations
 
@@ -419,10 +419,10 @@ $marker = $client->Marker();
 | --- | --- | --- | --- |
 | `address` | `string` | No |  |
 | `createdAt` | `string` | No |  |
-| `id` | `string` | Yes |  |
+| `id` | `string` | Yes | Unique marker identifier |
 | `latitude` | `float` | Yes |  |
 | `longitude` | `float` | Yes |  |
-| `name` | `string` | No |  |
+| `name` | `string` | No | Name or label for the marker |
 
 ### Operations
 
@@ -495,13 +495,13 @@ $repeat = $client->Repeat();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `accuracy` | `float` | No |  |
-| `bestAccuracy` | `float` | No |  |
-| `count` | `int` | Yes |  |
-| `interval` | `float` | Yes |  |
+| `bestAccuracy` | `float` | No | Best (lowest) accuracy value from all measurements |
+| `count` | `int` | Yes | Number of measurements to take (recommended 8-15) |
+| `interval` | `float` | Yes | Interval between measurements in seconds (recommended 0.8-2.0) |
 | `latitude` | `float` | No |  |
 | `longitude` | `float` | No |  |
 | `measurements` | `array` | No |  |
-| `resultType` | `string` | No |  |
+| `resultType` | `string` | No | Type of result to return |
 
 ### Field Usage by Operation
 
@@ -569,11 +569,11 @@ $search = $client->Search();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
+| `address` | `string` | No | Full address |
 | `latitude` | `float` | Yes |  |
 | `longitude` | `float` | Yes |  |
-| `name` | `string` | Yes |  |
-| `type` | `string` | No |  |
+| `name` | `string` | Yes | Name of the location |
+| `type` | `string` | No | Type of location (e.g., building, park, street) |
 
 ### Operations
 
@@ -625,13 +625,13 @@ $share = $client->Share();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `address` | `string` | No |  |
-| `expiresAt` | `string` | No |  |
+| `address` | `string` | No | Address of the location |
+| `expiresAt` | `string` | No | Expiration time of the share link |
 | `latitude` | `float` | Yes |  |
 | `longitude` | `float` | Yes |  |
-| `name` | `string` | No |  |
-| `qrCode` | `string` | No |  |
-| `shareLink` | `string` | Yes |  |
+| `name` | `string` | No | Optional name for the location |
+| `qrCode` | `string` | No | URL to QR code image |
+| `shareLink` | `string` | Yes | Shareable URL for the location |
 
 ### Operations
 
