@@ -42,6 +42,7 @@ class LocationSharingConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
