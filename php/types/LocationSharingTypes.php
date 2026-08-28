@@ -26,12 +26,8 @@ class Address
 /** Request payload for Address#load. */
 class AddressLoadMatch
 {
-    public ?string $address = null;
-    public ?string $city = null;
-    public ?string $country = null;
-    public ?string $postalCode = null;
-    public ?string $state = null;
-    public ?string $street = null;
+    public float $lat;
+    public float $lon;
 }
 
 /** BuildingCheck entity data model. */
@@ -46,10 +42,10 @@ class BuildingCheck
 /** Request payload for BuildingCheck#list. */
 class BuildingCheckListMatch
 {
-    public ?float $distance = null;
-    public ?bool $highlighted = null;
-    public ?string $id = null;
-    public ?string $name = null;
+    public float $lat;
+    public float $lon;
+    public ?int $radius = null;
+    public ?int $top = null;
 }
 
 /** Export entity data model. */
@@ -213,11 +209,7 @@ class Search
 /** Request payload for Search#list. */
 class SearchListMatch
 {
-    public ?string $address = null;
-    public ?float $latitude = null;
-    public ?float $longitude = null;
-    public ?string $name = null;
-    public ?string $type = null;
+    public string $q;
 }
 
 /** Share entity data model. */

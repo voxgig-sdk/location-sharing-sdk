@@ -15,12 +15,8 @@
 ---@field street? string
 
 ---@class AddressLoadMatch
----@field address? string
----@field city? string
----@field country? string
----@field postalCode? string
----@field state? string
----@field street? string
+---@field lat number
+---@field lon number
 
 ---@class BuildingCheck
 ---@field distance? number
@@ -29,10 +25,10 @@
 ---@field name? string
 
 ---@class BuildingCheckListMatch
----@field distance? number
----@field highlighted? boolean
----@field id? string
----@field name? string
+---@field lat number
+---@field lon number
+---@field radius? number
+---@field top? number
 
 ---@class Export
 
@@ -148,11 +144,7 @@
 ---@field type? string
 
 ---@class SearchListMatch
----@field address? string
----@field latitude? number
----@field longitude? number
----@field name? string
----@field type? string
+---@field q string
 
 ---@class Share
 ---@field address? string

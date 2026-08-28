@@ -28,13 +28,9 @@ class Address(AddressRequired, total=False):
     street: str
 
 
-class AddressLoadMatch(TypedDict, total=False):
-    address: str
-    city: str
-    country: str
-    postalCode: str
-    state: str
-    street: str
+class AddressLoadMatch(TypedDict):
+    lat: float
+    lon: float
 
 
 class BuildingCheck(TypedDict, total=False):
@@ -44,11 +40,14 @@ class BuildingCheck(TypedDict, total=False):
     name: str
 
 
-class BuildingCheckListMatch(TypedDict, total=False):
-    distance: float
-    highlighted: bool
-    id: str
-    name: str
+class BuildingCheckListMatchRequired(TypedDict):
+    lat: float
+    lon: float
+
+
+class BuildingCheckListMatch(BuildingCheckListMatchRequired, total=False):
+    radius: int
+    top: int
 
 
 class Export(TypedDict):
@@ -211,12 +210,8 @@ class Search(SearchRequired, total=False):
     type: str
 
 
-class SearchListMatch(TypedDict, total=False):
-    address: str
-    latitude: float
-    longitude: float
-    name: str
-    type: str
+class SearchListMatch(TypedDict):
+    q: str
 
 
 class ShareRequired(TypedDict):

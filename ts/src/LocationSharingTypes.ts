@@ -15,12 +15,8 @@ export interface Address {
 }
 
 export interface AddressLoadMatch {
-  address?: string
-  city?: string
-  country?: string
-  postalCode?: string
-  state?: string
-  street?: string
+  lat: number
+  lon: number
 }
 
 export interface BuildingCheck {
@@ -31,10 +27,10 @@ export interface BuildingCheck {
 }
 
 export interface BuildingCheckListMatch {
-  distance?: number
-  highlighted?: boolean
-  id?: string
-  name?: string
+  lat: number
+  lon: number
+  radius?: number
+  top?: number
 }
 
 export interface Export {
@@ -172,11 +168,7 @@ export interface Search {
 }
 
 export interface SearchListMatch {
-  address?: string
-  latitude?: number
-  longitude?: number
-  name?: string
-  type?: string
+  q: string
 }
 
 export interface Share {

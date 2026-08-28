@@ -42,7 +42,7 @@ client = LocationSharingSDK()
 
 ```python
 try:
-    address = client.Address().load()
+    address = client.Address().load({"lat": 1, "lon": 1})
     print(address)
 except Exception as err:
     print(f"load failed: {err}")
@@ -406,7 +406,7 @@ Create an instance: `address = client.Address()`
 #### Example: Load
 
 ```python
-address = client.Address().load()
+address = client.Address().load({"lat": 1, "lon": 1})
 ```
 
 
@@ -432,7 +432,7 @@ Create an instance: `building_check = client.BuildingCheck()`
 #### Example: List
 
 ```python
-building_checks = client.BuildingCheck().list()
+building_checks = client.BuildingCheck().list({"lat": 1, "lon": 1})
 ```
 
 
@@ -618,7 +618,7 @@ Create an instance: `search = client.Search()`
 #### Example: List
 
 ```python
-searchs = client.Search().list()
+searchs = client.Search().list({"q": "example"})
 ```
 
 
@@ -653,6 +653,29 @@ share = client.Share().create({
     "shareLink": "example_shareLink",  # str
 })
 ```
+
+## Features
+
+This SDK ships 1 optional features. Each is **inactive until you
+switch it on**, so an SDK you have not configured behaves exactly as if none of
+them existed — no retries, no cache, no logging, no measurable overhead.
+
+Activate a feature by name in the client options, alongside the options shown
+above:
+
+| Feature | What it does |
+|---|---|
+| [`test`](#test) | In-memory mock transport for testing without a live server |
+
+### test
+
+In-memory mock transport for testing without a live server.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+
+Set `feature.test.active` to enable it, then override any of the options above.
 
 
 ## Advanced

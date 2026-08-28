@@ -39,30 +39,14 @@ Address = Struct.new(
 
 # Request payload for Address#load.
 #
-# @!attribute [rw] address
-#   @return [String, nil]
+# @!attribute [rw] lat
+#   @return [Float]
 #
-# @!attribute [rw] city
-#   @return [String, nil]
-#
-# @!attribute [rw] country
-#   @return [String, nil]
-#
-# @!attribute [rw] postalCode
-#   @return [String, nil]
-#
-# @!attribute [rw] state
-#   @return [String, nil]
-#
-# @!attribute [rw] street
-#   @return [String, nil]
+# @!attribute [rw] lon
+#   @return [Float]
 AddressLoadMatch = Struct.new(
-  :address,
-  :city,
-  :country,
-  :postalCode,
-  :state,
-  :street,
+  :lat,
+  :lon,
   keyword_init: true
 )
 
@@ -89,22 +73,22 @@ BuildingCheck = Struct.new(
 
 # Request payload for BuildingCheck#list.
 #
-# @!attribute [rw] distance
-#   @return [Float, nil]
+# @!attribute [rw] lat
+#   @return [Float]
 #
-# @!attribute [rw] highlighted
-#   @return [Boolean, nil]
+# @!attribute [rw] lon
+#   @return [Float]
 #
-# @!attribute [rw] id
-#   @return [String, nil]
+# @!attribute [rw] radius
+#   @return [Integer, nil]
 #
-# @!attribute [rw] name
-#   @return [String, nil]
+# @!attribute [rw] top
+#   @return [Integer, nil]
 BuildingCheckListMatch = Struct.new(
-  :distance,
-  :highlighted,
-  :id,
-  :name,
+  :lat,
+  :lon,
+  :radius,
+  :top,
   keyword_init: true
 )
 
@@ -515,26 +499,10 @@ Search = Struct.new(
 
 # Request payload for Search#list.
 #
-# @!attribute [rw] address
-#   @return [String, nil]
-#
-# @!attribute [rw] latitude
-#   @return [Float, nil]
-#
-# @!attribute [rw] longitude
-#   @return [Float, nil]
-#
-# @!attribute [rw] name
-#   @return [String, nil]
-#
-# @!attribute [rw] type
-#   @return [String, nil]
+# @!attribute [rw] q
+#   @return [String]
 SearchListMatch = Struct.new(
-  :address,
-  :latitude,
-  :longitude,
-  :name,
-  :type,
+  :q,
   keyword_init: true
 )
 

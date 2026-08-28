@@ -24,12 +24,8 @@ type Address struct {
 
 // AddressLoadMatch is the typed request payload for Address.LoadTyped.
 type AddressLoadMatch struct {
-	Address *string `json:"address,omitempty"`
-	City *string `json:"city,omitempty"`
-	Country *string `json:"country,omitempty"`
-	PostalCode *string `json:"postalCode,omitempty"`
-	State *string `json:"state,omitempty"`
-	Street *string `json:"street,omitempty"`
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
 }
 
 // BuildingCheck is the typed data model for the building_check entity.
@@ -42,10 +38,10 @@ type BuildingCheck struct {
 
 // BuildingCheckListMatch is the typed request payload for BuildingCheck.ListTyped.
 type BuildingCheckListMatch struct {
-	Distance *float64 `json:"distance,omitempty"`
-	Highlighted *bool `json:"highlighted,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
+	Radius *int `json:"radius,omitempty"`
+	Top *int `json:"top,omitempty"`
 }
 
 // Export is the typed data model for the export entity.
@@ -193,11 +189,7 @@ type Search struct {
 
 // SearchListMatch is the typed request payload for Search.ListTyped.
 type SearchListMatch struct {
-	Address *string `json:"address,omitempty"`
-	Latitude *float64 `json:"latitude,omitempty"`
-	Longitude *float64 `json:"longitude,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Q string `json:"q"`
 }
 
 // Share is the typed data model for the share entity.

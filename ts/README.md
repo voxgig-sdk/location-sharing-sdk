@@ -39,7 +39,7 @@ const client = new LocationSharingSDK()
 
 ```ts
 try {
-  const address = await client.Address().load()
+  const address = await client.Address().load({ lat: 1, lon: 1 })
   console.log(address)
 } catch (err) {
   console.error('load failed:', err)
@@ -453,7 +453,7 @@ Create an instance: `const address = client.Address()`
 #### Example: Load
 
 ```ts
-const address = await client.Address().load()
+const address = await client.Address().load({ lat: 1, lon: 1 })
 ```
 
 
@@ -479,7 +479,7 @@ Create an instance: `const building_check = client.BuildingCheck()`
 #### Example: List
 
 ```ts
-const building_checks = await client.BuildingCheck().list()
+const building_checks = await client.BuildingCheck().list({ lat: 1, lon: 1 })
 ```
 
 
@@ -665,7 +665,7 @@ Create an instance: `const search = client.Search()`
 #### Example: List
 
 ```ts
-const searchs = await client.Search().list()
+const searchs = await client.Search().list({ q: "example" })
 ```
 
 
@@ -700,6 +700,29 @@ const share = await client.Share().create({
   shareLink: 'example_shareLink',
 })
 ```
+
+## Features
+
+This SDK ships 1 optional features. Each is **inactive until you
+switch it on**, so an SDK you have not configured behaves exactly as if none of
+them existed — no retries, no cache, no logging, no measurable overhead.
+
+Activate a feature by name in the client options, alongside the options shown
+above:
+
+| Feature | What it does |
+|---|---|
+| [`test`](#test) | In-memory mock transport for testing without a live server |
+
+### test
+
+In-memory mock transport for testing without a live server.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+
+Set `feature.test.active` to enable it, then override any of the options above.
 
 
 ## Advanced
