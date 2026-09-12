@@ -99,9 +99,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/geocode/reverse",
-                ["parts"] = {
-                  "geocode",
-                  "reverse",
+                ["segments"] = {
+                  {
+                    ["lit"] = "geocode",
+                  },
+                  {
+                    ["lit"] = "reverse",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -112,6 +116,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "geocode",
+                  "reverse",
                 },
               },
             },
@@ -124,6 +132,7 @@ local function make_config()
       ["building_check"] = {
         ["fields"] = {
           {
+            ["format"] = "float",
             ["name"] = "distance",
             ["short"] = "Distance to building edge in meters",
             ["type"] = "`$NUMBER`",
@@ -140,6 +149,10 @@ local function make_config()
             ["name"] = "name",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "building_check",
         ["op"] = {
@@ -183,9 +196,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/buildings/check",
-                ["parts"] = {
-                  "buildings",
-                  "check",
+                ["segments"] = {
+                  {
+                    ["lit"] = "buildings",
+                  },
+                  {
+                    ["lit"] = "check",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -198,6 +215,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.buildings`",
+                },
+                ["parts"] = {
+                  "buildings",
+                  "check",
                 },
               },
             },
@@ -220,9 +241,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/export/csv",
-                ["parts"] = {
-                  "export",
-                  "csv",
+                ["segments"] = {
+                  {
+                    ["lit"] = "export",
+                  },
+                  {
+                    ["lit"] = "csv",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "csv",
@@ -231,15 +256,23 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "export",
+                  "csv",
+                },
               },
               {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/export/geojson",
-                ["parts"] = {
-                  "export",
-                  "geojson",
+                ["segments"] = {
+                  {
+                    ["lit"] = "export",
+                  },
+                  {
+                    ["lit"] = "geojson",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "geojson",
@@ -248,15 +281,23 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "export",
+                  "geojson",
+                },
               },
               {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/export/kml",
-                ["parts"] = {
-                  "export",
-                  "kml",
+                ["segments"] = {
+                  {
+                    ["lit"] = "export",
+                  },
+                  {
+                    ["lit"] = "kml",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "kml",
@@ -264,6 +305,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "export",
+                  "kml",
                 },
               },
             },
@@ -276,6 +321,7 @@ local function make_config()
       ["history"] = {
         ["fields"] = {
           {
+            ["format"] = "float",
             ["name"] = "accuracy",
             ["type"] = "`$NUMBER`",
           },
@@ -289,11 +335,13 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "double",
             ["name"] = "latitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "double",
             ["name"] = "longitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
@@ -303,10 +351,15 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "timestamp",
             ["req"] = true,
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "history",
         ["op"] = {
@@ -319,13 +372,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/history",
-                ["parts"] = {
-                  "history",
+                ["segments"] = {
+                  {
+                    ["lit"] = "history",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "history",
                 },
               },
             },
@@ -339,13 +397,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/history",
-                ["parts"] = {
-                  "history",
+                ["segments"] = {
+                  {
+                    ["lit"] = "history",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "history",
                 },
               },
             },
@@ -359,13 +422,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/history",
-                ["parts"] = {
-                  "history",
+                ["segments"] = {
+                  {
+                    ["lit"] = "history",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "history",
                 },
               },
             },
@@ -378,6 +446,7 @@ local function make_config()
       ["location"] = {
         ["fields"] = {
           {
+            ["format"] = "float",
             ["name"] = "accuracy",
             ["req"] = true,
             ["short"] = "Accuracy in meters",
@@ -389,18 +458,21 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "double",
             ["name"] = "latitude",
             ["req"] = true,
             ["short"] = "Latitude coordinate",
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "double",
             ["name"] = "longitude",
             ["req"] = true,
             ["short"] = "Longitude coordinate",
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "timestamp",
             ["short"] = "Timestamp of the location fix",
             ["type"] = "`$STRING`",
@@ -417,13 +489,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/location",
-                ["parts"] = {
-                  "location",
+                ["segments"] = {
+                  {
+                    ["lit"] = "location",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "location",
                 },
               },
             },
@@ -440,6 +517,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "createdAt",
             ["type"] = "`$STRING`",
           },
@@ -450,11 +528,13 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "double",
             ["name"] = "latitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "double",
             ["name"] = "longitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
@@ -464,6 +544,10 @@ local function make_config()
             ["short"] = "Name or label for the marker",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "marker",
         ["op"] = {
@@ -476,13 +560,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/markers",
-                ["parts"] = {
-                  "markers",
+                ["segments"] = {
+                  {
+                    ["lit"] = "markers",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "markers",
                 },
               },
             },
@@ -496,13 +585,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/markers",
-                ["parts"] = {
-                  "markers",
+                ["segments"] = {
+                  {
+                    ["lit"] = "markers",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "markers",
                 },
               },
             },
@@ -516,13 +610,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/markers",
-                ["parts"] = {
-                  "markers",
+                ["segments"] = {
+                  {
+                    ["lit"] = "markers",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "markers",
                 },
               },
             },
@@ -535,10 +634,12 @@ local function make_config()
       ["repeat"] = {
         ["fields"] = {
           {
+            ["format"] = "float",
             ["name"] = "accuracy",
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "float",
             ["name"] = "bestAccuracy",
             ["short"] = "Best (lowest) accuracy value from all measurements",
             ["type"] = "`$NUMBER`",
@@ -550,16 +651,19 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "float",
             ["name"] = "interval",
             ["req"] = true,
             ["short"] = "Interval between measurements in seconds (recommended 0.8-2.0)",
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "double",
             ["name"] = "latitude",
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "double",
             ["name"] = "longitude",
             ["type"] = "`$NUMBER`",
           },
@@ -590,14 +694,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/measurement/repeat",
-                ["parts"] = {
-                  "measurement",
-                  "repeat",
+                ["segments"] = {
+                  {
+                    ["lit"] = "measurement",
+                  },
+                  {
+                    ["lit"] = "repeat",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "measurement",
+                  "repeat",
                 },
               },
             },
@@ -615,11 +727,13 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "double",
             ["name"] = "latitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "double",
             ["name"] = "longitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
@@ -657,8 +771,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/search",
-                ["parts"] = {
-                  "search",
+                ["segments"] = {
+                  {
+                    ["lit"] = "search",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -668,6 +784,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "search",
                 },
               },
             },
@@ -685,16 +804,19 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "expiresAt",
             ["short"] = "Expiration time of the share link",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "double",
             ["name"] = "latitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
           },
           {
+            ["format"] = "double",
             ["name"] = "longitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
@@ -705,11 +827,13 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "qrCode",
             ["short"] = "URL to QR code image",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "shareLink",
             ["req"] = true,
             ["short"] = "Shareable URL for the location",
@@ -727,13 +851,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/share",
-                ["parts"] = {
-                  "share",
+                ["segments"] = {
+                  {
+                    ["lit"] = "share",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "share",
                 },
               },
             },

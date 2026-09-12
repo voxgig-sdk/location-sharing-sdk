@@ -69,9 +69,13 @@ main: kit: entity: address: {
           }
           method: "GET"
           orig: "/geocode/reverse"
-          parts: [
-            "geocode"
-            "reverse"
+          segments: [
+            {
+              lit: "geocode"
+            }
+            {
+              lit: "reverse"
+            }
           ]
           select: {
             exist: [

@@ -12,17 +12,20 @@ main: kit: entity: share: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "expiresAt"
       req: false
       short: "Expiration time of the share link"
       type: "`$STRING`"
     }
     {
+      format: "double"
       name: "latitude"
       req: true
       type: "`$NUMBER`"
     }
     {
+      format: "double"
       name: "longitude"
       req: true
       type: "`$NUMBER`"
@@ -34,12 +37,14 @@ main: kit: entity: share: {
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "qrCode"
       req: false
       short: "URL to QR code image"
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "shareLink"
       req: true
       short: "Shareable URL for the location"
@@ -55,8 +60,10 @@ main: kit: entity: share: {
         {
           method: "POST"
           orig: "/share"
-          parts: [
-            "share"
+          segments: [
+            {
+              lit: "share"
+            }
           ]
           transform: {
             req: "`reqdata`"

@@ -6,11 +6,13 @@ main: kit: entity: repeat: {
 
   fields: [
     {
+      format: "float"
       name: "accuracy"
       req: false
       type: "`$NUMBER`"
     }
     {
+      format: "float"
       name: "bestAccuracy"
       req: false
       short: "Best (lowest) accuracy value from all measurements"
@@ -23,17 +25,20 @@ main: kit: entity: repeat: {
       type: "`$INTEGER`"
     }
     {
+      format: "float"
       name: "interval"
       req: true
       short: "Interval between measurements in seconds (recommended 0.8-2.0)"
       type: "`$NUMBER`"
     }
     {
+      format: "double"
       name: "latitude"
       req: false
       type: "`$NUMBER`"
     }
     {
+      format: "double"
       name: "longitude"
       req: false
       type: "`$NUMBER`"
@@ -65,9 +70,13 @@ main: kit: entity: repeat: {
         {
           method: "POST"
           orig: "/measurement/repeat"
-          parts: [
-            "measurement"
-            "repeat"
+          segments: [
+            {
+              lit: "measurement"
+            }
+            {
+              lit: "repeat"
+            }
           ]
           transform: {
             req: "`reqdata`"

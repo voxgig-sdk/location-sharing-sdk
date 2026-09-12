@@ -6,6 +6,7 @@ main: kit: entity: history: {
 
   fields: [
     {
+      format: "float"
       name: "accuracy"
       req: false
       type: "`$NUMBER`"
@@ -21,11 +22,13 @@ main: kit: entity: history: {
       type: "`$STRING`"
     }
     {
+      format: "double"
       name: "latitude"
       req: true
       type: "`$NUMBER`"
     }
     {
+      format: "double"
       name: "longitude"
       req: true
       type: "`$NUMBER`"
@@ -36,6 +39,7 @@ main: kit: entity: history: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "timestamp"
       req: true
       type: "`$STRING`"
@@ -55,8 +59,10 @@ main: kit: entity: history: {
         {
           method: "POST"
           orig: "/history"
-          parts: [
-            "history"
+          segments: [
+            {
+              lit: "history"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -71,8 +77,10 @@ main: kit: entity: history: {
         {
           method: "GET"
           orig: "/history"
-          parts: [
-            "history"
+          segments: [
+            {
+              lit: "history"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -87,8 +95,10 @@ main: kit: entity: history: {
         {
           method: "DELETE"
           orig: "/history"
-          parts: [
-            "history"
+          segments: [
+            {
+              lit: "history"
+            }
           ]
           transform: {
             req: "`reqdata`"

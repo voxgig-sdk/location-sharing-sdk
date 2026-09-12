@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -150,9 +161,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/geocode/reverse",
-              "parts": [
-                "geocode",
-                "reverse"
+              "segments": [
+                {
+                  "lit": "geocode"
+                },
+                {
+                  "lit": "reverse"
+                }
               ],
               "select": {
                 "exist": [
@@ -163,7 +178,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "geocode",
+                "reverse"
+              ]
             }
           ]
         }
@@ -175,6 +194,7 @@ class Config {
     "building_check": {
       "fields": [
         {
+          "format": "float",
           "name": "distance",
           "short": "Distance to building edge in meters",
           "type": "`$NUMBER`"
@@ -192,6 +212,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "building_check",
       "op": {
         "list": {
@@ -234,9 +258,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/buildings/check",
-              "parts": [
-                "buildings",
-                "check"
+              "segments": [
+                {
+                  "lit": "buildings"
+                },
+                {
+                  "lit": "check"
+                }
               ],
               "select": {
                 "exist": [
@@ -249,7 +277,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.buildings`"
-              }
+              },
+              "parts": [
+                "buildings",
+                "check"
+              ]
             }
           ]
         }
@@ -271,9 +303,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/export/csv",
-              "parts": [
-                "export",
-                "csv"
+              "segments": [
+                {
+                  "lit": "export"
+                },
+                {
+                  "lit": "csv"
+                }
               ],
               "select": {
                 "$action": "csv"
@@ -281,16 +317,24 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "export",
+                "csv"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/export/geojson",
-              "parts": [
-                "export",
-                "geojson"
+              "segments": [
+                {
+                  "lit": "export"
+                },
+                {
+                  "lit": "geojson"
+                }
               ],
               "select": {
                 "$action": "geojson"
@@ -298,16 +342,24 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "export",
+                "geojson"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/export/kml",
-              "parts": [
-                "export",
-                "kml"
+              "segments": [
+                {
+                  "lit": "export"
+                },
+                {
+                  "lit": "kml"
+                }
               ],
               "select": {
                 "$action": "kml"
@@ -315,7 +367,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "export",
+                "kml"
+              ]
             }
           ]
         }
@@ -327,6 +383,7 @@ class Config {
     "history": {
       "fields": [
         {
+          "format": "float",
           "name": "accuracy",
           "type": "`$NUMBER`"
         },
@@ -340,11 +397,13 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "latitude",
           "req": true,
           "type": "`$NUMBER`"
         },
         {
+          "format": "double",
           "name": "longitude",
           "req": true,
           "type": "`$NUMBER`"
@@ -354,11 +413,16 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "timestamp",
           "req": true,
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "history",
       "op": {
         "create": {
@@ -370,14 +434,19 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/history",
-              "parts": [
-                "history"
+              "segments": [
+                {
+                  "lit": "history"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "history"
+              ]
             }
           ]
         },
@@ -390,14 +459,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/history",
-              "parts": [
-                "history"
+              "segments": [
+                {
+                  "lit": "history"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "history"
+              ]
             }
           ]
         },
@@ -410,14 +484,19 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/history",
-              "parts": [
-                "history"
+              "segments": [
+                {
+                  "lit": "history"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "history"
+              ]
             }
           ]
         }
@@ -429,6 +508,7 @@ class Config {
     "location": {
       "fields": [
         {
+          "format": "float",
           "name": "accuracy",
           "req": true,
           "short": "Accuracy in meters",
@@ -440,18 +520,21 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "latitude",
           "req": true,
           "short": "Latitude coordinate",
           "type": "`$NUMBER`"
         },
         {
+          "format": "double",
           "name": "longitude",
           "req": true,
           "short": "Longitude coordinate",
           "type": "`$NUMBER`"
         },
         {
+          "format": "date-time",
           "name": "timestamp",
           "short": "Timestamp of the location fix",
           "type": "`$STRING`"
@@ -468,14 +551,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/location",
-              "parts": [
-                "location"
+              "segments": [
+                {
+                  "lit": "location"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "location"
+              ]
             }
           ]
         }
@@ -491,6 +579,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "createdAt",
           "type": "`$STRING`"
         },
@@ -501,11 +590,13 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "latitude",
           "req": true,
           "type": "`$NUMBER`"
         },
         {
+          "format": "double",
           "name": "longitude",
           "req": true,
           "type": "`$NUMBER`"
@@ -516,6 +607,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "marker",
       "op": {
         "create": {
@@ -527,14 +622,19 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/markers",
-              "parts": [
-                "markers"
+              "segments": [
+                {
+                  "lit": "markers"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "markers"
+              ]
             }
           ]
         },
@@ -547,14 +647,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/markers",
-              "parts": [
-                "markers"
+              "segments": [
+                {
+                  "lit": "markers"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "markers"
+              ]
             }
           ]
         },
@@ -567,14 +672,19 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/markers",
-              "parts": [
-                "markers"
+              "segments": [
+                {
+                  "lit": "markers"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "markers"
+              ]
             }
           ]
         }
@@ -586,10 +696,12 @@ class Config {
     "repeat": {
       "fields": [
         {
+          "format": "float",
           "name": "accuracy",
           "type": "`$NUMBER`"
         },
         {
+          "format": "float",
           "name": "bestAccuracy",
           "short": "Best (lowest) accuracy value from all measurements",
           "type": "`$NUMBER`"
@@ -601,16 +713,19 @@ class Config {
           "type": "`$INTEGER`"
         },
         {
+          "format": "float",
           "name": "interval",
           "req": true,
           "short": "Interval between measurements in seconds (recommended 0.8-2.0)",
           "type": "`$NUMBER`"
         },
         {
+          "format": "double",
           "name": "latitude",
           "type": "`$NUMBER`"
         },
         {
+          "format": "double",
           "name": "longitude",
           "type": "`$NUMBER`"
         },
@@ -641,15 +756,23 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/measurement/repeat",
-              "parts": [
-                "measurement",
-                "repeat"
+              "segments": [
+                {
+                  "lit": "measurement"
+                },
+                {
+                  "lit": "repeat"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "measurement",
+                "repeat"
+              ]
             }
           ]
         }
@@ -666,11 +789,13 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "latitude",
           "req": true,
           "type": "`$NUMBER`"
         },
         {
+          "format": "double",
           "name": "longitude",
           "req": true,
           "type": "`$NUMBER`"
@@ -708,8 +833,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/search",
-              "parts": [
-                "search"
+              "segments": [
+                {
+                  "lit": "search"
+                }
               ],
               "select": {
                 "exist": [
@@ -719,7 +846,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "search"
+              ]
             }
           ]
         }
@@ -736,16 +866,19 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "date-time",
           "name": "expiresAt",
           "short": "Expiration time of the share link",
           "type": "`$STRING`"
         },
         {
+          "format": "double",
           "name": "latitude",
           "req": true,
           "type": "`$NUMBER`"
         },
         {
+          "format": "double",
           "name": "longitude",
           "req": true,
           "type": "`$NUMBER`"
@@ -756,11 +889,13 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "qrCode",
           "short": "URL to QR code image",
           "type": "`$STRING`"
         },
         {
+          "format": "uri",
           "name": "shareLink",
           "req": true,
           "short": "Shareable URL for the location",
@@ -778,14 +913,19 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/share",
-              "parts": [
-                "share"
+              "segments": [
+                {
+                  "lit": "share"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "share"
+              ]
             }
           ]
         }
@@ -801,6 +941,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

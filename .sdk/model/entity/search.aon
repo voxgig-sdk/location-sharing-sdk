@@ -12,11 +12,13 @@ main: kit: entity: search: {
       type: "`$STRING`"
     }
     {
+      format: "double"
       name: "latitude"
       req: true
       type: "`$NUMBER`"
     }
     {
+      format: "double"
       name: "longitude"
       req: true
       type: "`$NUMBER`"
@@ -54,8 +56,10 @@ main: kit: entity: search: {
           }
           method: "GET"
           orig: "/search"
-          parts: [
-            "search"
+          segments: [
+            {
+              lit: "search"
+            }
           ]
           select: {
             exist: [

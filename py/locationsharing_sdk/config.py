@@ -1,6 +1,14 @@
 # LocationSharing SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -120,9 +128,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/geocode/reverse",
-                "parts": [
-                  "geocode",
-                  "reverse",
+                "segments": [
+                  {
+                    "lit": "geocode",
+                  },
+                  {
+                    "lit": "reverse",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -134,6 +146,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "geocode",
+                  "reverse",
+                ],
               },
             ],
           },
@@ -145,6 +161,7 @@ def make_config():
       "building_check": {
         "fields": [
           {
+            "format": "float",
             "name": "distance",
             "short": "Distance to building edge in meters",
             "type": "`$NUMBER`",
@@ -162,6 +179,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "building_check",
         "op": {
           "list": {
@@ -204,9 +225,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/buildings/check",
-                "parts": [
-                  "buildings",
-                  "check",
+                "segments": [
+                  {
+                    "lit": "buildings",
+                  },
+                  {
+                    "lit": "check",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -220,6 +245,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.buildings`",
                 },
+                "parts": [
+                  "buildings",
+                  "check",
+                ],
               },
             ],
           },
@@ -241,9 +270,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/export/csv",
-                "parts": [
-                  "export",
-                  "csv",
+                "segments": [
+                  {
+                    "lit": "export",
+                  },
+                  {
+                    "lit": "csv",
+                  },
                 ],
                 "select": {
                   "$action": "csv",
@@ -252,15 +285,23 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "export",
+                  "csv",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/export/geojson",
-                "parts": [
-                  "export",
-                  "geojson",
+                "segments": [
+                  {
+                    "lit": "export",
+                  },
+                  {
+                    "lit": "geojson",
+                  },
                 ],
                 "select": {
                   "$action": "geojson",
@@ -269,15 +310,23 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "export",
+                  "geojson",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/export/kml",
-                "parts": [
-                  "export",
-                  "kml",
+                "segments": [
+                  {
+                    "lit": "export",
+                  },
+                  {
+                    "lit": "kml",
+                  },
                 ],
                 "select": {
                   "$action": "kml",
@@ -286,6 +335,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "export",
+                  "kml",
+                ],
               },
             ],
           },
@@ -297,6 +350,7 @@ def make_config():
       "history": {
         "fields": [
           {
+            "format": "float",
             "name": "accuracy",
             "type": "`$NUMBER`",
           },
@@ -310,11 +364,13 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "req": True,
             "type": "`$NUMBER`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "req": True,
             "type": "`$NUMBER`",
@@ -324,11 +380,16 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "date-time",
             "name": "timestamp",
             "req": True,
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "history",
         "op": {
           "create": {
@@ -340,14 +401,19 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/history",
-                "parts": [
-                  "history",
+                "segments": [
+                  {
+                    "lit": "history",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "history",
+                ],
               },
             ],
           },
@@ -360,14 +426,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/history",
-                "parts": [
-                  "history",
+                "segments": [
+                  {
+                    "lit": "history",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "history",
+                ],
               },
             ],
           },
@@ -380,14 +451,19 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/history",
-                "parts": [
-                  "history",
+                "segments": [
+                  {
+                    "lit": "history",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "history",
+                ],
               },
             ],
           },
@@ -399,6 +475,7 @@ def make_config():
       "location": {
         "fields": [
           {
+            "format": "float",
             "name": "accuracy",
             "req": True,
             "short": "Accuracy in meters",
@@ -410,18 +487,21 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "req": True,
             "short": "Latitude coordinate",
             "type": "`$NUMBER`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "req": True,
             "short": "Longitude coordinate",
             "type": "`$NUMBER`",
           },
           {
+            "format": "date-time",
             "name": "timestamp",
             "short": "Timestamp of the location fix",
             "type": "`$STRING`",
@@ -438,14 +518,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/location",
-                "parts": [
-                  "location",
+                "segments": [
+                  {
+                    "lit": "location",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "location",
+                ],
               },
             ],
           },
@@ -461,6 +546,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "date-time",
             "name": "createdAt",
             "type": "`$STRING`",
           },
@@ -471,11 +557,13 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "req": True,
             "type": "`$NUMBER`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "req": True,
             "type": "`$NUMBER`",
@@ -486,6 +574,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "marker",
         "op": {
           "create": {
@@ -497,14 +589,19 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/markers",
-                "parts": [
-                  "markers",
+                "segments": [
+                  {
+                    "lit": "markers",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "markers",
+                ],
               },
             ],
           },
@@ -517,14 +614,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/markers",
-                "parts": [
-                  "markers",
+                "segments": [
+                  {
+                    "lit": "markers",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "markers",
+                ],
               },
             ],
           },
@@ -537,14 +639,19 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/markers",
-                "parts": [
-                  "markers",
+                "segments": [
+                  {
+                    "lit": "markers",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "markers",
+                ],
               },
             ],
           },
@@ -556,10 +663,12 @@ def make_config():
       "repeat": {
         "fields": [
           {
+            "format": "float",
             "name": "accuracy",
             "type": "`$NUMBER`",
           },
           {
+            "format": "float",
             "name": "bestAccuracy",
             "short": "Best (lowest) accuracy value from all measurements",
             "type": "`$NUMBER`",
@@ -571,16 +680,19 @@ def make_config():
             "type": "`$INTEGER`",
           },
           {
+            "format": "float",
             "name": "interval",
             "req": True,
             "short": "Interval between measurements in seconds (recommended 0.8-2.0)",
             "type": "`$NUMBER`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "type": "`$NUMBER`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "type": "`$NUMBER`",
           },
@@ -611,15 +723,23 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/measurement/repeat",
-                "parts": [
-                  "measurement",
-                  "repeat",
+                "segments": [
+                  {
+                    "lit": "measurement",
+                  },
+                  {
+                    "lit": "repeat",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "measurement",
+                  "repeat",
+                ],
               },
             ],
           },
@@ -636,11 +756,13 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "req": True,
             "type": "`$NUMBER`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "req": True,
             "type": "`$NUMBER`",
@@ -678,8 +800,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/search",
-                "parts": [
-                  "search",
+                "segments": [
+                  {
+                    "lit": "search",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -690,6 +814,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "search",
+                ],
               },
             ],
           },
@@ -706,16 +833,19 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "date-time",
             "name": "expiresAt",
             "short": "Expiration time of the share link",
             "type": "`$STRING`",
           },
           {
+            "format": "double",
             "name": "latitude",
             "req": True,
             "type": "`$NUMBER`",
           },
           {
+            "format": "double",
             "name": "longitude",
             "req": True,
             "type": "`$NUMBER`",
@@ -726,11 +856,13 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "uri",
             "name": "qrCode",
             "short": "URL to QR code image",
             "type": "`$STRING`",
           },
           {
+            "format": "uri",
             "name": "shareLink",
             "req": True,
             "short": "Shareable URL for the location",
@@ -748,14 +880,19 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/share",
-                "parts": [
-                  "share",
+                "segments": [
+                  {
+                    "lit": "share",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "share",
+                ],
               },
             ],
           },

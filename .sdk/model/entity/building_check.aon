@@ -6,6 +6,7 @@ main: kit: entity: building_check: {
 
   fields: [
     {
+      format: "float"
       name: "distance"
       req: false
       short: "Distance to building edge in meters"
@@ -75,9 +76,13 @@ main: kit: entity: building_check: {
           }
           method: "GET"
           orig: "/buildings/check"
-          parts: [
-            "buildings"
-            "check"
+          segments: [
+            {
+              lit: "buildings"
+            }
+            {
+              lit: "check"
+            }
           ]
           select: {
             exist: [

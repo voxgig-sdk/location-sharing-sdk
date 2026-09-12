@@ -12,9 +12,13 @@ main: kit: entity: export: {
         {
           method: "GET"
           orig: "/export/csv"
-          parts: [
-            "export"
-            "csv"
+          segments: [
+            {
+              lit: "export"
+            }
+            {
+              lit: "csv"
+            }
           ]
           select: {
             "$action": "csv"
@@ -27,9 +31,13 @@ main: kit: entity: export: {
         {
           method: "GET"
           orig: "/export/geojson"
-          parts: [
-            "export"
-            "geojson"
+          segments: [
+            {
+              lit: "export"
+            }
+            {
+              lit: "geojson"
+            }
           ]
           select: {
             "$action": "geojson"
@@ -42,9 +50,13 @@ main: kit: entity: export: {
         {
           method: "GET"
           orig: "/export/kml"
-          parts: [
-            "export"
-            "kml"
+          segments: [
+            {
+              lit: "export"
+            }
+            {
+              lit: "kml"
+            }
           ]
           select: {
             "$action": "kml"

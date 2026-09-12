@@ -106,9 +106,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/geocode/reverse",
-                  "parts": [
-                    "geocode",
-                    "reverse"
+                  "segments": [
+                    {
+                      "lit": "geocode"
+                    },
+                    {
+                      "lit": "reverse"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -136,6 +140,7 @@
           "fields": [
             {
               "active": true,
+              "format": "float",
               "name": "distance",
               "req": false,
               "short": "Distance to building edge in meters",
@@ -213,9 +218,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/buildings/check",
-                  "parts": [
-                    "buildings",
-                    "check"
+                  "segments": [
+                    {
+                      "lit": "buildings"
+                    },
+                    {
+                      "lit": "check"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -255,9 +264,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/export/csv",
-                  "parts": [
-                    "export",
-                    "csv"
+                  "segments": [
+                    {
+                      "lit": "export"
+                    },
+                    {
+                      "lit": "csv"
+                    }
                   ],
                   "select": {
                     "$action": "csv"
@@ -273,9 +286,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/export/geojson",
-                  "parts": [
-                    "export",
-                    "geojson"
+                  "segments": [
+                    {
+                      "lit": "export"
+                    },
+                    {
+                      "lit": "geojson"
+                    }
                   ],
                   "select": {
                     "$action": "geojson"
@@ -291,9 +308,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/export/kml",
-                  "parts": [
-                    "export",
-                    "kml"
+                  "segments": [
+                    {
+                      "lit": "export"
+                    },
+                    {
+                      "lit": "kml"
+                    }
                   ],
                   "select": {
                     "$action": "kml"
@@ -318,6 +339,7 @@
           "fields": [
             {
               "active": true,
+              "format": "float",
               "name": "accuracy",
               "req": false,
               "type": "`$NUMBER`"
@@ -336,12 +358,14 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "latitude",
               "req": true,
               "type": "`$NUMBER`"
             },
             {
               "active": true,
+              "format": "double",
               "name": "longitude",
               "req": true,
               "type": "`$NUMBER`"
@@ -354,6 +378,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "timestamp",
               "req": true,
               "type": "`$STRING`"
@@ -375,8 +400,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/history",
-                  "parts": [
-                    "history"
+                  "segments": [
+                    {
+                      "lit": "history"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -396,8 +423,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/history",
-                  "parts": [
-                    "history"
+                  "segments": [
+                    {
+                      "lit": "history"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -417,8 +446,10 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/history",
-                  "parts": [
-                    "history"
+                  "segments": [
+                    {
+                      "lit": "history"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -441,6 +472,7 @@
           "fields": [
             {
               "active": true,
+              "format": "float",
               "name": "accuracy",
               "req": true,
               "short": "Accuracy in meters",
@@ -455,6 +487,7 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "latitude",
               "req": true,
               "short": "Latitude coordinate",
@@ -462,6 +495,7 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "longitude",
               "req": true,
               "short": "Longitude coordinate",
@@ -469,6 +503,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "timestamp",
               "req": false,
               "short": "Timestamp of the location fix",
@@ -487,8 +522,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/location",
-                  "parts": [
-                    "location"
+                  "segments": [
+                    {
+                      "lit": "location"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -517,6 +554,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "createdAt",
               "req": false,
               "type": "`$STRING`"
@@ -530,12 +568,14 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "latitude",
               "req": true,
               "type": "`$NUMBER`"
             },
             {
               "active": true,
+              "format": "double",
               "name": "longitude",
               "req": true,
               "type": "`$NUMBER`"
@@ -564,8 +604,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/markers",
-                  "parts": [
-                    "markers"
+                  "segments": [
+                    {
+                      "lit": "markers"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -585,8 +627,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/markers",
-                  "parts": [
-                    "markers"
+                  "segments": [
+                    {
+                      "lit": "markers"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -606,8 +650,10 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/markers",
-                  "parts": [
-                    "markers"
+                  "segments": [
+                    {
+                      "lit": "markers"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -630,12 +676,14 @@
           "fields": [
             {
               "active": true,
+              "format": "float",
               "name": "accuracy",
               "req": false,
               "type": "`$NUMBER`"
             },
             {
               "active": true,
+              "format": "float",
               "name": "bestAccuracy",
               "req": false,
               "short": "Best (lowest) accuracy value from all measurements",
@@ -650,6 +698,7 @@
             },
             {
               "active": true,
+              "format": "float",
               "name": "interval",
               "req": true,
               "short": "Interval between measurements in seconds (recommended 0.8-2.0)",
@@ -657,12 +706,14 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "latitude",
               "req": false,
               "type": "`$NUMBER`"
             },
             {
               "active": true,
+              "format": "double",
               "name": "longitude",
               "req": false,
               "type": "`$NUMBER`"
@@ -699,9 +750,13 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/measurement/repeat",
-                  "parts": [
-                    "measurement",
-                    "repeat"
+                  "segments": [
+                    {
+                      "lit": "measurement"
+                    },
+                    {
+                      "lit": "repeat"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -731,12 +786,14 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "latitude",
               "req": true,
               "type": "`$NUMBER`"
             },
             {
               "active": true,
+              "format": "double",
               "name": "longitude",
               "req": true,
               "type": "`$NUMBER`"
@@ -779,8 +836,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/search",
-                  "parts": [
-                    "search"
+                  "segments": [
+                    {
+                      "lit": "search"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -814,6 +873,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "expiresAt",
               "req": false,
               "short": "Expiration time of the share link",
@@ -821,12 +881,14 @@
             },
             {
               "active": true,
+              "format": "double",
               "name": "latitude",
               "req": true,
               "type": "`$NUMBER`"
             },
             {
               "active": true,
+              "format": "double",
               "name": "longitude",
               "req": true,
               "type": "`$NUMBER`"
@@ -840,6 +902,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "qrCode",
               "req": false,
               "short": "URL to QR code image",
@@ -847,6 +910,7 @@
             },
             {
               "active": true,
+              "format": "uri",
               "name": "shareLink",
               "req": true,
               "short": "Shareable URL for the location",
@@ -865,8 +929,10 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/share",
-                  "parts": [
-                    "share"
+                  "segments": [
+                    {
+                      "lit": "share"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -946,8 +1012,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -1357,6 +1426,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1382,6 +1454,10 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -1433,6 +1509,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -1457,6 +1534,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -1508,6 +1586,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -1532,6 +1611,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "lua": {
@@ -1572,6 +1652,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1597,6 +1680,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -1631,6 +1717,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1656,6 +1745,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -1696,6 +1788,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1721,6 +1816,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "rb": {
@@ -1766,6 +1864,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1791,6 +1892,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
           "title": "Ruby"
         },
         "ts": {
@@ -1808,11 +1912,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -1841,6 +1940,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1865,6 +1967,14 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

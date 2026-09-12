@@ -111,9 +111,13 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/geocode/reverse",
-                  "parts" => [
-                    "geocode",
-                    "reverse",
+                  "segments" => [
+                    {
+                      "lit" => "geocode",
+                    },
+                    {
+                      "lit" => "reverse",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -125,6 +129,10 @@ module LocationSharingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "geocode",
+                    "reverse",
+                  ],
                 },
               ],
             },
@@ -136,6 +144,7 @@ module LocationSharingConfig
         "building_check" => {
           "fields" => [
             {
+              "format" => "float",
               "name" => "distance",
               "short" => "Distance to building edge in meters",
               "type" => "`$NUMBER`",
@@ -153,6 +162,10 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "building_check",
           "op" => {
             "list" => {
@@ -195,9 +208,13 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/buildings/check",
-                  "parts" => [
-                    "buildings",
-                    "check",
+                  "segments" => [
+                    {
+                      "lit" => "buildings",
+                    },
+                    {
+                      "lit" => "check",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -211,6 +228,10 @@ module LocationSharingConfig
                     "req" => "`reqdata`",
                     "res" => "`body.buildings`",
                   },
+                  "parts" => [
+                    "buildings",
+                    "check",
+                  ],
                 },
               ],
             },
@@ -232,9 +253,13 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/export/csv",
-                  "parts" => [
-                    "export",
-                    "csv",
+                  "segments" => [
+                    {
+                      "lit" => "export",
+                    },
+                    {
+                      "lit" => "csv",
+                    },
                   ],
                   "select" => {
                     "$action" => "csv",
@@ -243,15 +268,23 @@ module LocationSharingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "export",
+                    "csv",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/export/geojson",
-                  "parts" => [
-                    "export",
-                    "geojson",
+                  "segments" => [
+                    {
+                      "lit" => "export",
+                    },
+                    {
+                      "lit" => "geojson",
+                    },
                   ],
                   "select" => {
                     "$action" => "geojson",
@@ -260,15 +293,23 @@ module LocationSharingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "export",
+                    "geojson",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/export/kml",
-                  "parts" => [
-                    "export",
-                    "kml",
+                  "segments" => [
+                    {
+                      "lit" => "export",
+                    },
+                    {
+                      "lit" => "kml",
+                    },
                   ],
                   "select" => {
                     "$action" => "kml",
@@ -277,6 +318,10 @@ module LocationSharingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "export",
+                    "kml",
+                  ],
                 },
               ],
             },
@@ -288,6 +333,7 @@ module LocationSharingConfig
         "history" => {
           "fields" => [
             {
+              "format" => "float",
               "name" => "accuracy",
               "type" => "`$NUMBER`",
             },
@@ -301,11 +347,13 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "latitude",
               "req" => true,
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "double",
               "name" => "longitude",
               "req" => true,
               "type" => "`$NUMBER`",
@@ -315,11 +363,16 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "timestamp",
               "req" => true,
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "history",
           "op" => {
             "create" => {
@@ -331,14 +384,19 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/history",
-                  "parts" => [
-                    "history",
+                  "segments" => [
+                    {
+                      "lit" => "history",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "history",
+                  ],
                 },
               ],
             },
@@ -351,14 +409,19 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/history",
-                  "parts" => [
-                    "history",
+                  "segments" => [
+                    {
+                      "lit" => "history",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "history",
+                  ],
                 },
               ],
             },
@@ -371,14 +434,19 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/history",
-                  "parts" => [
-                    "history",
+                  "segments" => [
+                    {
+                      "lit" => "history",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "history",
+                  ],
                 },
               ],
             },
@@ -390,6 +458,7 @@ module LocationSharingConfig
         "location" => {
           "fields" => [
             {
+              "format" => "float",
               "name" => "accuracy",
               "req" => true,
               "short" => "Accuracy in meters",
@@ -401,18 +470,21 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "latitude",
               "req" => true,
               "short" => "Latitude coordinate",
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "double",
               "name" => "longitude",
               "req" => true,
               "short" => "Longitude coordinate",
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "date-time",
               "name" => "timestamp",
               "short" => "Timestamp of the location fix",
               "type" => "`$STRING`",
@@ -429,14 +501,19 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/location",
-                  "parts" => [
-                    "location",
+                  "segments" => [
+                    {
+                      "lit" => "location",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "location",
+                  ],
                 },
               ],
             },
@@ -452,6 +529,7 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "createdAt",
               "type" => "`$STRING`",
             },
@@ -462,11 +540,13 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "latitude",
               "req" => true,
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "double",
               "name" => "longitude",
               "req" => true,
               "type" => "`$NUMBER`",
@@ -477,6 +557,10 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "marker",
           "op" => {
             "create" => {
@@ -488,14 +572,19 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/markers",
-                  "parts" => [
-                    "markers",
+                  "segments" => [
+                    {
+                      "lit" => "markers",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "markers",
+                  ],
                 },
               ],
             },
@@ -508,14 +597,19 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/markers",
-                  "parts" => [
-                    "markers",
+                  "segments" => [
+                    {
+                      "lit" => "markers",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "markers",
+                  ],
                 },
               ],
             },
@@ -528,14 +622,19 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/markers",
-                  "parts" => [
-                    "markers",
+                  "segments" => [
+                    {
+                      "lit" => "markers",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "markers",
+                  ],
                 },
               ],
             },
@@ -547,10 +646,12 @@ module LocationSharingConfig
         "repeat" => {
           "fields" => [
             {
+              "format" => "float",
               "name" => "accuracy",
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "float",
               "name" => "bestAccuracy",
               "short" => "Best (lowest) accuracy value from all measurements",
               "type" => "`$NUMBER`",
@@ -562,16 +663,19 @@ module LocationSharingConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "float",
               "name" => "interval",
               "req" => true,
               "short" => "Interval between measurements in seconds (recommended 0.8-2.0)",
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "double",
               "name" => "latitude",
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "double",
               "name" => "longitude",
               "type" => "`$NUMBER`",
             },
@@ -602,15 +706,23 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/measurement/repeat",
-                  "parts" => [
-                    "measurement",
-                    "repeat",
+                  "segments" => [
+                    {
+                      "lit" => "measurement",
+                    },
+                    {
+                      "lit" => "repeat",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "measurement",
+                    "repeat",
+                  ],
                 },
               ],
             },
@@ -627,11 +739,13 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "latitude",
               "req" => true,
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "double",
               "name" => "longitude",
               "req" => true,
               "type" => "`$NUMBER`",
@@ -669,8 +783,10 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/search",
-                  "parts" => [
-                    "search",
+                  "segments" => [
+                    {
+                      "lit" => "search",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -681,6 +797,9 @@ module LocationSharingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "search",
+                  ],
                 },
               ],
             },
@@ -697,16 +816,19 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "date-time",
               "name" => "expiresAt",
               "short" => "Expiration time of the share link",
               "type" => "`$STRING`",
             },
             {
+              "format" => "double",
               "name" => "latitude",
               "req" => true,
               "type" => "`$NUMBER`",
             },
             {
+              "format" => "double",
               "name" => "longitude",
               "req" => true,
               "type" => "`$NUMBER`",
@@ -717,11 +839,13 @@ module LocationSharingConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "qrCode",
               "short" => "URL to QR code image",
               "type" => "`$STRING`",
             },
             {
+              "format" => "uri",
               "name" => "shareLink",
               "req" => true,
               "short" => "Shareable URL for the location",
@@ -739,14 +863,19 @@ module LocationSharingConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/share",
-                  "parts" => [
-                    "share",
+                  "segments" => [
+                    {
+                      "lit" => "share",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "share",
+                  ],
                 },
               ],
             },

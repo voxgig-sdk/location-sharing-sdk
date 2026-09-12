@@ -6,6 +6,7 @@ main: kit: entity: location: {
 
   fields: [
     {
+      format: "float"
       name: "accuracy"
       req: true
       short: "Accuracy in meters"
@@ -18,18 +19,21 @@ main: kit: entity: location: {
       type: "`$STRING`"
     }
     {
+      format: "double"
       name: "latitude"
       req: true
       short: "Latitude coordinate"
       type: "`$NUMBER`"
     }
     {
+      format: "double"
       name: "longitude"
       req: true
       short: "Longitude coordinate"
       type: "`$NUMBER`"
     }
     {
+      format: "date-time"
       name: "timestamp"
       req: false
       short: "Timestamp of the location fix"
@@ -45,8 +49,10 @@ main: kit: entity: location: {
         {
           method: "GET"
           orig: "/location"
-          parts: [
-            "location"
+          segments: [
+            {
+              lit: "location"
+            }
           ]
           transform: {
             req: "`reqdata`"
