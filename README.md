@@ -105,7 +105,7 @@ local result, err = client:Location():load()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/location-sharing` | publish pending — [install from git tag](https://github.com/voxgig-sdk/location-sharing-sdk/releases) |
+| TypeScript | `@voxgig-sdk/location-sharing-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/location-sharing-sdk/releases) |
 | Python | `voxgig-sdk-location-sharing` | publish pending — [install from git tag](https://github.com/voxgig-sdk/location-sharing-sdk/releases) |
 | PHP | `voxgig-sdk/location-sharing` | publish pending — [install from git tag](https://github.com/voxgig-sdk/location-sharing-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/location-sharing-sdk/go` | `go get github.com/voxgig-sdk/location-sharing-sdk/go@latest` |
@@ -119,7 +119,7 @@ local result, err = client:Location():load()
 ### TypeScript
 
 ```ts
-import { LocationSharingSDK } from '@voxgig-sdk/location-sharing'
+import { LocationSharingSDK } from '@voxgig-sdk/location-sharing-sdk'
 
 const client = new LocationSharingSDK()
 

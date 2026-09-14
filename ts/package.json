@@ -1,5 +1,5 @@
 {
-  "name": "@voxgig-sdk/location-sharing",
+  "name": "@voxgig-sdk/location-sharing-sdk",
   "version": "0.0.1",
   "description": "Unofficial generated TypeScript SDK for the Location Sharing public API. Not affiliated with or endorsed by the upstream API provider.",
   "keywords": [

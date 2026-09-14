@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { LocationSharingSDK } from '@voxgig-sdk/location-sharing'
+import { LocationSharingSDK } from '@voxgig-sdk/location-sharing-sdk'
 
 const client = new LocationSharingSDK()
 ```
@@ -784,7 +784,7 @@ location-sharing/
 Import the SDK from the package root:
 
 ```ts
-import { LocationSharingSDK } from '@voxgig-sdk/location-sharing'
+import { LocationSharingSDK } from '@voxgig-sdk/location-sharing-sdk'
 ```
 
 ### Entity state
