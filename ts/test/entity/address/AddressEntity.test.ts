@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { LocationSharingSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('AddressEntity', async () => {
 
     const live = 'TRUE' === process.env.LOCATION_SHARING_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'address.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'address.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set LOCATION_SHARING_TEST_ADDRESS_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"address","req":true,"short":"Full formatted address","type":"`$STRING`","index$":0},{"active":true,"name":"city","req":false,"short":"City name","type":"`$STRING`","index$":1},{"active":true,"name":"country","req":false,"short":"Country name","type":"`$STRING`","index$":2},{"active":true,"name":"postalCode","req":false,"short":"Postal or ZIP code","type":"`$STRING`","index$":3},{"active":true,"name":"state","req":false,"short":"State or province","type":"`$STRING`","index$":4},{"active":true,"name":"street","req":false,"short":"Street name","type":"`$STRING`","index$":5}],"name":"address","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"query":[{"active":true,"kind":"query","name":"lat","orig":"lat","reqd":true,"type":"`$NUMBER`","index$":0},{"active":true,"kind":"query","name":"lon","orig":"lon","reqd":true,"type":"`$NUMBER`","index$":1}]},"contract":{"id":"GET /geocode/reverse","json":"{\"operationId\":\"reverseGeocode\",\"parameters\":[{\"description\":\"Latitude coordinate\",\"in\":\"query\",\"name\":\"lat\",\"required\":true,\"schema\":{\"format\":\"double\",\"maximum\":90,\"minimum\":-90,\"type\":\"number\"}},{\"description\":\"Longitude coordinate\",\"in\":\"query\",\"name\":\"lon\",\"required\":true,\"schema\":{\"format\":\"double\",\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"address\":{\"description\":\"Full formatted address\",\"type\":\"string\"},\"city\":{\"description\":\"City name\",\"type\":\"string\"},\"country\":{\"description\":\"Country name\",\"type\":\"string\"},\"postalCode\":{\"description\":\"Postal or ZIP code\",\"type\":\"string\"},\"state\":{\"description\":\"State or province\",\"type\":\"string\"},\"street\":{\"description\":\"Street name\",\"type\":\"string\"}},\"required\":[\"address\"],\"type\":\"object\"}}},\"description\":\"Successful address retrieval\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"required\":[\"error\"],\"type\":\"object\"}}},\"description\":\"Invalid coordinates\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/geocode/reverse","segments":[{"lit":"geocode"},{"lit":"reverse"}],"select":{"exist":["lat","lon"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"address","name__orig":"address","Name":"Address","name_":"address","name-":"address","NAME":"ADDRESS","index$":0}, {"active":true,"entity":"address","key$":"BasicAddressFlow","kind":"basic","name":"BasicAddressFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"address_ref01","srcdatavar":"address_ref01_data","suffix":"_dt0"},"match":{},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-address_ref01"}}],"index$":0}]}, 'Address')
     }
     const client = setup.client
     const struct = setup.struct
@@ -109,13 +108,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['LOCATION_SHARING_TEST_ADDRESS_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'LOCATION_SHARING_TEST_ADDRESS_ENTID': idmap,
     'LOCATION_SHARING_TEST_LIVE': 'FALSE',
@@ -126,7 +118,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.LOCATION_SHARING_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['LOCATION_SHARING_TEST_ADDRESS_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new LocationSharingSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -138,7 +136,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -151,7 +150,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.LOCATION_SHARING_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

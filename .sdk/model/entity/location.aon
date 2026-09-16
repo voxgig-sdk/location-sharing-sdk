@@ -47,6 +47,12 @@ main: kit: entity: location: {
       name: "load"
       points: [
         {
+          contract: {
+            id: "GET /location"
+            json: "{\"operationId\":\"getCurrentLocation\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"accuracy\":{\"description\":\"Accuracy in meters\",\"format\":\"float\",\"type\":\"number\"},\"address\":{\"description\":\"Human-readable address\",\"type\":\"string\"},\"latitude\":{\"description\":\"Latitude coordinate\",\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"description\":\"Longitude coordinate\",\"format\":\"double\",\"type\":\"number\"},\"timestamp\":{\"description\":\"Timestamp of the location fix\",\"format\":\"date-time\",\"type\":\"string\"}},\"required\":[\"latitude\",\"longitude\",\"accuracy\"],\"type\":\"object\"}}},\"description\":\"Successful location retrieval\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"required\":[\"error\"],\"type\":\"object\"}}},\"description\":\"Bad request\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/location"
           segments: [

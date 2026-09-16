@@ -68,6 +68,12 @@ main: kit: entity: repeat: {
       name: "create"
       points: [
         {
+          contract: {
+            id: "POST /measurement/repeat"
+            json: "{\"operationId\":\"repeatMeasurement\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"count\":{\"description\":\"Number of measurements to take (recommended 8-15)\",\"maximum\":30,\"minimum\":1,\"type\":\"integer\"},\"interval\":{\"description\":\"Interval between measurements in seconds (recommended 0.8-2.0)\",\"format\":\"float\",\"maximum\":10,\"minimum\":0.5,\"type\":\"number\"},\"resultType\":{\"description\":\"Type of result to return\",\"enum\":[\"best\",\"average\"],\"type\":\"string\"}},\"required\":[\"count\",\"interval\",\"resultType\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"accuracy\":{\"format\":\"float\",\"type\":\"number\"},\"bestAccuracy\":{\"description\":\"Best (lowest) accuracy value from all measurements\",\"format\":\"float\",\"type\":\"number\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"measurements\":{\"items\":{\"properties\":{\"accuracy\":{\"format\":\"float\",\"type\":\"number\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"timestamp\":{\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"resultType\":{\"enum\":[\"best\",\"average\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Measurement results\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"required\":[\"error\"],\"type\":\"object\"}}},\"description\":\"Invalid measurement parameters\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "POST"
           orig: "/measurement/repeat"
           segments: [

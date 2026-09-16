@@ -10,6 +10,12 @@ main: kit: entity: export: {
       name: "load"
       points: [
         {
+          contract: {
+            id: "GET /export/csv"
+            json: "{\"operationId\":\"exportCSV\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"text/csv\":{\"schema\":{\"format\":\"csv\",\"type\":\"string\"}}},\"description\":\"CSV export\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/export/csv"
           segments: [
@@ -29,6 +35,12 @@ main: kit: entity: export: {
           }
         }
         {
+          contract: {
+            id: "GET /export/geojson"
+            json: "{\"operationId\":\"exportGeoJSON\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/geo+json\":{\"schema\":{\"properties\":{\"features\":{\"items\":{\"properties\":{\"geometry\":{\"properties\":{\"coordinates\":{\"items\":{\"type\":\"number\"},\"maxItems\":2,\"minItems\":2,\"type\":\"array\"},\"type\":{\"enum\":[\"Point\"],\"type\":\"string\"}},\"type\":\"object\"},\"properties\":{\"properties\":{\"address\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":{\"enum\":[\"Feature\"],\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"type\":{\"enum\":[\"FeatureCollection\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"GeoJSON export\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/export/geojson"
           segments: [
@@ -48,6 +60,12 @@ main: kit: entity: export: {
           }
         }
         {
+          contract: {
+            id: "GET /export/kml"
+            json: "{\"operationId\":\"exportKML\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/vnd.google-earth.kml+xml\":{\"schema\":{\"format\":\"xml\",\"type\":\"string\"}}},\"description\":\"KML export\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/export/kml"
           segments: [

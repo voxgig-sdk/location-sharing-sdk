@@ -53,6 +53,12 @@ main: kit: entity: marker: {
       name: "create"
       points: [
         {
+          contract: {
+            id: "POST /markers"
+            json: "{\"operationId\":\"addMarker\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"address\":{\"type\":\"string\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"name\":{\"type\":\"string\"}},\"required\":[\"latitude\",\"longitude\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"address\":{\"type\":\"string\"},\"createdAt\":{\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Unique marker identifier\",\"type\":\"string\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"name\":{\"description\":\"Name or label for the marker\",\"type\":\"string\"}},\"required\":[\"id\",\"latitude\",\"longitude\"],\"type\":\"object\"}}},\"description\":\"Marker created successfully\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"required\":[\"error\"],\"type\":\"object\"}}},\"description\":\"Invalid marker data\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "POST"
           orig: "/markers"
           segments: [
@@ -71,6 +77,12 @@ main: kit: entity: marker: {
       name: "list"
       points: [
         {
+          contract: {
+            id: "GET /markers"
+            json: "{\"operationId\":\"listMarkers\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"address\":{\"type\":\"string\"},\"createdAt\":{\"format\":\"date-time\",\"type\":\"string\"},\"id\":{\"description\":\"Unique marker identifier\",\"type\":\"string\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"name\":{\"description\":\"Name or label for the marker\",\"type\":\"string\"}},\"required\":[\"id\",\"latitude\",\"longitude\"],\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"List of markers\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/markers"
           segments: [
@@ -89,6 +101,12 @@ main: kit: entity: marker: {
       name: "remove"
       points: [
         {
+          contract: {
+            id: "DELETE /markers"
+            json: "{\"operationId\":\"clearMarkers\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"204\":{\"description\":\"All markers cleared successfully\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "DELETE"
           orig: "/markers"
           segments: [

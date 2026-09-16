@@ -34,5 +34,95 @@
         "type": "scc"
       }
     }
+  },
+  "requests": {
+    "GET /search": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "searchLocation",
+        "parameters": [
+          {
+            "description": "Search query string",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "properties": {
+                      "address": {
+                        "description": "Full address",
+                        "type": "string"
+                      },
+                      "latitude": {
+                        "format": "double",
+                        "type": "number"
+                      },
+                      "longitude": {
+                        "format": "double",
+                        "type": "number"
+                      },
+                      "name": {
+                        "description": "Name of the location",
+                        "type": "string"
+                      },
+                      "type": {
+                        "description": "Type of location (e.g., building, park, street)",
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "latitude",
+                      "longitude"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Search results"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Invalid search query"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

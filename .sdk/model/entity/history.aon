@@ -57,6 +57,12 @@ main: kit: entity: history: {
       name: "create"
       points: [
         {
+          contract: {
+            id: "POST /history"
+            json: "{\"operationId\":\"saveHistory\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"accuracy\":{\"format\":\"float\",\"type\":\"number\"},\"address\":{\"type\":\"string\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"name\":{\"type\":\"string\"}},\"required\":[\"latitude\",\"longitude\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"accuracy\":{\"format\":\"float\",\"type\":\"number\"},\"address\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"name\":{\"type\":\"string\"},\"timestamp\":{\"format\":\"date-time\",\"type\":\"string\"}},\"required\":[\"id\",\"latitude\",\"longitude\",\"timestamp\"],\"type\":\"object\"}}},\"description\":\"History entry created\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "POST"
           orig: "/history"
           segments: [
@@ -75,6 +81,12 @@ main: kit: entity: history: {
       name: "list"
       points: [
         {
+          contract: {
+            id: "GET /history"
+            json: "{\"operationId\":\"getHistory\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"accuracy\":{\"format\":\"float\",\"type\":\"number\"},\"address\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"name\":{\"type\":\"string\"},\"timestamp\":{\"format\":\"date-time\",\"type\":\"string\"}},\"required\":[\"id\",\"latitude\",\"longitude\",\"timestamp\"],\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Location history\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/history"
           segments: [
@@ -93,6 +105,12 @@ main: kit: entity: history: {
       name: "remove"
       points: [
         {
+          contract: {
+            id: "DELETE /history"
+            json: "{\"operationId\":\"clearHistory\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"204\":{\"description\":\"History cleared successfully\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "DELETE"
           orig: "/history"
           segments: [

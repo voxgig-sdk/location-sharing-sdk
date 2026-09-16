@@ -16,5 +16,124 @@
     "export": {
       "export_ref01": {}
     }
+  },
+  "requests": {
+    "GET /export/csv": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "exportCSV",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "format": "csv",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "CSV export"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /export/geojson": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "exportGeoJSON",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/geo+json": {
+                "schema": {
+                  "properties": {
+                    "features": {
+                      "items": {
+                        "properties": {
+                          "geometry": {
+                            "properties": {
+                              "coordinates": {
+                                "items": {
+                                  "type": "number"
+                                },
+                                "maxItems": 2,
+                                "minItems": 2,
+                                "type": "array"
+                              },
+                              "type": {
+                                "enum": [
+                                  "Point"
+                                ],
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "properties": {
+                            "properties": {
+                              "address": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "Feature"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "type": {
+                      "enum": [
+                        "FeatureCollection"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "GeoJSON export"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /export/kml": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "exportKML",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.google-earth.kml+xml": {
+                "schema": {
+                  "format": "xml",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "KML export"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

@@ -4,7 +4,7 @@
       "REPEAT00": {
         "accuracy": 80,
         "bestAccuracy": 81,
-        "count": "s52",
+        "count": 82,
         "interval": 83,
         "latitude": 84,
         "longitude": 85,
@@ -15,7 +15,7 @@
       "REPEAT01": {
         "accuracy": 160,
         "bestAccuracy": 161,
-        "count": "sa2",
+        "count": 162,
         "interval": 163,
         "latitude": 164,
         "longitude": 165,
@@ -26,7 +26,7 @@
       "REPEAT02": {
         "accuracy": 240,
         "bestAccuracy": 241,
-        "count": "sf2",
+        "count": 242,
         "interval": 243,
         "latitude": 244,
         "longitude": 245,
@@ -41,12 +41,150 @@
       "repeat_ref01": {
         "accuracy": 320,
         "bestAccuracy": 321,
-        "count": "s142",
+        "count": 322,
         "interval": 323,
         "latitude": 324,
         "longitude": 325,
         "measurements": [],
         "resultType": "s147"
+      }
+    }
+  },
+  "requests": {
+    "POST /measurement/repeat": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "repeatMeasurement",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "count": {
+                    "description": "Number of measurements to take (recommended 8-15)",
+                    "maximum": 30,
+                    "minimum": 1,
+                    "type": "integer"
+                  },
+                  "interval": {
+                    "description": "Interval between measurements in seconds (recommended 0.8-2.0)",
+                    "format": "float",
+                    "maximum": 10,
+                    "minimum": 0.5,
+                    "type": "number"
+                  },
+                  "resultType": {
+                    "description": "Type of result to return",
+                    "enum": [
+                      "best",
+                      "average"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "count",
+                  "interval",
+                  "resultType"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "accuracy": {
+                      "format": "float",
+                      "type": "number"
+                    },
+                    "bestAccuracy": {
+                      "description": "Best (lowest) accuracy value from all measurements",
+                      "format": "float",
+                      "type": "number"
+                    },
+                    "latitude": {
+                      "format": "double",
+                      "type": "number"
+                    },
+                    "longitude": {
+                      "format": "double",
+                      "type": "number"
+                    },
+                    "measurements": {
+                      "items": {
+                        "properties": {
+                          "accuracy": {
+                            "format": "float",
+                            "type": "number"
+                          },
+                          "latitude": {
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "longitude": {
+                            "format": "double",
+                            "type": "number"
+                          },
+                          "timestamp": {
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "resultType": {
+                      "enum": [
+                        "best",
+                        "average"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Measurement results"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "description": "Error code",
+                      "type": "string"
+                    },
+                    "details": {
+                      "description": "Additional error details",
+                      "type": "object"
+                    },
+                    "error": {
+                      "description": "Error message",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Invalid measurement parameters"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

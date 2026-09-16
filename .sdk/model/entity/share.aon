@@ -58,6 +58,12 @@ main: kit: entity: share: {
       name: "create"
       points: [
         {
+          contract: {
+            id: "POST /share"
+            json: "{\"operationId\":\"createShareLink\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"address\":{\"description\":\"Address of the location\",\"type\":\"string\"},\"latitude\":{\"format\":\"double\",\"type\":\"number\"},\"longitude\":{\"format\":\"double\",\"type\":\"number\"},\"name\":{\"description\":\"Optional name for the location\",\"type\":\"string\"}},\"required\":[\"latitude\",\"longitude\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"expiresAt\":{\"description\":\"Expiration time of the share link\",\"format\":\"date-time\",\"type\":\"string\"},\"qrCode\":{\"description\":\"URL to QR code image\",\"format\":\"uri\",\"type\":\"string\"},\"shareLink\":{\"description\":\"Shareable URL for the location\",\"format\":\"uri\",\"type\":\"string\"}},\"required\":[\"shareLink\"],\"type\":\"object\"}}},\"description\":\"Shareable link created\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"required\":[\"error\"],\"type\":\"object\"}}},\"description\":\"Invalid request\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "POST"
           orig: "/share"
           segments: [

@@ -74,6 +74,12 @@ main: kit: entity: building_check: {
               }
             ]
           }
+          contract: {
+            id: "GET /buildings/check"
+            json: "{\"operationId\":\"checkBuilding\",\"parameters\":[{\"description\":\"Latitude coordinate\",\"in\":\"query\",\"name\":\"lat\",\"required\":true,\"schema\":{\"format\":\"double\",\"type\":\"number\"}},{\"description\":\"Longitude coordinate\",\"in\":\"query\",\"name\":\"lon\",\"required\":true,\"schema\":{\"format\":\"double\",\"type\":\"number\"}},{\"description\":\"Search radius in meters\",\"in\":\"query\",\"name\":\"radius\",\"required\":false,\"schema\":{\"default\":40,\"enum\":[40,60,80,120],\"type\":\"integer\"}},{\"description\":\"Maximum number of buildings to return\",\"in\":\"query\",\"name\":\"top\",\"required\":false,\"schema\":{\"default\":3,\"enum\":[3,5,8],\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"buildings\":{\"items\":{\"properties\":{\"distance\":{\"description\":\"Distance to building edge in meters\",\"format\":\"float\",\"type\":\"number\"},\"highlighted\":{\"type\":\"boolean\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"insideBuilding\":{\"description\":\"Whether the location is inside a building\",\"type\":\"boolean\"},\"nearestDistance\":{\"description\":\"Distance to nearest building edge in meters\",\"format\":\"float\",\"type\":\"number\"}},\"type\":\"object\"}}},\"description\":\"Building check result\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Error code\",\"type\":\"string\"},\"details\":{\"description\":\"Additional error details\",\"type\":\"object\"},\"error\":{\"description\":\"Error message\",\"type\":\"string\"}},\"required\":[\"error\"],\"type\":\"object\"}}},\"description\":\"Invalid parameters\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/buildings/check"
           segments: [
